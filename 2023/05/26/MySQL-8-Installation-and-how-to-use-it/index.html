@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/kaola.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/kaola.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/kaola.png">
+  <link rel="mask-icon" href="/images/kaola.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="1. 安装1.1 Mysql下载123https:&#x2F;&#x2F;dev.mysql.com&#x2F;downloads&#x2F;mysql&#x2F;  wget https:&#x2F;&#x2F;dev.mysql.com&#x2F;get&#x2F;Downloads&#x2F;MySQL-8.0&#x2F;mysql-8.0.31-linux-glibc2.12-x86_64.tar.xz  1.2 解压123.tar.gz后缀：tar -zxvf 文件名  .tar.xz后缀：ta">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL 8 Installation and how to use it">
+<meta property="og:url" content="http://example.com/2023/05/26/MySQL-8-Installation-and-how-to-use-it/index.html">
+<meta property="og:site_name" content="Expressoz&#39;s Blog">
+<meta property="og:description" content="1. 安装1.1 Mysql下载123https:&#x2F;&#x2F;dev.mysql.com&#x2F;downloads&#x2F;mysql&#x2F;  wget https:&#x2F;&#x2F;dev.mysql.com&#x2F;get&#x2F;Downloads&#x2F;MySQL-8.0&#x2F;mysql-8.0.31-linux-glibc2.12-x86_64.tar.xz  1.2 解压123.tar.gz后缀：tar -zxvf 文件名  .tar.xz后缀：ta">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2023/05/26/MySQL-8-Installation-and-how-to-use-it/assets/image-20230227144610476.png">
+<meta property="og:image" content="http://example.com/2023/05/26/MySQL-8-Installation-and-how-to-use-it/assets/image-20230227145859870.png">
+<meta property="article:published_time" content="2023-05-26T07:20:13.000Z">
+<meta property="article:modified_time" content="2023-05-26T07:23:11.999Z">
+<meta property="article:author" content="Expressoz">
+<meta property="article:tag" content="centos">
+<meta property="article:tag" content="mysql">
+<meta property="article:tag" content="software setup">
+<meta property="article:tag" content="Instructions">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/05/26/MySQL-8-Installation-and-how-to-use-it/assets/image-20230227144610476.png">
+
+<link rel="canonical" href="http://example.com/2023/05/26/MySQL-8-Installation-and-how-to-use-it/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>MySQL 8 Installation and how to use it | Expressoz's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Expressoz's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/05/26/MySQL-8-Installation-and-how-to-use-it/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Expressoz">
+      <meta itemprop="description" content="Over the city the lights are so pretty from up here.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Expressoz's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MySQL 8 Installation and how to use it
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-05-26 15:20:13 / Modified: 15:23:11" itemprop="dateCreated datePublished" datetime="2023-05-26T15:20:13+08:00">2023-05-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+              <span>16k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+              <span>15 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h2><h3 id="1-1-Mysql下载"><a href="#1-1-Mysql下载" class="headerlink" title="1.1 Mysql下载"></a>1.1 Mysql下载</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">https://dev.mysql.com/downloads/mysql/  </span><br><span class="line"></span><br><span class="line">wget https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.31-linux-glibc2.12-x86_64.tar.xz</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-解压"><a href="#1-2-解压" class="headerlink" title="1.2 解压"></a>1.2 解压</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.tar.gz后缀：tar -zxvf 文件名  </span><br><span class="line">.tar.xz后缀：tar -Jxvf 文件名  </span><br><span class="line">tar -Jxvf mysql-8.0.31-linux-glibc2.12-x86_64.tar.xz</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3-重命名"><a href="#1-3-重命名" class="headerlink" title="1.3 重命名"></a>1.3 重命名</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 重命名  </span><br><span class="line">mv 原文件夹名 mysql8  </span><br><span class="line">mv mysql-8.0.31-linux-glibc2.12-x86_64 mysql8</span><br><span class="line"># 软链接  </span><br><span class="line">ln -s 文件夹名 mysql8</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-4-添加环境变量"><a href="#1-4-添加环境变量" class="headerlink" title="1.4 添加环境变量"></a>1.4 添加环境变量</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile  </span><br><span class="line">  </span><br><span class="line">添加export PATH=$PATH:/opt/mysql/mysql8/bin  </span><br><span class="line">  </span><br><span class="line">添加export PATH=$PATH:/home/cjxjy/mysql/mysql8/bin  </span><br><span class="line">  </span><br><span class="line">添加export PATH=$PATH:/home/mysql/mysql8/bin  </span><br><span class="line">  </span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-5-创建用户组和用户"><a href="#1-5-创建用户组和用户" class="headerlink" title="1.5 创建用户组和用户"></a>1.5 创建用户组和用户</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 创建一个用户组：mysql  </span><br><span class="line">groupadd mysql  </span><br><span class="line"># 创建一个系统用户：mysql，指定用户组为mysql  </span><br><span class="line">useradd -r -g mysql mysql</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-6-数据目录"><a href="#1-6-数据目录" class="headerlink" title="1.6 数据目录"></a>1.6 数据目录</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /opt/mysql/mysql8/datas  </span><br><span class="line">  </span><br><span class="line">chown -R mysql:mysql /opt/mysql/mysql8/datas   </span><br><span class="line">chmod -R 750 /opt/mysql/mysql8/datas   </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">mv /home/cjxjy/mysql /opt/mysql/mysql8/datas/  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mkdir -p /home/cjxjy/mysql/mysql8/datas  </span><br><span class="line">  </span><br><span class="line">chown -R root:root /home/cjxjy/mysql/mysql8/datas  </span><br><span class="line">chmod -R 750 /home/cjxjy/mysql/mysql8/datas   </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mkdir -p /home/mysql/mysql8/datas  </span><br><span class="line">  </span><br><span class="line">chown -R mysql:mysql /home/mysql/mysql8/datas  </span><br><span class="line">chmod -R 750 /home/mysql/mysql8/datas </span><br></pre></td></tr></table></figure>
+
+
+<h3 id="1-7-配置参数"><a href="#1-7-配置参数" class="headerlink" title="1.7 配置参数"></a>1.7 配置参数</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vi /opt/mysql/mysql8/my.cnf #创建my.cnf用于初始化MySQL数据库  </span><br><span class="line">  </span><br><span class="line">vi /home/cjxjy/mysql/mysql8/my.cnf  </span><br><span class="line">  </span><br><span class="line">vi /home/mysql/mysql8/my.cnf</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">[mysql]  </span><br><span class="line"># 默认字符集  </span><br><span class="line">default-character-set=utf8mb4  </span><br><span class="line">[client]  </span><br><span class="line">port       = 3306  </span><br><span class="line">socket     = /tmp/mysql.sock  </span><br><span class="line">  </span><br><span class="line">[mysqld]  </span><br><span class="line">port       = 3306  </span><br><span class="line">server-id  = 3306  </span><br><span class="line">user       = mysql  </span><br><span class="line">socket     = /tmp/mysql.sock  </span><br><span class="line"># 安装目录  </span><br><span class="line">basedir    = /home/cjxjy/mysql/mysql8  </span><br><span class="line"># 数据存放目录  </span><br><span class="line">datadir    = /home/cjxjy/mysql/mysql8/datas/mysql  </span><br><span class="line">log-bin    = /home/cjxjy/mysql/mysql8/datas/mysql/mysql-bin  </span><br><span class="line">innodb_data_home_dir      =/home/cjxjy/mysql/mysql8/datas/mysql  </span><br><span class="line">innodb_log_group_home_dir =/home/cjxjy/mysql/mysql8/datas/mysql  </span><br><span class="line">#日志及进程数据的存放目录  </span><br><span class="line">log-error =/home/cjxjy/mysql/mysql8/datas/mysql/mysql.log  </span><br><span class="line">pid-file  =/home/cjxjy/mysql/mysql8/datas/mysql/mysql.pid  </span><br><span class="line"># 服务端使用的字符集默认为8比特编码  </span><br><span class="line">character-set-server=utf8mb4  </span><br><span class="line">lower_case_table_names=1  </span><br><span class="line">autocommit =1  </span><br><span class="line"></span><br><span class="line"> ##################以上要修改的########################  </span><br><span class="line">skip-external-locking  </span><br><span class="line">key_buffer_size = 256M  </span><br><span class="line">max_allowed_packet = 1M  </span><br><span class="line">table_open_cache = 1024  </span><br><span class="line">sort_buffer_size = 4M  </span><br><span class="line">net_buffer_length = 8K  </span><br><span class="line">read_buffer_size = 4M  </span><br><span class="line">read_rnd_buffer_size = 512K  </span><br><span class="line">myisam_sort_buffer_size = 64M  </span><br><span class="line">thread_cache_size = 128  </span><br><span class="line">    </span><br><span class="line">#query_cache_size = 128M  </span><br><span class="line">tmp_table_size = 128M  </span><br><span class="line">explicit_defaults_for_timestamp = true  </span><br><span class="line">max_connections = 500  </span><br><span class="line">max_connect_errors = 100  </span><br><span class="line">open_files_limit = 65535  </span><br><span class="line">     </span><br><span class="line">binlog_format=mixed  </span><br><span class="line">      </span><br><span class="line">binlog_expire_logs_seconds =864000  </span><br><span class="line">      </span><br><span class="line"># 创建新表时将使用的默认存储引擎  </span><br><span class="line">default_storage_engine = InnoDB  </span><br><span class="line">innodb_data_file_path = ibdata1:10M:autoextend  </span><br><span class="line">innodb_buffer_pool_size = 1024M  </span><br><span class="line">innodb_log_file_size = 256M  </span><br><span class="line">innodb_log_buffer_size = 8M  </span><br><span class="line">innodb_flush_log_at_trx_commit = 1  </span><br><span class="line">innodb_lock_wait_timeout = 50  </span><br><span class="line">transaction-isolation=READ-COMMITTED  </span><br><span class="line">        </span><br><span class="line">[mysqldump]  </span><br><span class="line">quick  </span><br><span class="line">max_allowed_packet = 256M  </span><br><span class="line">         </span><br><span class="line">[myisamchk]  </span><br><span class="line">key_buffer_size = 256M  </span><br><span class="line">sort_buffer_size = 4M  </span><br><span class="line">read_buffer = 2M  </span><br><span class="line">write_buffer = 2M  </span><br><span class="line">          </span><br><span class="line">[mysqlhotcopy]  </span><br><span class="line">interactive-timeout</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">[mysql]  </span><br><span class="line"># 默认字符集  </span><br><span class="line">default-character-set=utf8mb4  </span><br><span class="line">[client]  </span><br><span class="line">port       = 3306  </span><br><span class="line">socket     = /tmp/mysql.sock  </span><br><span class="line">  </span><br><span class="line">[mysqld]  </span><br><span class="line">port       = 3306  </span><br><span class="line">server-id  = 3306  </span><br><span class="line">user       = mysql  </span><br><span class="line">socket     = /tmp/mysql.sock  </span><br><span class="line"># 安装目录  </span><br><span class="line">basedir    = /opt/mysql/mysql8  </span><br><span class="line"># 数据存放目录  </span><br><span class="line">datadir    = /opt/mysql/mysql8/datas/mysql  </span><br><span class="line">log-bin    = /opt/mysql/mysql8/datas/mysql/mysql-bin  </span><br><span class="line">innodb_data_home_dir      =/opt/mysql/mysql8/datas/mysql  </span><br><span class="line">innodb_log_group_home_dir =/opt/mysql/mysql8/datas/mysql  </span><br><span class="line">#日志及进程数据的存放目录  </span><br><span class="line">log-error =/opt/mysql/mysql8/datas/mysql/mysql.log  </span><br><span class="line">pid-file  =/opt/mysql/mysql8/datas/mysql/mysql.pid  </span><br><span class="line"># 服务端使用的字符集默认为8比特编码  </span><br><span class="line">character-set-server=utf8mb4  </span><br><span class="line">lower_case_table_names=1  </span><br><span class="line">autocommit =1  </span><br><span class="line"></span><br><span class="line"> ##################以上要修改的########################  </span><br><span class="line">skip-external-locking  </span><br><span class="line">key_buffer_size = 256M  </span><br><span class="line">max_allowed_packet = 1M  </span><br><span class="line">table_open_cache = 1024  </span><br><span class="line">sort_buffer_size = 4M  </span><br><span class="line">net_buffer_length = 8K  </span><br><span class="line">read_buffer_size = 4M  </span><br><span class="line">read_rnd_buffer_size = 512K  </span><br><span class="line">myisam_sort_buffer_size = 64M  </span><br><span class="line">thread_cache_size = 128  </span><br><span class="line">    </span><br><span class="line">#query_cache_size = 128M  </span><br><span class="line">tmp_table_size = 128M  </span><br><span class="line">explicit_defaults_for_timestamp = true  </span><br><span class="line">max_connections = 500  </span><br><span class="line">max_connect_errors = 100  </span><br><span class="line">open_files_limit = 65535  </span><br><span class="line">     </span><br><span class="line">binlog_format=mixed  </span><br><span class="line">      </span><br><span class="line">binlog_expire_logs_seconds =864000  </span><br><span class="line">      </span><br><span class="line"># 创建新表时将使用的默认存储引擎  </span><br><span class="line">default_storage_engine = InnoDB  </span><br><span class="line">innodb_data_file_path = ibdata1:10M:autoextend  </span><br><span class="line">innodb_buffer_pool_size = 1024M  </span><br><span class="line">innodb_log_file_size = 256M  </span><br><span class="line">innodb_log_buffer_size = 8M  </span><br><span class="line">innodb_flush_log_at_trx_commit = 1  </span><br><span class="line">innodb_lock_wait_timeout = 50  </span><br><span class="line">transaction-isolation=READ-COMMITTED  </span><br><span class="line">        </span><br><span class="line">[mysqldump]  </span><br><span class="line">quick  </span><br><span class="line">max_allowed_packet = 256M  </span><br><span class="line">         </span><br><span class="line">[myisamchk]  </span><br><span class="line">key_buffer_size = 256M  </span><br><span class="line">sort_buffer_size = 4M  </span><br><span class="line">read_buffer = 2M  </span><br><span class="line">write_buffer = 2M  </span><br><span class="line">          </span><br><span class="line">[mysqlhotcopy]  </span><br><span class="line">interactive-timeout</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-8-初始化"><a href="#1-8-初始化" class="headerlink" title="1.8 初始化"></a>1.8 初始化</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysqld --defaults-file=/opt/mysql/mysql8/my.cnf --basedir=/opt/mysql/mysql8/ --datadir=/opt/mysql/mysql8/datas/mysql --user=mysql --initialize-insecure  </span><br><span class="line">  </span><br><span class="line">mysqld --defaults-file=/home/cjxjy/mysql/mysql8/my.cnf --basedir=/home/cjxjy/mysql/mysql8/ --datadir=/home/cjxjy/mysql/mysql8/datas/mysql --user=root --initialize-insecure  </span><br><span class="line">  </span><br><span class="line">mysqld --defaults-file=/home/mysql/mysql8/my.cnf --basedir=/home/mysql/mysql8/ --datadir=/home/mysql/mysql8/datas/mysql --user=mysql --initialize-insecure</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>defaults-file</code>：指定配置文件（要放在–initialize 前面）</p>
+</li>
+<li><p><code>user</code>： 指定用户</p>
+</li>
+<li><p><code>basedir</code>：指定安装目录</p>
+</li>
+<li><p><code>datadir</code>：指定初始化数据目录</p>
+</li>
+<li><p><code>intialize-insecure</code>：初始化无密码</p>
+</li>
+</ul>
+<h3 id="1-9-启动服务"><a href="#1-9-启动服务" class="headerlink" title="1.9 启动服务"></a>1.9 启动服务</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># 完整命令  </span><br><span class="line">/home/cjxjy/mysql/mysql8/bin/mysqld_safe --defaults-file=/home/cjxjy/mysql/mysql8/my.cnf &amp;  </span><br><span class="line">mysqld_safe --defaults-file=/home/cjxjy/mysql/mysql8/my.cnf   </span><br><span class="line"># 添加PATH变量后的命令（省略bin目录的路径）  </span><br><span class="line">  </span><br><span class="line">/opt/mysql/mysql8/bin/mysqld_safe --defaults-file=/opt/mysql/mysql8/my.cnf &amp;  </span><br><span class="line">mysqld_safe --defaults-file=/opt/mysql/mysql8/my.cnf  </span><br><span class="line">  </span><br><span class="line">/home/mysql/mysql8/bin/mysqld_safe --defaults-file=/home/mysql/mysql8/my.cnf &amp; mysqld_safe --defaults-file=/home/mysql/mysql8/my.cnf   </span><br><span class="line">  </span><br><span class="line">#查看是否启动  </span><br><span class="line">ps -ef|grep mysql  </span><br><span class="line">  </span><br><span class="line">/opt/mysql/mysql8/bin/mysql -u root --skip-password  </span><br><span class="line">  </span><br><span class="line">/home/cjxjy/mysql/mysql8/bin/mysql -u root --skip-password  </span><br><span class="line">  </span><br><span class="line">/home/mysql/mysql8/bin/mysql -u root --skip-password  </span><br><span class="line">  </span><br><span class="line">#修改密码  </span><br><span class="line">ALTER USER &#x27;root&#x27;@&#x27;localhost&#x27; IDENTIFIED WITH mysql_native_password BY &#x27;zhongruirui_216&#x27;;  </span><br><span class="line">  </span><br><span class="line">ALTER USER &#x27;root&#x27;@&#x27;localhost&#x27; IDENTIFIED WITH mysql_native_password BY &#x27;MMI#admin@2021&#x27;;  </span><br></pre></td></tr></table></figure>
+
+
+<h3 id="1-10-Mysql权限设置"><a href="#1-10-Mysql权限设置" class="headerlink" title="1.10 Mysql权限设置"></a>1.10 Mysql权限设置</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">#### 1.查看权限</span><br><span class="line"></span><br><span class="line">select host, user, authentication_string, plugin from user;  </span><br><span class="line">select host, user, authentication_string from user;</span><br><span class="line"></span><br><span class="line">#### 2.授予有root权限的所有IP地址访问</span><br><span class="line"></span><br><span class="line">CREATE USER &#x27;cjxjy&#x27;@&#x27;LOCALHOST&#x27; IDENTIFIED BY &#x27;MMI#admin@2021&#x27;;  </span><br><span class="line">  </span><br><span class="line">update user set host = &#x27;%&#x27; where user = &#x27;root&#x27;;  </span><br><span class="line">update user set host = &#x27;%&#x27; where user = &#x27;cjxjy&#x27;;  </span><br><span class="line">  </span><br><span class="line">GRANT all privileges ON *.* TO &#x27;root&#x27;@&#x27;%&#x27; identified by &#x27;MMI#admin@2021&#x27; with grant option;  </span><br><span class="line">GRANT ALL ON *.* TO &#x27;cjxjy&#x27;@&#x27;%&#x27;;  </span><br><span class="line">  </span><br><span class="line">GRANT ALL ON *.* TO &#x27;root&#x27;@&#x27;%&#x27;;</span><br><span class="line"></span><br><span class="line">#### 3.授予指定IP地址权限</span><br><span class="line"></span><br><span class="line">grant all privileges on *.* to root@10.31.46.124 identified by &#x27;MMI#admin@2021&#x27;;  </span><br><span class="line">  </span><br><span class="line">grant all privileges on *.* to root@172.17.0.2 identified by &#x27;MMI#admin@2021&#x27;;  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">grant all privileges on *.* to root@10.31.46.31 identified by &#x27;MMI#admin@2021&#x27;;</span><br><span class="line"></span><br><span class="line">create user &#x27;test&#x27;@172.17.0.2 identified by &#x27;123456&#x27;;  </span><br><span class="line">create user &#x27;root&#x27;@10.31.46.31 identified by &#x27;MMI#admin@2021&#x27;;  </span><br><span class="line">  </span><br><span class="line">grant all privileges on *.* to &#x27;test&#x27;@172.17.0.2 with grant option;  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### 4.修改对应权限的密码</span><br><span class="line"></span><br><span class="line">ALTER USER &#x27;root&#x27;@&#x27;%&#x27; IDENTIFIED WITH mysql_native_password BY &#x27;zhongruirui_216&#x27;;   </span><br><span class="line">ALTER USER &#x27;root&#x27;@&#x27;%&#x27; IDENTIFIED WITH mysql_native_password BY &#x27;z123456&#x27;;  </span><br><span class="line">  </span><br><span class="line">ALTER USER &#x27;cjxjy&#x27;@&#x27;%&#x27; IDENTIFIED WITH mysql_native_password BY &#x27;MMI#admin@2021&#x27;;   </span><br><span class="line">ALTER USER &#x27;root&#x27;@&#x27;%&#x27; IDENTIFIED WITH mysql_native_password BY &#x27;MMI#admin@2021&#x27;;  </span><br><span class="line">ALTER USER &#x27;root&#x27;@&#x27;10.31.46.31&#x27; IDENTIFIED WITH mysql_native_password BY &#x27;MMI#admin@2021&#x27;;  </span><br><span class="line">  </span><br><span class="line">flush privileges;</span><br><span class="line"></span><br><span class="line">#### 5.删除</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-常见报错"><a href="#2-常见报错" class="headerlink" title="2. 常见报错"></a>2. 常见报错</h2><h3 id="2-1-Failed-to-start-LSB-start-and-stop-MySQL"><a href="#2-1-Failed-to-start-LSB-start-and-stop-MySQL" class="headerlink" title="2.1 Failed to start LSB start and stop MySQL"></a>2.1 Failed to start LSB start and stop MySQL</h3><p>可能是修改了 my.cnf 文件，修改语句有错导致</p>
+<h3 id="2-2-this-is-incompatible-with-sql-mode-x3D-only-full-group-by"><a href="#2-2-this-is-incompatible-with-sql-mode-x3D-only-full-group-by" class="headerlink" title="2.2 this is incompatible with sql_mode&#x3D;only_full_group_by"></a>2.2 this is incompatible with sql_mode&#x3D;only_full_group_by</h3><p>永久修改方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vi my.cnf</span><br><span class="line"></span><br><span class="line">[mysqld]中添加语句：</span><br><span class="line">sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 查看模式</span><br><span class="line">show variables like ‘%sql_mode’;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-mysqld-safe-error-log-error-set-to-‘-x2F-var-x2F-log-x2F-mariadb-x2F-mariadb-log‘"><a href="#2-3-mysqld-safe-error-log-error-set-to-‘-x2F-var-x2F-log-x2F-mariadb-x2F-mariadb-log‘" class="headerlink" title="2.3 mysqld_safe error: log-error set to ‘&#x2F;var&#x2F;log&#x2F;mariadb&#x2F;mariadb.log‘"></a>2.3 mysqld_safe error: log-error set to ‘&#x2F;var&#x2F;log&#x2F;mariadb&#x2F;mariadb.log‘</h3><p>msyql8编译安装完成后通过&#x2F;etc&#x2F;init.d&#x2F;mysqld start 命令启动MySQL时报了以上错误，然后我就重新检查了my.cnf内容，发现缺少mysqld_safe的配置，因此增加配置如下：：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[mysqld_safe]</span><br><span class="line">log-error=/var/log/mariadb/mariadb.log</span><br><span class="line">pid-file=/var/run/mariadb/mariadb.pid</span><br><span class="line">      </span><br></pre></td></tr></table></figure>
+
+<p>并在对应文件夹下创建文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /var/log/mariadb     </span><br><span class="line">touch /var/log/mariadb/mariadb.log</span><br></pre></td></tr></table></figure>
+
+<p>给指定用户授权</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R mysql:mysql /var/log/mariadb/</span><br></pre></td></tr></table></figure>
+
+<p>再次启动mysql</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl start mysqld</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-4-Unit-mysqld-service-could-not-be-found"><a href="#2-4-Unit-mysqld-service-could-not-be-found" class="headerlink" title="2.4 Unit mysqld.service could not be found."></a>2.4 Unit mysqld.service could not be found.</h3><p><strong>1.问题</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> 输入：</span><br><span class="line">systemctl start mysqld</span><br><span class="line">systemctl status mysqld</span><br><span class="line">service mysqld start</span><br><span class="line">service mysqld status</span><br><span class="line"># 报错Unit mysqld.service could not be found.</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.确定是否配置环境变量</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$PATH:/opt/mysql/mysql8/bin</span><br></pre></td></tr></table></figure>
+
+<p><strong>3.修改启动路径</strong></p>
+<p>&#x2F;opt&#x2F;mysql&#x2F;mysql8&#x2F;support-files&#x2F;mysql.server 和 &#x2F;etc&#x2F;init.d&#x2F;mysqld 中对应的basedir, datadir等有误，修改为如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">vi /opt/mysql/mysql8/support-files/mysql.server</span><br><span class="line">vi /etc/init.d/mysqld</span><br><span class="line"></span><br><span class="line"># Set some defaults</span><br><span class="line">mysqld_pid_file_path=</span><br><span class="line">if test -z &quot;$basedir&quot;</span><br><span class="line">then</span><br><span class="line">  basedir=/opt/mysql/mysql8</span><br><span class="line">  bindir=/opt/mysql/mysql8/bin</span><br><span class="line">  if test -z &quot;$datadir&quot;</span><br><span class="line">  then</span><br><span class="line">    datadir=/opt/mysql/mysql8/datas/mysql</span><br><span class="line">  fi</span><br><span class="line">  sbindir=/opt/mysql/mysql8/bin</span><br><span class="line">  libexecdir=/opt/mysql/mysql8/bin</span><br><span class="line">else</span><br><span class="line">  bindir=&quot;$basedir/bin&quot;</span><br><span class="line">  if test -z &quot;$datadir&quot;</span><br><span class="line">  then</span><br><span class="line">    datadir=&quot;$basedir/data&quot;</span><br><span class="line">  fi</span><br><span class="line">  sbindir=&quot;$basedir/sbin&quot;</span><br><span class="line">  libexecdir=&quot;$basedir/libexec&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<p><strong>4.配置systemctl管理mysql需要在&#x2F;etc&#x2F;init.d下布置mysqld</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cp /opt/mysql/mysql8/support-files/mysql.server /etc/init.d/mysqld</span><br><span class="line"></span><br><span class="line">chmod +x /etc/init.d/mysqld # 赋予权限</span><br><span class="line"></span><br><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sed -i &#x27;s/database_name_here/wordpress/&#x27; /var/www/html/wp-blog/wp-config.php</span><br><span class="line">sed -i &#x27;s/username_here/root/&#x27; /var/www/html/wp-blog/wp-config.php</span><br><span class="line">sed -i &#x27;s/password_here/zhongruirui_216/&#x27; /var/www/html/wp-blog/wp-config.php</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- wp:heading &#123;&quot;level&quot;:3&#125; --&gt;</span><br><span class="line">&lt;h3&gt;1.Problem Description&lt;/h3&gt;</span><br><span class="line">&lt;!-- /wp:heading --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- wp:paragraph --&gt;</span><br><span class="line">&lt;p&gt;systemctl(service)启动MySQL时, Centos检测不到指令&lt;/p&gt;</span><br><span class="line">&lt;!-- /wp:paragraph --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- wp:code --&gt;</span><br><span class="line">&lt;pre class=&quot;wp-block-code&quot;&gt;&lt;code&gt;# 输入：</span><br><span class="line">systemctl start mysqld</span><br><span class="line">systemctl status mysqld</span><br><span class="line">service mysqld start</span><br><span class="line">service mysqld status</span><br><span class="line"># 报错：</span><br><span class="line">Unit mysqld.service could not be found.&lt;/code&gt;&lt;/pre&gt;</span><br><span class="line">&lt;!-- /wp:code --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- wp:heading &#123;&quot;level&quot;:3&#125; --&gt;</span><br><span class="line">&lt;h3&gt;2.确定是否配置环境变量&lt;/h3&gt;</span><br><span class="line">&lt;!-- /wp:heading --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- wp:code --&gt;</span><br><span class="line">&lt;pre class=&quot;wp-block-code&quot;&gt;&lt;code&gt;export PATH=$PATH:/opt/mysql/mysql8/bin</span><br><span class="line">source /etc/profile&lt;/code&gt;&lt;/pre&gt;</span><br><span class="line">&lt;!-- /wp:code --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- wp:heading &#123;&quot;level&quot;:3&#125; --&gt;</span><br><span class="line">&lt;h3&gt; 3.修改启动路径 &lt;/h3&gt;</span><br><span class="line">&lt;!-- /wp:heading --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- wp:paragraph --&gt;</span><br><span class="line">&lt;p&gt; /opt/mysql/mysql8/support-files/mysql.server 和 /etc/init.d/mysqld 中对应的basedir, datadir等有误，修改为如下： &lt;/p&gt;</span><br><span class="line">&lt;!-- /wp:paragraph --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- wp:code --&gt;</span><br><span class="line">&lt;pre class=&quot;wp-block-code&quot;&gt;&lt;code&gt;vi /opt/mysql/mysql8/support-files/mysql.server</span><br><span class="line">vi /etc/init.d/mysqld</span><br><span class="line"></span><br><span class="line"># Set some defaults</span><br><span class="line">mysqld_pid_file_path=</span><br><span class="line">if test -z &quot;$basedir&quot;</span><br><span class="line">then</span><br><span class="line">  basedir=/opt/mysql/mysql8</span><br><span class="line">  bindir=/opt/mysql/mysql8/bin</span><br><span class="line">  if test -z &quot;$datadir&quot;</span><br><span class="line">  then</span><br><span class="line">    datadir=/opt/mysql/mysql8/datas/mysql</span><br><span class="line">  fi</span><br><span class="line">  sbindir=/opt/mysql/mysql8/bin</span><br><span class="line">  libexecdir=/opt/mysql/mysql8/bin</span><br><span class="line">else</span><br><span class="line">  bindir=&quot;$basedir/bin&quot;</span><br><span class="line">  if test -z &quot;$datadir&quot;</span><br><span class="line">  then</span><br><span class="line">    datadir=&quot;$basedir/data&quot;</span><br><span class="line">  fi</span><br><span class="line">  sbindir=&quot;$basedir/sbin&quot;</span><br><span class="line">  libexecdir=&quot;$basedir/libexec&quot;</span><br><span class="line">fi&lt;/code&gt;&lt;/pre&gt;</span><br><span class="line">&lt;!-- /wp:code --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- wp:heading &#123;&quot;level&quot;:3&#125; --&gt;</span><br><span class="line">&lt;h3&gt;4.配置systemctl管理mysql需要在/etc/init.d下布置mysqld&lt;/h3&gt;</span><br><span class="line">&lt;!-- /wp:heading --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- wp:code --&gt;</span><br><span class="line">&lt;pre class=&quot;wp-block-code&quot;&gt;&lt;code&gt;cp /opt/mysql/mysql8/support-files/mysql.server /etc/init.d/mysqld</span><br><span class="line"></span><br><span class="line">chmod +x /etc/init.d/mysqld # 赋予权限</span><br><span class="line"></span><br><span class="line">systemctl daemon-reload&lt;/code&gt;&lt;/pre&gt;</span><br><span class="line">&lt;!-- /wp:code --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- wp:paragraph --&gt;</span><br><span class="line">&lt;p&gt;&lt;/p&gt;</span><br><span class="line">&lt;!-- /wp:paragraph --&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-5-MySQL-ERROR-1067-42000-Invalid-default-value-for-‘OUT-TIME’"><a href="#2-5-MySQL-ERROR-1067-42000-Invalid-default-value-for-‘OUT-TIME’" class="headerlink" title="2.5 MySQL :ERROR 1067 (42000): Invalid default value for ‘OUT_TIME’"></a>2.5 MySQL :ERROR 1067 (42000): Invalid default value for ‘OUT_TIME’</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">show variables like &#x27;sql_mode&#x27;;</span><br><span class="line"></span><br><span class="line">set session sql_mode=&#x27;ONLY_FULL_GROUP_BY,NO_AUTO_VALUE_ON_ZERO,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION&#x27;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-6-ERROR-2003-HY000-Can’t-connect-to-MySQL-server-on-‘116-62-236-132-3306’"><a href="#2-6-ERROR-2003-HY000-Can’t-connect-to-MySQL-server-on-‘116-62-236-132-3306’" class="headerlink" title="2.6 ERROR 2003 (HY000): Can’t connect to MySQL server on ‘116.62.236.132:3306’"></a>2.6 ERROR 2003 (HY000): Can’t connect to MySQL server on ‘116.62.236.132:3306’</h3><p>退出centos后连接不上mysql，报错。可能是没有启动Mysql，需要把Mysql设置为开机默认启动；</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">vi /home/cjxjy/mysql/mysql8/support-files/mysql.server</span><br><span class="line">vi /etc/init.d/mysqld</span><br><span class="line"></span><br><span class="line">vi /home/mysql/mysql8/support-files/mysql.server</span><br><span class="line">vi /opt/mysql/mysql8/support-files/mysql.server</span><br><span class="line"></span><br><span class="line"># Set some defaults</span><br><span class="line">mysqld_pid_file_path=</span><br><span class="line">if test -z &quot;$basedir&quot;</span><br><span class="line">then</span><br><span class="line">  basedir=/opt/mysql/mysql8</span><br><span class="line">  bindir=/opt/mysql/mysql8/bin</span><br><span class="line">  if test -z &quot;$datadir&quot;</span><br><span class="line">  then</span><br><span class="line">    datadir=/opt/mysql/mysql8/datas/mysql</span><br><span class="line">  fi</span><br><span class="line">  sbindir=/opt/mysql/mysql8/bin</span><br><span class="line">  libexecdir=/opt/mysql/mysql8/bin</span><br><span class="line">else</span><br><span class="line">  bindir=&quot;$basedir/bin&quot;</span><br><span class="line">  if test -z &quot;$datadir&quot;</span><br><span class="line">  then</span><br><span class="line">    datadir=&quot;$basedir/data&quot;</span><br><span class="line">  fi</span><br><span class="line">  sbindir=&quot;$basedir/sbin&quot;</span><br><span class="line">  libexecdir=&quot;$basedir/libexec&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># Set some defaults</span><br><span class="line">mysqld_pid_file_path=</span><br><span class="line">if test -z &quot;$basedir&quot;</span><br><span class="line">then</span><br><span class="line">  basedir=/opt/mysql/mysql8</span><br><span class="line">  bindir=/opt/mysql/mysql8/bin</span><br><span class="line">  if test -z &quot;$datadir&quot;</span><br><span class="line">  then</span><br><span class="line">    datadir=/opt/mysql/mysql8/datas/mysql</span><br><span class="line">  fi</span><br><span class="line">  sbindir=/opt/mysql/mysql8/bin</span><br><span class="line">  libexecdir=/opt/mysql/mysql8/bin</span><br><span class="line">else</span><br><span class="line">  bindir=&quot;$basedir/bin&quot;</span><br><span class="line">  if test -z &quot;$datadir&quot;</span><br><span class="line">  then</span><br><span class="line">    datadir=&quot;$basedir/data&quot;</span><br><span class="line">  fi</span><br><span class="line">  sbindir=&quot;$basedir/sbin&quot;</span><br><span class="line">  libexecdir=&quot;$basedir/libexec&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cp //home/cjxjy/mysql/mysql8/support-files/mysql.server /etc/init.d/mysqld</span><br><span class="line"></span><br><span class="line">cp //opt/mysql/mysql8/support-files/mysql.server /etc/init.d/mysqld</span><br><span class="line"></span><br><span class="line">cp //home/mysql/mysql8/support-files/mysql.server /etc/init.d/mysqld</span><br><span class="line"></span><br><span class="line">systemctl daemon-reload</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-7-GPG验证检查报错"><a href="#2-7-GPG验证检查报错" class="headerlink" title="2.7 GPG验证检查报错"></a>2.7 GPG验证检查报错</h3><p>禁掉GPG验证检查，重新安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum -y install mysql-community-server --nogpgcheck </span><br><span class="line"></span><br><span class="line">#末尾加上--nogpgcheck </span><br></pre></td></tr></table></figure>
+
+<h2 id="3-常用指令"><a href="#3-常用指令" class="headerlink" title="3. 常用指令"></a>3. 常用指令</h2><h3 id="1-操作表-DDL"><a href="#1-操作表-DDL" class="headerlink" title="1.操作表(DDL)"></a>1.操作表(DDL)</h3><h4 id="1-修改表名"><a href="#1-修改表名" class="headerlink" title="1.修改表名"></a>1.修改表名</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE 表名 RENAME TO 新表名;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-新增-x2F-删除表中的列"><a href="#2-新增-x2F-删除表中的列" class="headerlink" title="2.新增&#x2F;删除表中的列"></a>2.新增&#x2F;删除表中的列</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE 表名 ADD/DROP 字段名;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-更改表中字段名及类型"><a href="#3-更改表中字段名及类型" class="headerlink" title="3.更改表中字段名及类型"></a>3.更改表中字段名及类型</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE 表名 CHANGE 旧字段名 新字段名 字段名类型；</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-管理表-DML"><a href="#2-管理表-DML" class="headerlink" title="2.管理表(DML)"></a>2.管理表(DML)</h3><h3 id="2-1-添加数据"><a href="#2-1-添加数据" class="headerlink" title="2.1 添加数据"></a>2.1 添加数据</h3><h4 id="1-给指定列添加数据"><a href="#1-给指定列添加数据" class="headerlink" title="1.给指定列添加数据"></a>1.给指定列添加数据</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO 表名 (列名1, 列名2, ...) VALUES(值1, 值2, ...);</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-给全部列添加数据"><a href="#2-给全部列添加数据" class="headerlink" title="2.给全部列添加数据"></a>2.给全部列添加数据</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO 表名 VALUES(值1, 值2, ...);</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-批量添加数据"><a href="#3-批量添加数据" class="headerlink" title="3.批量添加数据"></a>3.批量添加数据</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO 表名 (列名1, 列名2, ...) VALUES(值1, 值2, ...),(值1, 值2, ...),(值1, 值2, ...)...;</span><br><span class="line">INSERT INTO 表名 VALUES(值1, 值2, ...),(值1, 值2, ...),(值1, 值2, ...)...;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-修改数据"><a href="#2-2-修改数据" class="headerlink" title="2.2 修改数据"></a>2.2 修改数据</h3><h4 id="1-修改表数据"><a href="#1-修改表数据" class="headerlink" title="1.修改表数据"></a>1.修改表数据</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UPDATE 表名 SET 列名1=值1,列名2=值2,... [WHERE 条件];</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-删除数据"><a href="#2-3-删除数据" class="headerlink" title="2.3 删除数据"></a>2.3 删除数据</h3><h4 id="1-删除表数据"><a href="#1-删除表数据" class="headerlink" title="1.删除表数据"></a>1.删除表数据</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DELETE FROM 表名 [WHERE 条件];</span><br><span class="line"></span><br><span class="line">DELETE e FROM tablemanger e WHERE e.TABLE_SCHEMA = &#x27;information_schema&#x27;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-查询表-DQL"><a href="#3-查询表-DQL" class="headerlink" title="3.查询表(DQL)"></a>3.查询表(DQL)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SELECT 字段列表 </span><br><span class="line">FROM 表名列表 </span><br><span class="line">WHERE 条件列表 </span><br><span class="line">GROUP BY 分组字段 </span><br><span class="line">HAVING 分组后条件 </span><br><span class="line">ORDER BY 排序字段 </span><br><span class="line">LIMIT 分页限定</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-1-基础查询"><a href="#3-1-基础查询" class="headerlink" title="3.1 基础查询"></a>3.1 基础查询</h3><h4 id="1-查询多个字段"><a href="#1-查询多个字段" class="headerlink" title="1.查询多个字段"></a>1.查询多个字段</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT 字段列表 FROM 表名;</span><br><span class="line">SELECT * FROM 表名;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-去除重复记录"><a href="#2-去除重复记录" class="headerlink" title="2.去除重复记录"></a>2.去除重复记录</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT DISTINCT 字段列表 FROM 表名;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-起别名"><a href="#3-起别名" class="headerlink" title="3.起别名"></a>3.起别名</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">AS: AS 也可省略</span><br><span class="line">SELECT name, math 数学成绩, english as 英语成绩 from stu;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3-2-条件查询-WHERE"><a href="#3-2-条件查询-WHERE" class="headerlink" title="3.2 条件查询 (WHERE)"></a>3.2 条件查询 (WHERE)</h3><h4 id="1-条件查询语法"><a href="#1-条件查询语法" class="headerlink" title="1.条件查询语法"></a>1.条件查询语法</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 字段列表 FROM 表名 WHERE 条件列表;</span><br></pre></td></tr></table></figure>
+
+<img src="assets/image-20230227144610476.png" alt="image-20230227144610476" style="zoom: 67%;" />
+
+
+
+<h3 id="3-3-排序查询-ORDER-BY"><a href="#3-3-排序查询-ORDER-BY" class="headerlink" title="3.3 排序查询 (ORDER BY )"></a>3.3 排序查询 (ORDER BY )</h3><h4 id="1-排序查询语法"><a href="#1-排序查询语法" class="headerlink" title="1.排序查询语法"></a>1.排序查询语法</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 字段列表 FROM 表名 ORDER BY 排序字段名1 [排序方式1], 排序字段名2 [排序方式2] ...;</span><br></pre></td></tr></table></figure>
+
+<p><strong>排序方式：</strong></p>
+<ul>
+<li>ASC: 升序排列 (默认值)</li>
+<li>DESC: 降序排列</li>
+</ul>
+<p><em>注意：如果有多个排序条件，当前边的条件值一样时，才会根据第二条件进行排序</em></p>
+<h3 id="3-4-分组查询-GROUP-BY"><a href="#3-4-分组查询-GROUP-BY" class="headerlink" title="3.4 分组查询 (GROUP BY)"></a>3.4 分组查询 (GROUP BY)</h3><h4 id="1-聚合函数"><a href="#1-聚合函数" class="headerlink" title="1.聚合函数"></a>1.聚合函数</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 聚合函数名(列名) FROM 表名;</span><br></pre></td></tr></table></figure>
+
+<p><em>注意：值为NULL不参与所有聚合函数运算</em></p>
+<img src="assets/image-20230227145859870.png" alt="image-20230227145859870" style="zoom:80%;" />
+
+<h4 id="2-分组查询语法"><a href="#2-分组查询语法" class="headerlink" title="2.分组查询语法"></a>2.分组查询语法</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 字段列表 FROM 表名[WHERE 分组前条件限定] GROUP BY 分组字段名 [HAVING 分组后条件过滤];</span><br></pre></td></tr></table></figure>
+
+<p><em>注意：分组之后，查询的字段为聚合函数和分组字段，查询其他字段无任何意义</em></p>
+<p>where 和 having 的区别：</p>
+<ul>
+<li>执行时机不一样: where 是分组之前进行限定，不满足where条件，则不参与分组，而having是分组之后对结果进项过滤</li>
+<li>可判断的条件不一样: where 不能对聚合函数进行判断，having可以</li>
+</ul>
+<p>执行顺序： where &gt; 聚合函数 &gt; having</p>
+<h3 id="3-5-分页查询-LIMIT"><a href="#3-5-分页查询-LIMIT" class="headerlink" title="3.5 分页查询 (LIMIT)"></a>3.5 分页查询 (LIMIT)</h3><h4 id="1-分页查询语法"><a href="#1-分页查询语法" class="headerlink" title="1.分页查询语法"></a>1.分页查询语法</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 字段列表 FROM 表名 LIMIT 起始索引, 查询条目数;</span><br></pre></td></tr></table></figure>
+
+<p>起始索引：从0开始</p>
+<p>计算公式：起始索引 &#x3D; (当前页码-1) * 每页显示的条数</p>
+<p>Tips：</p>
+<ul>
+<li>分页查询limit是MySQL数据库的方言</li>
+<li>Oracle分页查询使用 rownumber</li>
+<li>SQL server分页查询用top</li>
+</ul>
+<h3 id="4-杂"><a href="#4-杂" class="headerlink" title="4.杂"></a>4.杂</h3><h4 id="1-连接本地数据库"><a href="#1-连接本地数据库" class="headerlink" title="1.连接本地数据库"></a>1.连接本地数据库</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p(密码)；</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-连接远程数据库"><a href="#2-连接远程数据库" class="headerlink" title="2.连接远程数据库"></a>2.连接远程数据库</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -h(ip地址) -P(端口) -u(用户名) -p(密码)</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-查询数据库"><a href="#3-查询数据库" class="headerlink" title="3.查询数据库"></a>3.查询数据库</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show databases;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-选中数据库"><a href="#4-选中数据库" class="headerlink" title="4.选中数据库"></a>4.选中数据库</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use database 库名;</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-查询表"><a href="#5-查询表" class="headerlink" title="5.查询表"></a>5.查询表</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show tables;</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-查询表构成"><a href="#6-查询表构成" class="headerlink" title="6.查询表构成"></a>6.查询表构成</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">describe table 表名;</span><br></pre></td></tr></table></figure>
+
+<h4 id="7-根据表名查询创建语句"><a href="#7-根据表名查询创建语句" class="headerlink" title="7.根据表名查询创建语句"></a>7.根据表名查询创建语句</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show create table 表名;</span><br></pre></td></tr></table></figure>
+
+<h4 id="8-删除表"><a href="#8-删除表" class="headerlink" title="8.删除表"></a>8.删除表</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop table 表名；</span><br></pre></td></tr></table></figure>
+
+<h4 id="9-设置自增主键"><a href="#9-设置自增主键" class="headerlink" title="9.设置自增主键"></a>9.设置自增主键</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter table urm_area_record add id bigint primary key auto_increment COMMENT &#x27;主键&#x27;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="10-查询重复字段"><a href="#10-查询重复字段" class="headerlink" title="10.查询重复字段"></a>10.查询重复字段</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">select 字段名,count(*) as count from 表名 group by 字段名 having count&gt;1;</span><br><span class="line">select vin,count(*) as count from v_pass_record group by vin having count&gt;1;</span><br><span class="line">select vin,count(*) as count from v_pass_record where site = &#x27;合格证&#x27; group by vin having count&gt;1;</span><br><span class="line"></span><br><span class="line">select sc_cb_id,count(*) as count from sc_car_baseinfo_two group by sc_cb_id having count&gt;1;</span><br></pre></td></tr></table></figure>
+
+<h4 id="11-删除重复字段"><a href="#11-删除重复字段" class="headerlink" title="11. 删除重复字段"></a>11. 删除重复字段</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">DELETE</span><br><span class="line">e</span><br><span class="line">FROM</span><br><span class="line">tbl_employee e</span><br><span class="line">WHERE e.id NOT IN (</span><br><span class="line">	SELECT IFNULL(MIN(id),e.id)</span><br><span class="line">	FROM (</span><br><span class="line">		SELECT min(id) id,d.last_name</span><br><span class="line">		FROM tbl_employee d</span><br><span class="line">		GROUP BY d.last_name </span><br><span class="line">		HAVING COUNT(1)&gt;1</span><br><span class="line">	) as b</span><br><span class="line">	WHERE e.last_name = b.last_name</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">DELETE</span><br><span class="line">e</span><br><span class="line">FROM</span><br><span class="line">sc_car_baseinfo_two e</span><br><span class="line">WHERE e.id NOT IN (</span><br><span class="line">	SELECT IFNULL(MIN(id),e.id)</span><br><span class="line">	FROM (</span><br><span class="line">		SELECT min(id) id,d.last_name</span><br><span class="line">		FROM sc_car_baseinfo_two d</span><br><span class="line">		GROUP BY d.last_name </span><br><span class="line">		HAVING COUNT(1)&gt;1</span><br><span class="line">	) as b</span><br><span class="line">	WHERE e.last_name = b.last_name</span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="12-字段排序规则设置"><a href="#12-字段排序规则设置" class="headerlink" title="12. 字段排序规则设置"></a>12. 字段排序规则设置</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/centos/" rel="tag"># centos</a>
+              <a href="/tags/mysql/" rel="tag"># mysql</a>
+              <a href="/tags/software-setup/" rel="tag"># software setup</a>
+              <a href="/tags/Instructions/" rel="tag"># Instructions</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/05/26/Comparison/" rel="prev" title="Comparison">
+      <i class="fa fa-chevron-left"></i> Comparison
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/05/26/Convolutional-Neural-Networks-CNN/" rel="next" title="Convolutional Neural Networks (CNN)">
+      Convolutional Neural Networks (CNN) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">1. 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Mysql%E4%B8%8B%E8%BD%BD"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Mysql下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E8%A7%A3%E5%8E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 解压</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E9%87%8D%E5%91%BD%E5%90%8D"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 重命名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-%E6%B7%BB%E5%8A%A0%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 添加环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E7%BB%84%E5%92%8C%E7%94%A8%E6%88%B7"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 创建用户组和用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-%E6%95%B0%E6%8D%AE%E7%9B%AE%E5%BD%95"><span class="nav-number">1.6.</span> <span class="nav-text">1.6 数据目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0"><span class="nav-number">1.7.</span> <span class="nav-text">1.7 配置参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-8-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.8.</span> <span class="nav-text">1.8 初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-9-%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.9.</span> <span class="nav-text">1.9 启动服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-10-Mysql%E6%9D%83%E9%99%90%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.10.</span> <span class="nav-text">1.10 Mysql权限设置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%B8%B8%E8%A7%81%E6%8A%A5%E9%94%99"><span class="nav-number">2.</span> <span class="nav-text">2. 常见报错</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Failed-to-start-LSB-start-and-stop-MySQL"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Failed to start LSB start and stop MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-this-is-incompatible-with-sql-mode-x3D-only-full-group-by"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 this is incompatible with sql_mode&#x3D;only_full_group_by</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-mysqld-safe-error-log-error-set-to-%E2%80%98-x2F-var-x2F-log-x2F-mariadb-x2F-mariadb-log%E2%80%98"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 mysqld_safe error: log-error set to ‘&#x2F;var&#x2F;log&#x2F;mariadb&#x2F;mariadb.log‘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-Unit-mysqld-service-could-not-be-found"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 Unit mysqld.service could not be found.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-MySQL-ERROR-1067-42000-Invalid-default-value-for-%E2%80%98OUT-TIME%E2%80%99"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 MySQL :ERROR 1067 (42000): Invalid default value for ‘OUT_TIME’</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-ERROR-2003-HY000-Can%E2%80%99t-connect-to-MySQL-server-on-%E2%80%98116-62-236-132-3306%E2%80%99"><span class="nav-number">2.6.</span> <span class="nav-text">2.6 ERROR 2003 (HY000): Can’t connect to MySQL server on ‘116.62.236.132:3306’</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-GPG%E9%AA%8C%E8%AF%81%E6%A3%80%E6%9F%A5%E6%8A%A5%E9%94%99"><span class="nav-number">2.7.</span> <span class="nav-text">2.7 GPG验证检查报错</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">3. 常用指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%93%8D%E4%BD%9C%E8%A1%A8-DDL"><span class="nav-number">3.1.</span> <span class="nav-text">1.操作表(DDL)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%BF%AE%E6%94%B9%E8%A1%A8%E5%90%8D"><span class="nav-number">3.1.1.</span> <span class="nav-text">1.修改表名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%96%B0%E5%A2%9E-x2F-%E5%88%A0%E9%99%A4%E8%A1%A8%E4%B8%AD%E7%9A%84%E5%88%97"><span class="nav-number">3.1.2.</span> <span class="nav-text">2.新增&#x2F;删除表中的列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%9B%B4%E6%94%B9%E8%A1%A8%E4%B8%AD%E5%AD%97%E6%AE%B5%E5%90%8D%E5%8F%8A%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.1.3.</span> <span class="nav-text">3.更改表中字段名及类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%AE%A1%E7%90%86%E8%A1%A8-DML"><span class="nav-number">3.2.</span> <span class="nav-text">2.管理表(DML)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE"><span class="nav-number">3.3.</span> <span class="nav-text">2.1 添加数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%BB%99%E6%8C%87%E5%AE%9A%E5%88%97%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE"><span class="nav-number">3.3.1.</span> <span class="nav-text">1.给指定列添加数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E7%BB%99%E5%85%A8%E9%83%A8%E5%88%97%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE"><span class="nav-number">3.3.2.</span> <span class="nav-text">2.给全部列添加数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%89%B9%E9%87%8F%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE"><span class="nav-number">3.3.3.</span> <span class="nav-text">3.批量添加数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE"><span class="nav-number">3.4.</span> <span class="nav-text">2.2 修改数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%BF%AE%E6%94%B9%E8%A1%A8%E6%95%B0%E6%8D%AE"><span class="nav-number">3.4.1.</span> <span class="nav-text">1.修改表数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE"><span class="nav-number">3.5.</span> <span class="nav-text">2.3 删除数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%88%A0%E9%99%A4%E8%A1%A8%E6%95%B0%E6%8D%AE"><span class="nav-number">3.5.1.</span> <span class="nav-text">1.删除表数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%9F%A5%E8%AF%A2%E8%A1%A8-DQL"><span class="nav-number">3.6.</span> <span class="nav-text">3.查询表(DQL)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E5%9F%BA%E7%A1%80%E6%9F%A5%E8%AF%A2"><span class="nav-number">3.7.</span> <span class="nav-text">3.1 基础查询</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%9F%A5%E8%AF%A2%E5%A4%9A%E4%B8%AA%E5%AD%97%E6%AE%B5"><span class="nav-number">3.7.1.</span> <span class="nav-text">1.查询多个字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%8E%BB%E9%99%A4%E9%87%8D%E5%A4%8D%E8%AE%B0%E5%BD%95"><span class="nav-number">3.7.2.</span> <span class="nav-text">2.去除重复记录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E8%B5%B7%E5%88%AB%E5%90%8D"><span class="nav-number">3.7.3.</span> <span class="nav-text">3.起别名</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2-WHERE"><span class="nav-number">3.8.</span> <span class="nav-text">3.2 条件查询 (WHERE)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2%E8%AF%AD%E6%B3%95"><span class="nav-number">3.8.1.</span> <span class="nav-text">1.条件查询语法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E6%8E%92%E5%BA%8F%E6%9F%A5%E8%AF%A2-ORDER-BY"><span class="nav-number">3.9.</span> <span class="nav-text">3.3 排序查询 (ORDER BY )</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%8E%92%E5%BA%8F%E6%9F%A5%E8%AF%A2%E8%AF%AD%E6%B3%95"><span class="nav-number">3.9.1.</span> <span class="nav-text">1.排序查询语法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-%E5%88%86%E7%BB%84%E6%9F%A5%E8%AF%A2-GROUP-BY"><span class="nav-number">3.10.</span> <span class="nav-text">3.4 分组查询 (GROUP BY)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0"><span class="nav-number">3.10.1.</span> <span class="nav-text">1.聚合函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%88%86%E7%BB%84%E6%9F%A5%E8%AF%A2%E8%AF%AD%E6%B3%95"><span class="nav-number">3.10.2.</span> <span class="nav-text">2.分组查询语法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2-LIMIT"><span class="nav-number">3.11.</span> <span class="nav-text">3.5 分页查询 (LIMIT)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E8%AF%AD%E6%B3%95"><span class="nav-number">3.11.1.</span> <span class="nav-text">1.分页查询语法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%9D%82"><span class="nav-number">3.12.</span> <span class="nav-text">4.杂</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E8%BF%9E%E6%8E%A5%E6%9C%AC%E5%9C%B0%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">3.12.1.</span> <span class="nav-text">1.连接本地数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">3.12.2.</span> <span class="nav-text">2.连接远程数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">3.12.3.</span> <span class="nav-text">3.查询数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E9%80%89%E4%B8%AD%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">3.12.4.</span> <span class="nav-text">4.选中数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E6%9F%A5%E8%AF%A2%E8%A1%A8"><span class="nav-number">3.12.5.</span> <span class="nav-text">5.查询表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E6%9F%A5%E8%AF%A2%E8%A1%A8%E6%9E%84%E6%88%90"><span class="nav-number">3.12.6.</span> <span class="nav-text">6.查询表构成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E6%A0%B9%E6%8D%AE%E8%A1%A8%E5%90%8D%E6%9F%A5%E8%AF%A2%E5%88%9B%E5%BB%BA%E8%AF%AD%E5%8F%A5"><span class="nav-number">3.12.7.</span> <span class="nav-text">7.根据表名查询创建语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-%E5%88%A0%E9%99%A4%E8%A1%A8"><span class="nav-number">3.12.8.</span> <span class="nav-text">8.删除表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%A2%9E%E4%B8%BB%E9%94%AE"><span class="nav-number">3.12.9.</span> <span class="nav-text">9.设置自增主键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-%E6%9F%A5%E8%AF%A2%E9%87%8D%E5%A4%8D%E5%AD%97%E6%AE%B5"><span class="nav-number">3.12.10.</span> <span class="nav-text">10.查询重复字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-%E5%88%A0%E9%99%A4%E9%87%8D%E5%A4%8D%E5%AD%97%E6%AE%B5"><span class="nav-number">3.12.11.</span> <span class="nav-text">11. 删除重复字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-%E5%AD%97%E6%AE%B5%E6%8E%92%E5%BA%8F%E8%A7%84%E5%88%99%E8%AE%BE%E7%BD%AE"><span class="nav-number">3.12.12.</span> <span class="nav-text">12. 字段排序规则设置</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Expressoz"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Expressoz</p>
+  <div class="site-description" itemprop="description">Over the city the lights are so pretty from up here.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/expressoz" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;expressoz" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:farrellluisucoa@gmail.com" title="E-Mail → mailto:farrellluisucoa@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Expressoz</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">37k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">34 mins.</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

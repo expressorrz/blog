@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/kaola.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/kaola.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/kaola.png">
+  <link rel="mask-icon" href="/images/kaola.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="1. 概念“边缘计算是为应用开发者和服务提供商在网络的边缘侧提供云服务和IT环境服务；目标是在靠近数据输入或用户的地方提供计算、存储和网络带宽”。 2. 意义云计算的优点：  庞大的计算能力 海量的存储能力  云计算的缺点：  网络延时高 海量设备接入 海量数据处理难 带宽不够 功耗过高边缘计算的优点：   低延迟：计算能力部署在设备侧附近，设备请求实时响应； 低带宽运行：将工作迁移至更接近于用户">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Edge Computing">
+<meta property="og:url" content="http://example.com/2023/05/26/Edge-Computing/index.html">
+<meta property="og:site_name" content="Expressoz&#39;s Blog">
+<meta property="og:description" content="1. 概念“边缘计算是为应用开发者和服务提供商在网络的边缘侧提供云服务和IT环境服务；目标是在靠近数据输入或用户的地方提供计算、存储和网络带宽”。 2. 意义云计算的优点：  庞大的计算能力 海量的存储能力  云计算的缺点：  网络延时高 海量设备接入 海量数据处理难 带宽不够 功耗过高边缘计算的优点：   低延迟：计算能力部署在设备侧附近，设备请求实时响应； 低带宽运行：将工作迁移至更接近于用户">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/edgecomputing/1.png">
+<meta property="og:image" content="http://example.com/images/edgecomputing/2.png">
+<meta property="og:image" content="http://example.com/images/edgecomputing/3.png">
+<meta property="article:published_time" content="2023-05-26T07:53:42.000Z">
+<meta property="article:modified_time" content="2023-05-26T07:56:10.925Z">
+<meta property="article:author" content="Expressoz">
+<meta property="article:tag" content="edge computing">
+<meta property="article:tag" content="concept">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/edgecomputing/1.png">
+
+<link rel="canonical" href="http://example.com/2023/05/26/Edge-Computing/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Edge Computing | Expressoz's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Expressoz's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/05/26/Edge-Computing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Expressoz">
+      <meta itemprop="description" content="Over the city the lights are so pretty from up here.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Expressoz's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Edge Computing
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-05-26 15:53:42 / Modified: 15:56:10" itemprop="dateCreated datePublished" datetime="2023-05-26T15:53:42+08:00">2023-05-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Edge-Computing/" itemprop="url" rel="index"><span itemprop="name">Edge Computing</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+              <span>1.7k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="1-概念"><a href="#1-概念" class="headerlink" title="1. 概念"></a>1. 概念</h1><p>“<em>边缘计算是为应用开发者和服务提供商在网络的边缘侧提供云服务和IT环境服务；目标是在靠近数据输入或用户的地方提供计算、存储和网络带宽”。</em></p>
+<h1 id="2-意义"><a href="#2-意义" class="headerlink" title="2. 意义"></a>2. 意义</h1><p>云计算的优点：</p>
+<ol>
+<li>庞大的计算能力</li>
+<li>海量的存储能力</li>
+</ol>
+<p>云计算的缺点：</p>
+<ol>
+<li>网络延时高</li>
+<li>海量设备接入</li>
+<li>海量数据处理难</li>
+<li>带宽不够</li>
+<li>功耗过高<br><img src="/../images/edgecomputing/1.png"><br>边缘计算的优点：</li>
+</ol>
+<ul>
+<li>低延迟：计算能力部署在设备侧附近，设备请求实时响应；</li>
+<li>低带宽运行：将工作迁移至更接近于用户或是数据采集终端的能力能够降低站点带宽限制所带来的影响。尤其是当边缘节点服务减少了向中枢发送大量数据处理的请求时。</li>
+<li>隐私保护：数据本地采集，本地分析，本地处理，有效减少了数据暴露在公共网络的机会，保护了数据隐私。<br><img src="/../images/edgecomputing/2.png"></li>
+</ul>
+<h1 id="3-工作流程"><a href="#3-工作流程" class="headerlink" title="3. 工作流程"></a>3. 工作流程</h1><p>边缘计算架构如下图所示，尽可能靠近终端节点处处理数据，使数据、应用程序和计算能力远离集中式云计算中心。<br><img src="/../images/edgecomputing/3.png"></p>
+<ul>
+<li>终端节点：由各种物联网设备（如传感器、RFID标签、摄像头、智能手机等）组成，主要完成收集原始数据并上报的功能。在终端层中，只需提供各种物联网设备的感知能力，而不需要计算能力。</li>
+<li>边缘计算节点：边缘计算节点通过合理部署和调配网络边缘侧节点的计算和存储能力，实现基础服务响应。</li>
+<li>网络节点：负责将边缘计算节点处理后的有用数据上传至云计算节点进行分析处理。</li>
+<li>云计算节点：边缘计算层的上报数据将在云计算节点进行永久性存储，同时边缘计算节点无法处理的分析任务和综合全局信息的处理任务仍旧需要在云计算节点完成。除此之外，云计算节点还可以根据网络资源分布动态调整边缘计算层的部署策略和算法。</li>
+</ul>
+<h1 id="4-发展方向"><a href="#4-发展方向" class="headerlink" title="4.发展方向"></a>4.发展方向</h1><p>中国工程院院士邬贺铨是推进边缘计算技术与产业繁荣发展倡议的专家之一，对边缘计算有着更加深入的思考。在近期的2018边缘计算技术峰会上，他表示，边缘计算技术应该是一个体系，但目前包括他本人都对这个体系了解只是边缘，根本没有<br>进入到核心，很多东西不太清楚，所以提出十问。</p>
+<p>NO1：5G MEC（移动边缘计算）应该下沉到什么位置？边缘计算放在DU？还是CU？还是放在核心网？显然靠近底下反应越快，数量越多，放在什么位置是值得研究的。</p>
+<p>NO2：计算能力是一级设置还是多级设置？在采用MEC的前提下，还要不要同时设置云计算？在云计算和MEC之间是否需要设置雾计算？一个云计算节点联接的移动边缘计算（或雾计算）节点的合理数量是多少？</p>
+<p><strong>NO3：计算能力如何在云计算与边缘计算间优化配置？计算能力的分割是固定的还是可动态调整的？MEC需要向云计算节点上报过滤后的数据。云计算节点需要向MEC下发指令，除此之外两者间的通信还应有什么任务？</strong></p>
+<p>NO4：MEC间通过云计算节点互通还是直接通信？同样是边缘计算节点，它们之间要不要互通，或者说必须间接互通？</p>
+<p>NO5：边缘计算需要有IaaS&#x2F;PaaS&#x2F;SaaS等服务能力吗？假如通过边缘计算增强人脸识别能力，边缘计算至少具备PaaS的功能，还需要可能具有一些视频转码的功能就是SaaS，有可能需要DaaS（数据即服务）的功能，边缘计算是不是都这么全？到底需要有几层，值得研究。</p>
+<p>NO6：边缘计算需要同时具备接入、转发和控制云能力吗？如果说边缘计算是放在CU，它要集中管理好多DU，是否也应该具有控制云的能力？</p>
+<p>NO7：MEC应该与网络切片结合吗？网络切片是5G最基本的一个特征，边缘计算要不要结合？</p>
+<p>NO8：位于C-RAN的MEC需要按业务来配置吗？不同的边缘计算对应不同的应用，有对应移动大数据，有对应大连接的，还有对应社会与互联网数据的。在这种情况下，边缘计算是按业务来配置的，将来的边缘计算也是这样吗？</p>
+<p>NO9：MEC是独立设置还是应与其他功能集成？基站的边缘计算首先进行大数据的收集采集，同时实现加密，在对大数据进行消化后，它回送网络数据链应该是减少的，也就意味着对数据过滤，为了过滤，它可能需要缓存，所以，边缘计算会跟缓存数据采集，数据分析，过滤，计算能力集中在一起，边缘计算绝不是单一的计算能力。</p>
+<p>NO10：MEC的功能需要软件定义吗？MEC可仿照NFV实现软件定义，允许跨过多厂家的MEC平台有效与无缝集成来自厂商、服务提供商和第三方的应用，MEC的功能会开放吗？如果开放就要有接入权限管理。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/edge-computing/" rel="tag"># edge computing</a>
+              <a href="/tags/concept/" rel="tag"># concept</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/05/26/Convolutional-Neural-Networks-CNN/" rel="prev" title="Convolutional Neural Networks (CNN)">
+      <i class="fa fa-chevron-left"></i> Convolutional Neural Networks (CNN)
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">1. 概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E6%84%8F%E4%B9%89"><span class="nav-number">2.</span> <span class="nav-text">2. 意义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">3. 工作流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E5%8F%91%E5%B1%95%E6%96%B9%E5%90%91"><span class="nav-number">4.</span> <span class="nav-text">4.发展方向</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Expressoz"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Expressoz</p>
+  <div class="site-description" itemprop="description">Over the city the lights are so pretty from up here.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/expressoz" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;expressoz" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:farrellluisucoa@gmail.com" title="E-Mail → mailto:farrellluisucoa@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Expressoz</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">37k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">34 mins.</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
