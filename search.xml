@@ -34,55 +34,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Edge Computing</title>
-    <url>/2023/05/26/Edge-Computing/</url>
-    <content><![CDATA[<h1 id="1-概念"><a href="#1-概念" class="headerlink" title="1. 概念"></a>1. 概念</h1><p>“<em>边缘计算是为应用开发者和服务提供商在网络的边缘侧提供云服务和IT环境服务；目标是在靠近数据输入或用户的地方提供计算、存储和网络带宽”。</em></p>
-<h1 id="2-意义"><a href="#2-意义" class="headerlink" title="2. 意义"></a>2. 意义</h1><p>云计算的优点：</p>
-<ol>
-<li>庞大的计算能力</li>
-<li>海量的存储能力</li>
-</ol>
-<p>云计算的缺点：</p>
-<ol>
-<li>网络延时高</li>
-<li>海量设备接入</li>
-<li>海量数据处理难</li>
-<li>带宽不够</li>
-<li>功耗过高<br><img src="/../images/edgecomputing/1.png"><br>边缘计算的优点：</li>
-</ol>
-<ul>
-<li>低延迟：计算能力部署在设备侧附近，设备请求实时响应；</li>
-<li>低带宽运行：将工作迁移至更接近于用户或是数据采集终端的能力能够降低站点带宽限制所带来的影响。尤其是当边缘节点服务减少了向中枢发送大量数据处理的请求时。</li>
-<li>隐私保护：数据本地采集，本地分析，本地处理，有效减少了数据暴露在公共网络的机会，保护了数据隐私。<br><img src="/../images/edgecomputing/2.png"></li>
-</ul>
-<h1 id="3-工作流程"><a href="#3-工作流程" class="headerlink" title="3. 工作流程"></a>3. 工作流程</h1><p>边缘计算架构如下图所示，尽可能靠近终端节点处处理数据，使数据、应用程序和计算能力远离集中式云计算中心。<br><img src="/../images/edgecomputing/3.png"></p>
-<ul>
-<li>终端节点：由各种物联网设备（如传感器、RFID标签、摄像头、智能手机等）组成，主要完成收集原始数据并上报的功能。在终端层中，只需提供各种物联网设备的感知能力，而不需要计算能力。</li>
-<li>边缘计算节点：边缘计算节点通过合理部署和调配网络边缘侧节点的计算和存储能力，实现基础服务响应。</li>
-<li>网络节点：负责将边缘计算节点处理后的有用数据上传至云计算节点进行分析处理。</li>
-<li>云计算节点：边缘计算层的上报数据将在云计算节点进行永久性存储，同时边缘计算节点无法处理的分析任务和综合全局信息的处理任务仍旧需要在云计算节点完成。除此之外，云计算节点还可以根据网络资源分布动态调整边缘计算层的部署策略和算法。</li>
-</ul>
-<h1 id="4-发展方向"><a href="#4-发展方向" class="headerlink" title="4.发展方向"></a>4.发展方向</h1><p>中国工程院院士邬贺铨是推进边缘计算技术与产业繁荣发展倡议的专家之一，对边缘计算有着更加深入的思考。在近期的2018边缘计算技术峰会上，他表示，边缘计算技术应该是一个体系，但目前包括他本人都对这个体系了解只是边缘，根本没有<br>进入到核心，很多东西不太清楚，所以提出十问。</p>
-<p>NO1：5G MEC（移动边缘计算）应该下沉到什么位置？边缘计算放在DU？还是CU？还是放在核心网？显然靠近底下反应越快，数量越多，放在什么位置是值得研究的。</p>
-<p>NO2：计算能力是一级设置还是多级设置？在采用MEC的前提下，还要不要同时设置云计算？在云计算和MEC之间是否需要设置雾计算？一个云计算节点联接的移动边缘计算（或雾计算）节点的合理数量是多少？</p>
-<p><strong>NO3：计算能力如何在云计算与边缘计算间优化配置？计算能力的分割是固定的还是可动态调整的？MEC需要向云计算节点上报过滤后的数据。云计算节点需要向MEC下发指令，除此之外两者间的通信还应有什么任务？</strong></p>
-<p>NO4：MEC间通过云计算节点互通还是直接通信？同样是边缘计算节点，它们之间要不要互通，或者说必须间接互通？</p>
-<p>NO5：边缘计算需要有IaaS&#x2F;PaaS&#x2F;SaaS等服务能力吗？假如通过边缘计算增强人脸识别能力，边缘计算至少具备PaaS的功能，还需要可能具有一些视频转码的功能就是SaaS，有可能需要DaaS（数据即服务）的功能，边缘计算是不是都这么全？到底需要有几层，值得研究。</p>
-<p>NO6：边缘计算需要同时具备接入、转发和控制云能力吗？如果说边缘计算是放在CU，它要集中管理好多DU，是否也应该具有控制云的能力？</p>
-<p>NO7：MEC应该与网络切片结合吗？网络切片是5G最基本的一个特征，边缘计算要不要结合？</p>
-<p>NO8：位于C-RAN的MEC需要按业务来配置吗？不同的边缘计算对应不同的应用，有对应移动大数据，有对应大连接的，还有对应社会与互联网数据的。在这种情况下，边缘计算是按业务来配置的，将来的边缘计算也是这样吗？</p>
-<p>NO9：MEC是独立设置还是应与其他功能集成？基站的边缘计算首先进行大数据的收集采集，同时实现加密，在对大数据进行消化后，它回送网络数据链应该是减少的，也就意味着对数据过滤，为了过滤，它可能需要缓存，所以，边缘计算会跟缓存数据采集，数据分析，过滤，计算能力集中在一起，边缘计算绝不是单一的计算能力。</p>
-<p>NO10：MEC的功能需要软件定义吗？MEC可仿照NFV实现软件定义，允许跨过多厂家的MEC平台有效与无缝集成来自厂商、服务提供商和第三方的应用，MEC的功能会开放吗？如果开放就要有接入权限管理。</p>
-]]></content>
-      <categories>
-        <category>Edge Computing</category>
-      </categories>
-      <tags>
-        <tag>edge computing</tag>
-        <tag>concept</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Convolutional Neural Networks (CNN)</title>
     <url>/2023/05/26/Convolutional-Neural-Networks-CNN/</url>
     <content><![CDATA[<h1 id="1-CNN"><a href="#1-CNN" class="headerlink" title="1 CNN"></a>1 CNN</h1><h2 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h2><p>卷积神经网络（Convolutional Neural Networks, CNNs）是一种深度学习模型，具有以下优点：</p>
@@ -136,9 +87,87 @@
         <category>Deep Learning</category>
       </categories>
       <tags>
-        <tag>concept</tag>
         <tag>deep learning</tag>
+        <tag>concept</tag>
         <tag>cnn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Edge Computing</title>
+    <url>/2023/05/26/Edge-Computing/</url>
+    <content><![CDATA[<h1 id="1-概念"><a href="#1-概念" class="headerlink" title="1. 概念"></a>1. 概念</h1><p>“<em>边缘计算是为应用开发者和服务提供商在网络的边缘侧提供云服务和IT环境服务；目标是在靠近数据输入或用户的地方提供计算、存储和网络带宽”。</em></p>
+<h1 id="2-意义"><a href="#2-意义" class="headerlink" title="2. 意义"></a>2. 意义</h1><p>云计算的优点：</p>
+<ol>
+<li>庞大的计算能力</li>
+<li>海量的存储能力</li>
+</ol>
+<p>云计算的缺点：</p>
+<ol>
+<li>网络延时高</li>
+<li>海量设备接入</li>
+<li>海量数据处理难</li>
+<li>带宽不够</li>
+<li>功耗过高<br><img src="/../images/edgecomputing/1.png"><br>边缘计算的优点：</li>
+</ol>
+<ul>
+<li>低延迟：计算能力部署在设备侧附近，设备请求实时响应；</li>
+<li>低带宽运行：将工作迁移至更接近于用户或是数据采集终端的能力能够降低站点带宽限制所带来的影响。尤其是当边缘节点服务减少了向中枢发送大量数据处理的请求时。</li>
+<li>隐私保护：数据本地采集，本地分析，本地处理，有效减少了数据暴露在公共网络的机会，保护了数据隐私。<br><img src="/../images/edgecomputing/2.png"></li>
+</ul>
+<h1 id="3-工作流程"><a href="#3-工作流程" class="headerlink" title="3. 工作流程"></a>3. 工作流程</h1><p>边缘计算架构如下图所示，尽可能靠近终端节点处处理数据，使数据、应用程序和计算能力远离集中式云计算中心。<br><img src="/../images/edgecomputing/3.png"></p>
+<ul>
+<li>终端节点：由各种物联网设备（如传感器、RFID标签、摄像头、智能手机等）组成，主要完成收集原始数据并上报的功能。在终端层中，只需提供各种物联网设备的感知能力，而不需要计算能力。</li>
+<li>边缘计算节点：边缘计算节点通过合理部署和调配网络边缘侧节点的计算和存储能力，实现基础服务响应。</li>
+<li>网络节点：负责将边缘计算节点处理后的有用数据上传至云计算节点进行分析处理。</li>
+<li>云计算节点：边缘计算层的上报数据将在云计算节点进行永久性存储，同时边缘计算节点无法处理的分析任务和综合全局信息的处理任务仍旧需要在云计算节点完成。除此之外，云计算节点还可以根据网络资源分布动态调整边缘计算层的部署策略和算法。</li>
+</ul>
+<h1 id="4-发展方向"><a href="#4-发展方向" class="headerlink" title="4.发展方向"></a>4.发展方向</h1><p>中国工程院院士邬贺铨是推进边缘计算技术与产业繁荣发展倡议的专家之一，对边缘计算有着更加深入的思考。在近期的2018边缘计算技术峰会上，他表示，边缘计算技术应该是一个体系，但目前包括他本人都对这个体系了解只是边缘，根本没有<br>进入到核心，很多东西不太清楚，所以提出十问。</p>
+<p>NO1：5G MEC（移动边缘计算）应该下沉到什么位置？边缘计算放在DU？还是CU？还是放在核心网？显然靠近底下反应越快，数量越多，放在什么位置是值得研究的。</p>
+<p>NO2：计算能力是一级设置还是多级设置？在采用MEC的前提下，还要不要同时设置云计算？在云计算和MEC之间是否需要设置雾计算？一个云计算节点联接的移动边缘计算（或雾计算）节点的合理数量是多少？</p>
+<p><strong>NO3：计算能力如何在云计算与边缘计算间优化配置？计算能力的分割是固定的还是可动态调整的？MEC需要向云计算节点上报过滤后的数据。云计算节点需要向MEC下发指令，除此之外两者间的通信还应有什么任务？</strong></p>
+<p>NO4：MEC间通过云计算节点互通还是直接通信？同样是边缘计算节点，它们之间要不要互通，或者说必须间接互通？</p>
+<p>NO5：边缘计算需要有IaaS&#x2F;PaaS&#x2F;SaaS等服务能力吗？假如通过边缘计算增强人脸识别能力，边缘计算至少具备PaaS的功能，还需要可能具有一些视频转码的功能就是SaaS，有可能需要DaaS（数据即服务）的功能，边缘计算是不是都这么全？到底需要有几层，值得研究。</p>
+<p>NO6：边缘计算需要同时具备接入、转发和控制云能力吗？如果说边缘计算是放在CU，它要集中管理好多DU，是否也应该具有控制云的能力？</p>
+<p>NO7：MEC应该与网络切片结合吗？网络切片是5G最基本的一个特征，边缘计算要不要结合？</p>
+<p>NO8：位于C-RAN的MEC需要按业务来配置吗？不同的边缘计算对应不同的应用，有对应移动大数据，有对应大连接的，还有对应社会与互联网数据的。在这种情况下，边缘计算是按业务来配置的，将来的边缘计算也是这样吗？</p>
+<p>NO9：MEC是独立设置还是应与其他功能集成？基站的边缘计算首先进行大数据的收集采集，同时实现加密，在对大数据进行消化后，它回送网络数据链应该是减少的，也就意味着对数据过滤，为了过滤，它可能需要缓存，所以，边缘计算会跟缓存数据采集，数据分析，过滤，计算能力集中在一起，边缘计算绝不是单一的计算能力。</p>
+<p>NO10：MEC的功能需要软件定义吗？MEC可仿照NFV实现软件定义，允许跨过多厂家的MEC平台有效与无缝集成来自厂商、服务提供商和第三方的应用，MEC的功能会开放吗？如果开放就要有接入权限管理。</p>
+]]></content>
+      <categories>
+        <category>Edge Computing</category>
+      </categories>
+      <tags>
+        <tag>concept</tag>
+        <tag>edge computing</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo</title>
+    <url>/2023/05/26/Hexo/</url>
+    <content><![CDATA[<p>Welcome to <strong>Expressoz</strong>! This is my first post. </p>
+<h2 id="Hexo-base-operation-guide"><a href="#Hexo-base-operation-guide" class="headerlink" title="Hexo base operation guide~"></a>Hexo base operation guide~</h2><h3 id="1-Create-a-new-post"><a href="#1-Create-a-new-post" class="headerlink" title="1. Create a new post"></a>1. Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="2-Run-server"><a href="#2-Run-server" class="headerlink" title="2. Run server"></a>2. Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="3-Clean-past-files"><a href="#3-Clean-past-files" class="headerlink" title="3. Clean past files"></a>3. Clean past files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-Generate-static-files"><a href="#4-Generate-static-files" class="headerlink" title="4. Generate static files"></a>4. Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="5-Deploy-to-remote-sites"><a href="#5-Deploy-to-remote-sites" class="headerlink" title="5. Deploy to remote sites"></a>5. Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>fun</category>
+      </categories>
+      <tags>
+        <tag>fun</tag>
+        <tag>git</tag>
+        <tag>node</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -182,35 +211,6 @@
       </categories>
       <tags>
         <tag>optimization</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo</title>
-    <url>/2023/05/26/Hexo/</url>
-    <content><![CDATA[<p>Welcome to <strong>Expressoz</strong>! This is my first post. </p>
-<h2 id="Hexo-base-operation-guide"><a href="#Hexo-base-operation-guide" class="headerlink" title="Hexo base operation guide~"></a>Hexo base operation guide~</h2><h3 id="1-Create-a-new-post"><a href="#1-Create-a-new-post" class="headerlink" title="1. Create a new post"></a>1. Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="2-Run-server"><a href="#2-Run-server" class="headerlink" title="2. Run server"></a>2. Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="3-Clean-past-files"><a href="#3-Clean-past-files" class="headerlink" title="3. Clean past files"></a>3. Clean past files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-Generate-static-files"><a href="#4-Generate-static-files" class="headerlink" title="4. Generate static files"></a>4. Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="5-Deploy-to-remote-sites"><a href="#5-Deploy-to-remote-sites" class="headerlink" title="5. Deploy to remote sites"></a>5. Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-      <categories>
-        <category>fun</category>
-      </categories>
-      <tags>
-        <tag>fun</tag>
-        <tag>git</tag>
-        <tag>node</tag>
-        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
