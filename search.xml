@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Start</title>
+    <url>/2023/05/26/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <strong>Expressoz</strong>! This is my first post. </p>
+<h2 id="Hexo-base-operation-guide"><a href="#Hexo-base-operation-guide" class="headerlink" title="Hexo base operation guide~"></a>Hexo base operation guide~</h2><h3 id="1-Create-a-new-post"><a href="#1-Create-a-new-post" class="headerlink" title="1. Create a new post"></a>1. Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="2-Run-server"><a href="#2-Run-server" class="headerlink" title="2. Run server"></a>2. Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="3-Clean-past-files"><a href="#3-Clean-past-files" class="headerlink" title="3. Clean past files"></a>3. Clean past files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-Generate-static-files"><a href="#4-Generate-static-files" class="headerlink" title="4. Generate static files"></a>4. Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="5-Deploy-to-remote-sites"><a href="#5-Deploy-to-remote-sites" class="headerlink" title="5. Deploy to remote sites"></a>5. Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+</search>
