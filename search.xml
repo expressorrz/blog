@@ -1,65 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Convolutional Neural Networks (CNN)</title>
-    <url>/2023/05/26/Convolutional-Neural-Networks-CNN/</url>
-    <content><![CDATA[<h1 id="1-CNN"><a href="#1-CNN" class="headerlink" title="1 CNN"></a>1 CNN</h1><h2 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h2><p>卷积神经网络（Convolutional Neural Networks, CNNs）是一种深度学习模型，具有以下优点：</p>
-<ol>
-<li>对于图像和视频等二维数据，CNNs具有很强的特征提取能力，可以从原始数据中自动学习出具有高层次抽象特征的表示。这些特征对于图像分类、物体检测、图像分割等任务非常有用。</li>
-<li>CNNs的卷积操作可以对输入数据进行参数共享，减少了模型参数数量，降低了过拟合的风险。</li>
-<li>CNNs可以通过池化层对特征图进行下采样，减小特征图的尺寸和数量，进一步降低了模型的计算复杂度。</li>
-<li>CNNs可以通过堆叠多个卷积层和池化层来构建深层网络结构，这些网络可以自动学习出更复杂、更高层次的特征表示，从而提高了模型的分类和识别能力。</li>
-<li>对于时序数据，CNNs可以通过卷积操作和池化操作来提取时间序列数据中的重要特征，适用于语音识别、自然语言处理等任务。</li>
-</ol>
-<p>总之，CNNs是一种功能强大的深度学习模型，在计算机视觉、自然语言处理和语音识别等领域都取得了非常出色的表现。</p>
-<h2 id="1-2-计算公式"><a href="#1-2-计算公式" class="headerlink" title="1.2 计算公式"></a>1.2 计算公式</h2><p>卷积神经网络（Convolutional Neural Network, CNN）是一种广泛应用于计算机视觉领域的深度学习模型。它是一种前向传递的神经网络，其中卷积层是其核心组成部分，该层对输入数据进行卷积操作以提取其特征。下面，我们将对卷积层的公式进行推导。</p>
-<p>假设我们有一个输入数据 $x$，它是一个形状为 $(C_{in}, H_{in}, W_{in})$ 的三维张量，其中 $C_{in}$ 表示输入数据的通道数，$H_{in}$ 和 $W_{in}$ 表示输入数据的高度和宽度。我们还有一个大小为 $(C_{out}, C_{in}, K, K)$ 的卷积核 $w$，其中 $C_{out}$ 表示卷积核的通道数，$K$ 表示卷积核的大小。</p>
-<p>在卷积层中，我们将卷积核与输入数据进行卷积操作，得到一个形状为 $(C_{out}, H_{out}, W_{out})$ 的输出数据 $y$，其中 $H_{out}$ 和 $W_{out}$ 表示输出数据的高度和宽度。输出数据的计算公式如下：</p>
-<p>$$y_{c,i,j} &#x3D; \sum_{p&#x3D;0}^{K-1}\sum_{q&#x3D;0}^{K-1}\sum_{k&#x3D;0}^{C_{in}-1}w_{c,k,p,q}x_{k,i+p,j+q}+b_c$$</p>
-<p>其中，$y_{c,i,j}$ 表示输出数据在第 $c$ 个通道、第 $i$ 行、第 $j$ 列的值，$w_{c,k,p,q}$ 表示卷积核在第 $c$ 个通道、第 $k$ 个通道、第 $p$ 行、第 $q$ 列的值，$x_{k,i+p,j+q}$ 表示输入数据在第 $k$ 个通道、第 $i+p$ 行、第 $j+q$ 列的值，$b_c$ 表示偏置项。</p>
-<p>在卷积操作过程中，我们通常会对输入数据进行边界填充（Padding）和步长（Stride）操作。边界填充可以在输入数据的周围添加一圈值为零的像素，以便在进行卷积操作时保留输入数据的边界信息。步长可以控制卷积核在输入数据上的滑动速度，从而控制输出数据的大小。假设我们的边界填充大小为 $P$，步长大小为 $S$，则输出数据的大小可以通过以下公式计算：</p>
-<p>$$H_{out} &#x3D; \lfloor \frac{H_{in} - K + 2P}{S} \rfloor + 1$$</p>
-<h2 id="1-3-BN层的作用"><a href="#1-3-BN层的作用" class="headerlink" title="1.3 BN层的作用"></a>1.3 BN层的作用</h2><p>Batch normalization is a technique used in deep learning models, particularly in convolutional neural networks (CNNs), to normalize the input to each activation layer, typically before the activation function is applied. The batch normalization layer is usually inserted between the convolutional layer and the activation layer. The purpose of batch normalization is to improve the training stability of the neural network by reducing internal covariate shift, which is a phenomenon that occurs when the distribution of the output of one layer changes as the distribution of the input to the layer changes during training.</p>
-<p>The batch normalization layer normalizes the activations of each layer in a mini-batch, which is a small subset of the training data that is processed together in a single forward or backward pass through the network. Specifically, the batch normalization layer computes the mean and variance of the activations over the mini-batch, and then applies a linear transformation and a scaling operation to the normalized activations. The mean and variance are estimated using the mini-batch statistics, which are updated during training.</p>
-<p>By normalizing the activations, batch normalization reduces the dependence of the gradients on the scale of the parameters, which can speed up convergence during training. It also regularizes the network by adding noise to the activations, which can reduce overfitting. Overall, batch normalization has been shown to be an effective technique for improving the performance of deep neural networks, particularly in computer vision tasks.</p>
-<h2 id="1-4-Flatten"><a href="#1-4-Flatten" class="headerlink" title="1.4 Flatten"></a>1.4 Flatten</h2><p>In a Convolutional Neural Network (CNN), the “flatten” operation refers to the process of converting the multi-dimensional feature maps obtained from the convolutional and pooling layers into a one-dimensional vector that can be fed into a fully connected neural network layer.</p>
-<p>In more technical terms, after the convolutional and pooling layers, the feature maps are typically represented as a 3D tensor, with dimensions (height, width, depth). The “flatten” operation then reshapes this 3D tensor into a 1D vector of size (height x width x depth), which can be used as the input to a fully connected layer.</p>
-<p>The purpose of flattening is to transform the spatially organized feature maps into a linear structure that can be processed by a traditional fully connected neural network layer. This allows the network to learn complex relationships between the extracted features and the target outputs, leading to better accuracy in classification or regression tasks.</p>
-<p>Overall, the “flatten” operation is an essential step in the design of CNNs, as it enables the integration of both convolutional and fully connected layers to achieve powerful deep learning models.</p>
-<h1 id="2-MSCNN"><a href="#2-MSCNN" class="headerlink" title="2 MSCNN"></a>2 MSCNN</h1><h2 id="2-1-原理"><a href="#2-1-原理" class="headerlink" title="2.1 原理"></a>2.1 原理</h2><p>MSCNN是一种用于图像分类的深度卷积神经网络，其计算表达式如下：</p>
-<ol>
-<li>输入层：将输入图像转换为一个三维张量，其中第一维表示图像的高度，第二维表示图像的宽度，第三维表示图像的颜色通道数（如RGB图像为3，灰度图像为1）。</li>
-<li>卷积层：使用多个卷积核对输入张量进行卷积操作，生成多个特征图。每个卷积核的大小为k_h x k_w x k_c，其中k_h、k_w分别表示卷积核的高度和宽度，k_c表示卷积核的深度（即与输入张量的颜色通道数相同）。对于每个卷积核，将其与输入张量进行卷积操作，并加上一个偏置项，得到一个特征图。卷积操作采用的步长为s，通常使用0填充保持特征图大小不变。假设有n个卷积核，那么卷积层的输出为一个n x h_out x w_out的三维张量，其中h_out和w_out分别表示特征图的高度和宽度。</li>
-<li>ReLU层：对卷积层的输出进行ReLU激活函数操作，即将所有小于0的值替换为0，保持所有大于等于0的值不变。</li>
-<li>池化层：对ReLU层的输出进行下采样操作，通常使用最大池化或平均池化。最大池化将每个特征图分成若干个不重叠的区域，对每个区域取最大值作为输出；平均池化则取每个区域的平均值作为输出。池化操作的大小为p_h x p_w，其中p_h、p_w分别表示池化区域的高度和宽度。池化操作采用的步长为s，通常不使用填充。假设采用最大池化，那么池化层的输出为一个n x h_pool x w_pool的三维张量，其中h_pool和w_pool分别表示下采样后的特征图的高度和宽度。</li>
-<li>全连接层：将池化层的输出展开为一个一维向量，并与一个权重矩阵相乘，再加上一个偏置项，得到一个向量。将该向量作为全连接层的输入，再进行ReLU激活函数操作，得到输出向量。全连接层通常用于将卷积层提取的特征映射到类别空间。</li>
-<li>Softmax层：对全连接层的输出进行softmax操作，将输出向量映射到类别概率分布上</li>
-</ol>
-<h2 id="2-2-公式"><a href="#2-2-公式" class="headerlink" title="2.2 公式"></a>2.2 公式</h2><p>具体来说，MSCNN的计算表达式可以用以下公式表示：</p>
-<h3 id="2-2-1-输入层"><a href="#2-2-1-输入层" class="headerlink" title="2.2.1 输入层"></a>2.2.1 输入层</h3><p>$$X\in \mathbb{R}^{H\times W\times C}$$</p>
-<p>其中$H$表示输入图像的高度，$W$表示输入图像的宽度，$C$表示输入图像的颜色通道数。</p>
-<h3 id="2-2-2-卷积层"><a href="#2-2-2-卷积层" class="headerlink" title="2.2.2 卷积层"></a>2.2.2 卷积层</h3><p>$$Z_{i,j,k} &#x3D; \sum_{u&#x3D;0}^{k_h-1}\sum_{v&#x3D;0}^{k_w-1}\sum_{c&#x3D;0}^{k_c-1}w_{u,v,c,i,k}X_{s_h\times i+u,s_w\times j+v,c}+b_i$$</p>
-<p>其中$Z_{i,j,k}$表示第$i$个卷积核在位置$(j,k)$的特征图值，$w_{u,v,c,i,k}$表示第$i$个卷积核在位置$(u,v,c)$的权重值，$b_i$表示第$i$个卷积核的偏置项，$s_h$和$s_w$分别表示卷积核的垂直和水平步长。</p>
-<h3 id="2-2-3-ReLU层"><a href="#2-2-3-ReLU层" class="headerlink" title="2.2.3 ReLU层"></a>2.2.3 ReLU层</h3><p>$$Y_{i,j,k} &#x3D; \max(0,Z_{i,j,k})$$</p>
-<p>其中$Y_{i,j,k}$表示ReLU层在位置$(j,k)$的输出值。</p>
-<h3 id="2-2-4-池化层"><a href="#2-2-4-池化层" class="headerlink" title="2.2.4 池化层"></a>2.2.4 池化层</h3><p>$$O_{i,j,k} &#x3D; \frac{1}{p_h\times p_w}\max_{u&#x3D;0}^{p_h-1}\max_{v&#x3D;0}^{p_w-1}Y_{i,s_h\times j+u,s_w\times k+v}$$</p>
-<p>其中$O_{i,j,k}$表示最大池化层在位置$(j,k)$的输出值，$p_h$和$p_w$分别表示池化区域的垂直和水平大小。</p>
-<h3 id="2-2-5-全连接层"><a href="#2-2-5-全连接层" class="headerlink" title="2.2.5 全连接层"></a>2.2.5 全连接层</h3><p>$$U &#x3D; \text{flatten}(O)$$</p>
-<p>$$V &#x3D; \max(0,WU+b)$$</p>
-<p>其中$U$表示池化层的输出向量，$\text{flatten}(\cdot)$表示将张量展开为一维向量，$W$表示全连接层的权重矩阵，$b$表示全连接层的偏置项，$V$表示全连接层的输出向量。</p>
-<h3 id="2-2-6-Softmax层"><a href="#2-2-6-Softmax层" class="headerlink" title="2.2.6 Softmax层"></a>2.2.6 Softmax层</h3><p>$$P_k &#x3D; \frac{\exp(v_k)}{\sum_{j&#x3D;1}^{K}\exp(v_j)}$$</p>
-<p>其中$P_k$表示第$k$个类别的概率值，$v_k$表示全连接层输出向量的第$k$个元素。$K$表示总共的类别数目。</p>
-]]></content>
-      <categories>
-        <category>Deep Learning</category>
-      </categories>
-      <tags>
-        <tag>deep learning</tag>
-        <tag>concept</tag>
-        <tag>cnn</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Comparison</title>
     <url>/2023/05/26/Comparison/</url>
     <content><![CDATA[<h2 id="1-Reinforcement-Leanring-and-Branch-and-Bound"><a href="#1-Reinforcement-Leanring-and-Branch-and-Bound" class="headerlink" title="1. Reinforcement Leanring and Branch and Bound"></a>1. Reinforcement Leanring and Branch and Bound</h2><p>Reinforcement Learning (RL) and Branch and Bound (BB) are two distinct optimization techniques used in different domains. RL is a type of machine learning in which an agent learns to take actions in an environment to maximize a cumulative reward signal. On the other hand, BB is an algorithmic approach to solve optimization problems by iteratively partitioning the search space into smaller subproblems.</p>
@@ -137,8 +78,96 @@
         <category>Edge Computing</category>
       </categories>
       <tags>
-        <tag>concept</tag>
         <tag>edge computing</tag>
+        <tag>concept</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Convolutional Neural Networks (CNN)</title>
+    <url>/2023/05/26/Convolutional-Neural-Networks-CNN/</url>
+    <content><![CDATA[<h1 id="1-CNN"><a href="#1-CNN" class="headerlink" title="1 CNN"></a>1 CNN</h1><h2 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h2><p>卷积神经网络（Convolutional Neural Networks, CNNs）是一种深度学习模型，具有以下优点：</p>
+<ol>
+<li>对于图像和视频等二维数据，CNNs具有很强的特征提取能力，可以从原始数据中自动学习出具有高层次抽象特征的表示。这些特征对于图像分类、物体检测、图像分割等任务非常有用。</li>
+<li>CNNs的卷积操作可以对输入数据进行参数共享，减少了模型参数数量，降低了过拟合的风险。</li>
+<li>CNNs可以通过池化层对特征图进行下采样，减小特征图的尺寸和数量，进一步降低了模型的计算复杂度。</li>
+<li>CNNs可以通过堆叠多个卷积层和池化层来构建深层网络结构，这些网络可以自动学习出更复杂、更高层次的特征表示，从而提高了模型的分类和识别能力。</li>
+<li>对于时序数据，CNNs可以通过卷积操作和池化操作来提取时间序列数据中的重要特征，适用于语音识别、自然语言处理等任务。</li>
+</ol>
+<p>总之，CNNs是一种功能强大的深度学习模型，在计算机视觉、自然语言处理和语音识别等领域都取得了非常出色的表现。</p>
+<h2 id="1-2-计算公式"><a href="#1-2-计算公式" class="headerlink" title="1.2 计算公式"></a>1.2 计算公式</h2><p>卷积神经网络（Convolutional Neural Network, CNN）是一种广泛应用于计算机视觉领域的深度学习模型。它是一种前向传递的神经网络，其中卷积层是其核心组成部分，该层对输入数据进行卷积操作以提取其特征。下面，我们将对卷积层的公式进行推导。</p>
+<p>假设我们有一个输入数据 $x$，它是一个形状为 $(C_{in}, H_{in}, W_{in})$ 的三维张量，其中 $C_{in}$ 表示输入数据的通道数，$H_{in}$ 和 $W_{in}$ 表示输入数据的高度和宽度。我们还有一个大小为 $(C_{out}, C_{in}, K, K)$ 的卷积核 $w$，其中 $C_{out}$ 表示卷积核的通道数，$K$ 表示卷积核的大小。</p>
+<p>在卷积层中，我们将卷积核与输入数据进行卷积操作，得到一个形状为 $(C_{out}, H_{out}, W_{out})$ 的输出数据 $y$，其中 $H_{out}$ 和 $W_{out}$ 表示输出数据的高度和宽度。输出数据的计算公式如下：</p>
+<p>$$y_{c,i,j} &#x3D; \sum_{p&#x3D;0}^{K-1}\sum_{q&#x3D;0}^{K-1}\sum_{k&#x3D;0}^{C_{in}-1}w_{c,k,p,q}x_{k,i+p,j+q}+b_c$$</p>
+<p>其中，$y_{c,i,j}$ 表示输出数据在第 $c$ 个通道、第 $i$ 行、第 $j$ 列的值，$w_{c,k,p,q}$ 表示卷积核在第 $c$ 个通道、第 $k$ 个通道、第 $p$ 行、第 $q$ 列的值，$x_{k,i+p,j+q}$ 表示输入数据在第 $k$ 个通道、第 $i+p$ 行、第 $j+q$ 列的值，$b_c$ 表示偏置项。</p>
+<p>在卷积操作过程中，我们通常会对输入数据进行边界填充（Padding）和步长（Stride）操作。边界填充可以在输入数据的周围添加一圈值为零的像素，以便在进行卷积操作时保留输入数据的边界信息。步长可以控制卷积核在输入数据上的滑动速度，从而控制输出数据的大小。假设我们的边界填充大小为 $P$，步长大小为 $S$，则输出数据的大小可以通过以下公式计算：</p>
+<p>$$H_{out} &#x3D; \lfloor \frac{H_{in} - K + 2P}{S} \rfloor + 1$$</p>
+<h2 id="1-3-BN层的作用"><a href="#1-3-BN层的作用" class="headerlink" title="1.3 BN层的作用"></a>1.3 BN层的作用</h2><p>Batch normalization is a technique used in deep learning models, particularly in convolutional neural networks (CNNs), to normalize the input to each activation layer, typically before the activation function is applied. The batch normalization layer is usually inserted between the convolutional layer and the activation layer. The purpose of batch normalization is to improve the training stability of the neural network by reducing internal covariate shift, which is a phenomenon that occurs when the distribution of the output of one layer changes as the distribution of the input to the layer changes during training.</p>
+<p>The batch normalization layer normalizes the activations of each layer in a mini-batch, which is a small subset of the training data that is processed together in a single forward or backward pass through the network. Specifically, the batch normalization layer computes the mean and variance of the activations over the mini-batch, and then applies a linear transformation and a scaling operation to the normalized activations. The mean and variance are estimated using the mini-batch statistics, which are updated during training.</p>
+<p>By normalizing the activations, batch normalization reduces the dependence of the gradients on the scale of the parameters, which can speed up convergence during training. It also regularizes the network by adding noise to the activations, which can reduce overfitting. Overall, batch normalization has been shown to be an effective technique for improving the performance of deep neural networks, particularly in computer vision tasks.</p>
+<h2 id="1-4-Flatten"><a href="#1-4-Flatten" class="headerlink" title="1.4 Flatten"></a>1.4 Flatten</h2><p>In a Convolutional Neural Network (CNN), the “flatten” operation refers to the process of converting the multi-dimensional feature maps obtained from the convolutional and pooling layers into a one-dimensional vector that can be fed into a fully connected neural network layer.</p>
+<p>In more technical terms, after the convolutional and pooling layers, the feature maps are typically represented as a 3D tensor, with dimensions (height, width, depth). The “flatten” operation then reshapes this 3D tensor into a 1D vector of size (height x width x depth), which can be used as the input to a fully connected layer.</p>
+<p>The purpose of flattening is to transform the spatially organized feature maps into a linear structure that can be processed by a traditional fully connected neural network layer. This allows the network to learn complex relationships between the extracted features and the target outputs, leading to better accuracy in classification or regression tasks.</p>
+<p>Overall, the “flatten” operation is an essential step in the design of CNNs, as it enables the integration of both convolutional and fully connected layers to achieve powerful deep learning models.</p>
+<h1 id="2-MSCNN"><a href="#2-MSCNN" class="headerlink" title="2 MSCNN"></a>2 MSCNN</h1><h2 id="2-1-原理"><a href="#2-1-原理" class="headerlink" title="2.1 原理"></a>2.1 原理</h2><p>MSCNN是一种用于图像分类的深度卷积神经网络，其计算表达式如下：</p>
+<ol>
+<li>输入层：将输入图像转换为一个三维张量，其中第一维表示图像的高度，第二维表示图像的宽度，第三维表示图像的颜色通道数（如RGB图像为3，灰度图像为1）。</li>
+<li>卷积层：使用多个卷积核对输入张量进行卷积操作，生成多个特征图。每个卷积核的大小为k_h x k_w x k_c，其中k_h、k_w分别表示卷积核的高度和宽度，k_c表示卷积核的深度（即与输入张量的颜色通道数相同）。对于每个卷积核，将其与输入张量进行卷积操作，并加上一个偏置项，得到一个特征图。卷积操作采用的步长为s，通常使用0填充保持特征图大小不变。假设有n个卷积核，那么卷积层的输出为一个n x h_out x w_out的三维张量，其中h_out和w_out分别表示特征图的高度和宽度。</li>
+<li>ReLU层：对卷积层的输出进行ReLU激活函数操作，即将所有小于0的值替换为0，保持所有大于等于0的值不变。</li>
+<li>池化层：对ReLU层的输出进行下采样操作，通常使用最大池化或平均池化。最大池化将每个特征图分成若干个不重叠的区域，对每个区域取最大值作为输出；平均池化则取每个区域的平均值作为输出。池化操作的大小为p_h x p_w，其中p_h、p_w分别表示池化区域的高度和宽度。池化操作采用的步长为s，通常不使用填充。假设采用最大池化，那么池化层的输出为一个n x h_pool x w_pool的三维张量，其中h_pool和w_pool分别表示下采样后的特征图的高度和宽度。</li>
+<li>全连接层：将池化层的输出展开为一个一维向量，并与一个权重矩阵相乘，再加上一个偏置项，得到一个向量。将该向量作为全连接层的输入，再进行ReLU激活函数操作，得到输出向量。全连接层通常用于将卷积层提取的特征映射到类别空间。</li>
+<li>Softmax层：对全连接层的输出进行softmax操作，将输出向量映射到类别概率分布上</li>
+</ol>
+<h2 id="2-2-公式"><a href="#2-2-公式" class="headerlink" title="2.2 公式"></a>2.2 公式</h2><p>具体来说，MSCNN的计算表达式可以用以下公式表示：</p>
+<h3 id="2-2-1-输入层"><a href="#2-2-1-输入层" class="headerlink" title="2.2.1 输入层"></a>2.2.1 输入层</h3><p>$$X\in \mathbb{R}^{H\times W\times C}$$</p>
+<p>其中$H$表示输入图像的高度，$W$表示输入图像的宽度，$C$表示输入图像的颜色通道数。</p>
+<h3 id="2-2-2-卷积层"><a href="#2-2-2-卷积层" class="headerlink" title="2.2.2 卷积层"></a>2.2.2 卷积层</h3><p>$$Z_{i,j,k} &#x3D; \sum_{u&#x3D;0}^{k_h-1}\sum_{v&#x3D;0}^{k_w-1}\sum_{c&#x3D;0}^{k_c-1}w_{u,v,c,i,k}X_{s_h\times i+u,s_w\times j+v,c}+b_i$$</p>
+<p>其中$Z_{i,j,k}$表示第$i$个卷积核在位置$(j,k)$的特征图值，$w_{u,v,c,i,k}$表示第$i$个卷积核在位置$(u,v,c)$的权重值，$b_i$表示第$i$个卷积核的偏置项，$s_h$和$s_w$分别表示卷积核的垂直和水平步长。</p>
+<h3 id="2-2-3-ReLU层"><a href="#2-2-3-ReLU层" class="headerlink" title="2.2.3 ReLU层"></a>2.2.3 ReLU层</h3><p>$$Y_{i,j,k} &#x3D; \max(0,Z_{i,j,k})$$</p>
+<p>其中$Y_{i,j,k}$表示ReLU层在位置$(j,k)$的输出值。</p>
+<h3 id="2-2-4-池化层"><a href="#2-2-4-池化层" class="headerlink" title="2.2.4 池化层"></a>2.2.4 池化层</h3><p>$$O_{i,j,k} &#x3D; \frac{1}{p_h\times p_w}\max_{u&#x3D;0}^{p_h-1}\max_{v&#x3D;0}^{p_w-1}Y_{i,s_h\times j+u,s_w\times k+v}$$</p>
+<p>其中$O_{i,j,k}$表示最大池化层在位置$(j,k)$的输出值，$p_h$和$p_w$分别表示池化区域的垂直和水平大小。</p>
+<h3 id="2-2-5-全连接层"><a href="#2-2-5-全连接层" class="headerlink" title="2.2.5 全连接层"></a>2.2.5 全连接层</h3><p>$$U &#x3D; \text{flatten}(O)$$</p>
+<p>$$V &#x3D; \max(0,WU+b)$$</p>
+<p>其中$U$表示池化层的输出向量，$\text{flatten}(\cdot)$表示将张量展开为一维向量，$W$表示全连接层的权重矩阵，$b$表示全连接层的偏置项，$V$表示全连接层的输出向量。</p>
+<h3 id="2-2-6-Softmax层"><a href="#2-2-6-Softmax层" class="headerlink" title="2.2.6 Softmax层"></a>2.2.6 Softmax层</h3><p>$$P_k &#x3D; \frac{\exp(v_k)}{\sum_{j&#x3D;1}^{K}\exp(v_j)}$$</p>
+<p>其中$P_k$表示第$k$个类别的概率值，$v_k$表示全连接层输出向量的第$k$个元素。$K$表示总共的类别数目。</p>
+]]></content>
+      <categories>
+        <category>Deep Learning</category>
+      </categories>
+      <tags>
+        <tag>concept</tag>
+        <tag>deep learning</tag>
+        <tag>cnn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo</title>
+    <url>/2023/05/26/Hexo/</url>
+    <content><![CDATA[<p>Welcome to <strong>Expressoz</strong>! This is my first post. </p>
+<h2 id="Hexo-base-operation-guide"><a href="#Hexo-base-operation-guide" class="headerlink" title="Hexo base operation guide~"></a>Hexo base operation guide~</h2><h3 id="1-Create-a-new-post"><a href="#1-Create-a-new-post" class="headerlink" title="1. Create a new post"></a>1. Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="2-Run-server"><a href="#2-Run-server" class="headerlink" title="2. Run server"></a>2. Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="3-Clean-past-files"><a href="#3-Clean-past-files" class="headerlink" title="3. Clean past files"></a>3. Clean past files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-Generate-static-files"><a href="#4-Generate-static-files" class="headerlink" title="4. Generate static files"></a>4. Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="5-Deploy-to-remote-sites"><a href="#5-Deploy-to-remote-sites" class="headerlink" title="5. Deploy to remote sites"></a>5. Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>fun</category>
+      </categories>
+      <tags>
+        <tag>fun</tag>
+        <tag>git</tag>
+        <tag>node</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -181,111 +210,6 @@
         <category>Optimization</category>
       </categories>
       <tags>
-        <tag>optimization</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo</title>
-    <url>/2023/05/26/Hexo/</url>
-    <content><![CDATA[<p>Welcome to <strong>Expressoz</strong>! This is my first post. </p>
-<h2 id="Hexo-base-operation-guide"><a href="#Hexo-base-operation-guide" class="headerlink" title="Hexo base operation guide~"></a>Hexo base operation guide~</h2><h3 id="1-Create-a-new-post"><a href="#1-Create-a-new-post" class="headerlink" title="1. Create a new post"></a>1. Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="2-Run-server"><a href="#2-Run-server" class="headerlink" title="2. Run server"></a>2. Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="3-Clean-past-files"><a href="#3-Clean-past-files" class="headerlink" title="3. Clean past files"></a>3. Clean past files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-Generate-static-files"><a href="#4-Generate-static-files" class="headerlink" title="4. Generate static files"></a>4. Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="5-Deploy-to-remote-sites"><a href="#5-Deploy-to-remote-sites" class="headerlink" title="5. Deploy to remote sites"></a>5. Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-      <categories>
-        <category>fun</category>
-      </categories>
-      <tags>
-        <tag>fun</tag>
-        <tag>git</tag>
-        <tag>node</tag>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Operations Research Concept</title>
-    <url>/2023/05/26/Operations-Research-Concept/</url>
-    <content><![CDATA[<h2 id="1-运筹学分类"><a href="#1-运筹学分类" class="headerlink" title="1 运筹学分类"></a>1 运筹学分类</h2><ul>
-<li><strong>线性规划</strong>（Linear Programming）– 最简单和基础的优化问题，如上图，<em>目标函数</em>（max）和<em>约束条件</em>（s.t.）都是线性的，自变量x是实数变量，P问题（多项式时间可解）；或许有些读者没有学过线性代数，更简单的例子： min x1+x2 s.t. 3x1-4x2&gt; 5, x1,x2&gt;&#x3D;0。</li>
-<li><strong>非线性规划</strong> (Nonlinear Programming)–目标函数或约束条件为非线性，例如2次函数；</li>
-<li><strong>凸优化</strong> (Convex Optimization)–约束条件形成的可行域（feasible region）是凸的；</li>
-<li><strong>（混合）整数规划</strong> (Mixed Integer Programming)–自变量有整数变量，NP难问题（指数级算法复杂度）。</li>
-<li><strong>半正定规划</strong> (Semi-definite Programming)–每一个自变量x代表一个矩阵；</li>
-<li><strong>网络流问题</strong>（Network Flow Problems）–一个特殊的混合整数规划问题，满足一个节点流出流量&#x3D;流入流（或许你听说过最大流最小割定理）；</li>
-<li><strong>动态规划</strong>(Dynamic Programming)、<strong>近似算法</strong>(Approximation Algorithms)<strong>、启发式算法</strong>（Heuristic Algorithms， Meta Heuristics）、<strong>遗传算法</strong> (Genetic Algorithms)–用来解例如整数规划等NP难优化问题的算法，后俩个通常只能得到局部最优解，最经典的当属最大流最小割定理衍生出来的一些最大流算法（全局最优）。被广泛得用在各个学科和领域，如人工智能；</li>
-<li><strong>鲁棒优化</strong>（Robust Optimization）–目标函数或约束条件有扰动（不确定性）的情况下，求解其最坏情况下的最优解；</li>
-<li><strong>多目标优化</strong> (Muti-objective Optimization)–优化的目标函数是一个向量，通常通过引入权重权衡个目标函数，转化成单目标优化，或者寻找<strong>帕累托最优</strong>(Pareto Optimality) ；</li>
-<li><strong>双层优化</strong>（Bilevel Optimization）–和复合函数的概念类似，比如Max-Min Problem,在一个优化问题外嵌套另一个优化问题，通常用迭代法；</li>
-<li><strong>随机优化</strong>（Stochastic Programming）–加入了不确定的因素（通常以概率形式表现，目标函数变成求期望最大化）；</li>
-<li><strong>最优控制</strong>（Optimal Control）：严格说属于控制论的范畴，可以简单地把它理解为，优化问题中的变量由x变为f(x)，并且通常f是时间t的函数（或者状态state的函数），约束条件常有偏微分方程。也就是说，控制论期望通过解一个优化问题，得到一个最优的函数f（t），使得这个函数在全局（空间+时间）上是最优的。而运筹学通过解一个优化问题，得到的是最优解x，使得目标函数在一个确定性（deterministic，通常与t无关，或者可以理解为在t的某一时刻）的环境下是最优的。</li>
-</ul>
-<h2 id="2-基本概念"><a href="#2-基本概念" class="headerlink" title="2 基本概念"></a>2 基本概念</h2><h3 id="2-1-算法复杂度"><a href="#2-1-算法复杂度" class="headerlink" title="2.1 算法复杂度"></a>2.1 算法复杂度</h3><p>如果某个算法的复杂度可以表示为$O(n^k)$，即问题规模n出现在底数的位置，这种复杂度称为多项式时间复杂度；</p>
-<p>如果某个算法的复杂度表示为$O(k^n) or O(n!)$，这种复杂度称为指数型时间复杂度。</p>
-<p>相同问题规模下（同时这个问题规模不是太小），指数型时间复杂度远远大于多项式时间复杂度。</p>
-<p>当我们在解决一个问题时，我们选择的算法通常都需要是多项式时间复杂度的，指数型时间复杂度的算法是计算机所不能承受的（除非问题规模很小）。</p>
-<p>一般情况下，求解整数规划的精确解（全局最优）是NP难的，简单地说，也就是只存在指数级算法复杂度（Exponential Time Solvable）。</p>
-<p>怎么来理解指数级复杂度呢？假设这里的整数变量是{0,1}变量，那么我们可以简单地理解为算法复杂度至少是O(2^n)（需要解2^n个线性规划问题，其中n是整数变量的个数）。其中线性规划被认为是可以较为高效求解的，其复杂度是多项式时间的（O(n^k)，其中k是常数，注意这里n在底数上）。</p>
-<p>也就是说，每增加一个整数变量，求解其精确解的运算速度最坏情况下就要增加一倍！例如求解n&#x3D;100的整数规划问题需要1小时，那么求解n&#x3D;101的规模可能会需要2小时，n&#x3D;102需要4小时，n&#x3D;105需要32小时。。这就是<strong>指数爆炸</strong>！</p>
-<p>因此，整数规划问题被看作数学规划里、乃至世界上最难的问题之一，被很多其他领域（例如机器学习）认为是不可追踪（Intractable）的问题–也就是他们直接放弃治疗了，从不考虑直接求解该问题的精确解，而是退而求其次求解<strong>近似解或局部最优解</strong>。</p>
-<h3 id="2-2-P、NP、NP-Complete、NP-Hard问题"><a href="#2-2-P、NP、NP-Complete、NP-Hard问题" class="headerlink" title="2.2 P、NP、NP-Complete、NP-Hard问题"></a>2.2 P、NP、NP-Complete、NP-Hard问题</h3><ol>
-<li><p><strong>P问题</strong>：有多项式时间算法，算得很快的问题。<br> 存在多项式时间算法的问题。(P：polynominal，多项式)。我们为什么要研究这个P类问题呢？当计算机处理的数据达到100万个的时候，时间复杂度分别为$O(n^2)$和$O(e^n)$的算法，运行时间简直就是天壤之别。所以我们才要研究一个问题是否具有多项式时间的算法。</p>
-</li>
-<li><p><strong>NP问题</strong>：算起来不确定快不快的问题，但是我们可以快速验证这个问题的解。<br> 能在多项式时间内验证得出一个正确解的问题。(NP:Nondeterministic polynominal，非确定性多项式)。</p>
-<p> 这里可以清楚的看出<strong>P类问题是NP类问题的子集</strong>（即存在多项式时间算法的问题，总能在多项式时间内验证它）个人理解NP类问题就是，不知道这个问题存不存在一个多项式时间的算法，所以叫非确定性（non-deterministic）。</p>
-<p> 但是我们可以在多项式时间内验证并得出这个问题的一个正确解。举个例子：著名的NP类问题：旅行家推销问题(TSP)。即有一个推销员，要到n个城市推销商品，他要找出一个包含所有n个城市的环路，这个环路路径小于a。我们知道这个问题如果单纯的用枚举法来列举的话会有(n-1)! 种，已经不是多项式时间的算法了，(注：阶乘算法比多项式的复杂)。那怎么办呢？我们可以用猜的，假设人品爆炸猜几次就猜中了一条小于长度a的路径，TSP问题解决了，皆大欢喜。可是，我不可能每次都猜的那么准，也许我要猜完所有种方案呢？所以我们说，这是一个NP类问题。也就是，我们能在多项式的时间内验证并得出问题的正确解，可是我们却不知道该问题是否存在一个多项式时间的算法，每次都能解决他(注意，这里是不知道，不是不存在)。</p>
-<p> 所以这就引出了这类讨论的一个千年问题：是否 NP类问题&#x3D;P类问题？</p>
-<p> 即，是否所有能在多项式时间内验证得出正确解的问题，都是具有多项式时间算法的问题呢？</p>
-<p> 为了证明这个千古难题，科学家想出了很多办法。其中之一就是问题的约化。所谓问题约化就是，可以用问题B的算法来解决A ，我们就说问题A可以约化成问题B。举个例子：一元一次方程的求解，跟二元一次方程的求解，我们知道，只要能求解二元一次方程，那就可以用二元一次方程的解法来求解一元一次方程，只需要将一元一次方程加上y，并附加一个方程y&#x3D;0就可以将一元一次方程变形为一个二元一次方程，然后用二元一次方程的解法来求解这个方程。注意，这里二元一次方程的解法会比一元一次的复杂。所以我们说，只需要找到解二元一次方程的规则性解法，那就能用这个规则性解法来求解一元一次方程。从这里也可以看出，约化是具有传递性的，如A约化到B，B约化到C，A就可以约化到C，同时不断约化下去，我们会发现一个很惊人的特性，就是他一定会存在一个最大的问题，而我们只需要解决了这个问题，那其下的所有问题也就解决啦！这就是我们所说的NPC问题的概念！！！</p>
-<p> 引到NP问题里就是，对于同一类的所有的NP类问题，若他们都可以在多项式时间内约化成最难的一个NP类问题，（我们直观的认为，被约化成的问题应具有比前一个问题更复杂的时间复杂度）当我们针对这个时间复杂度最高的超级NP问题要是能找到他的多项式时间算法的话，那就等于变向的证明了其下的所有问题都是存在多项式算法的，即NP&#x3D;P！！！！给出NPC问题定义。</p>
-</li>
-<li><p><strong>NP-complete问题</strong>：属于NP问题，且属于NP-hard问题。<br> 存在这样一个NP问题，所有的NP问题都可以约化成它。换句话说，只要解决了这个问题，那么所有的NP问题都解决了。其定义要满足2个条件：</p>
-<p> 首先，它得是一个NP问题；然后，所有的NP问题都可以约化到它。要证明npc问题的思路就是： 先证明它至少是一个NP问题，再证明其中一个已知的NPC问题能约化到它。</p>
-</li>
-<li><p><strong>NP-hard问题</strong>：比NP问题都要难的问题。<br> NP-Hard问题是这样一种问题，它满足NPC问题定义的第二条但不一定要满足第一条（就是说，NP-Hard问题要比 NPC问题的范围广，NP-Hard问题没有限定属于NP），即所有的NP问题都能约化到它，但是它不一定是一个NP问题。<br> <img src="/../images/optimization/09.png"></p>
-</li>
-</ol>
-<h2 id="3-回顾"><a href="#3-回顾" class="headerlink" title="3 回顾"></a>3 回顾</h2><h3 id="1-线性规划-linear-Programming"><a href="#1-线性规划-linear-Programming" class="headerlink" title="1 线性规划 (linear Programming)"></a>1 线性规划 (linear Programming)</h3><p><img src="/../images/optimization/01.png"><br>运筹学、数学规划（<strong>Math Programming</strong>）问题的数学表达式，由自变量（<strong>Variables</strong>）、目标函数（<strong>Objective Function</strong>）和约束条件（<strong>Constraints</strong>)组成，所有优化问题本质上都可以化简为由它们组成的数学表达式，然后求解满足约束条件下使得目标函数最大&#x2F;小的变量的值。</p>
-<p>如上图，当自变量是连续的，目标函数和不等式是线性的时候，该问题被称为线性规划问题。线性规划因其具有的良好性质（例如，最优解必定出现在极点），可以用单纯型法（<strong>Simplex Method</strong>）或内点算法（<strong>Interior Method</strong>）高效地求解，熟悉算法复杂度的童鞋，知道它是多项式时间可解的（<strong>Polynomial Time Solvable–O（n^k）</strong>）。这里n表示自变量个数。</p>
-<p>可行域（<strong>Feasible Set</strong>）：可行解的集合。如下图，阴影区域（多面体、<strong>Polyhedron</strong>）即为三个线性不等式（半平面）组成的可行域。</p>
-<p><img src="/../images/optimization/02.png"></p>
-<h3 id="2-整数规划-Integer-Programming"><a href="#2-整数规划-Integer-Programming" class="headerlink" title="2 整数规划 (Integer Programming)"></a>2 整数规划 (Integer Programming)</h3><p>整数规划，或者离散优化（<strong>Discrete Optimization</strong>），是指数学规划问题中自变量存在整数。与线性规划连续的可行域不同，整数规划的可行域是离散的。<br><img src="/../images/optimization/03.png"><br>如上图，蓝线依旧代表线性不等式，但是这里x,y被约束成整数变量，因此可行域变成了红线区域内的9个离散的点。</p>
-<p><strong>凸包（Convex Hull）</strong>：整数规划所有可行点的凸包围，即图中红线组成的多面体（想象多维的情况）。凸包是未知的，已知的是蓝线的不等式，并且凸包是非常难求解的，或者形成凸包需要指数数量级的线性不等式（图中红线）。如果知道了凸包的所有线性表示，那么整数规划问题就可以等价为求解一个凸包表示的线性规划问题。</p>
-<p>另外，除了整数规划，还有混合整数规划（<strong>Mixed Integer Programming, MIP</strong>），即自变量既包含整数也有连续变量。如下图：<br><img src="/../images/optimization/04.png"><br>x是连续的，y被约束成整数变量，这时候可行域变成了4条离散的橘黄色线段+4处的红色整数点（0,4)。课后作业，求图中的凸包。</p>
-<p>整数规划的精确算法通常需要用到分支定界法（<strong>Branch and Bound Method</strong>）,以及增加分支定界效率的各种技巧，例如割平面方法（<strong>Cutting Planes Method</strong>）。总的来说，求解整数规划的精确解是NP难的，也就是指数级算法复杂度（<strong>Exponential Time Solvable</strong>）。</p>
-<p>怎么来理解指数级复杂度呢？假设这里的整数是0,1变量，那么我们可以简单地理解为算法复杂度是2^n（需要解2^n个线性规划问题）。也就是说，每增加一个0，1变量，求解的速度就有可能要增加一倍！例如求解n&#x3D;100的整数规划问题需要1小时，那么求解n&#x3D;101的规模可能会需要2小时，n&#x3D;102需要4小时，n&#x3D;105需要32小时。。这就是<strong>指数爆炸</strong>！</p>
-<p>因此，整数规划问题被看作数学规划里、甚至是<strong>世界上最难的问题</strong>之一，被很多其他领域（例如机器学习）认为是不可追踪（<strong>Intractable</strong>）的问题，也就是他们直接放弃治疗了。</p>
-<p>作为研究世界上最难问题的学者，想出了解决整数规划问题的各种其他途径，例如近似算法（<strong>Approximation Algorithms</strong>），启发式算法（<strong>Heuristic Algorithms</strong>），遗传算法（<strong>Evolution Algorithms, Meta-Heuristic</strong>）等等。它们虽然不能求得整数规划的最优解，但是却能在短时间（通常多项式时间）内给出一个较好的可行解</p>
-<h3 id="3-组合优化-Combinatorial-Optimization"><a href="#3-组合优化-Combinatorial-Optimization" class="headerlink" title="3 组合优化 (Combinatorial Optimization)"></a>3 组合优化 (Combinatorial Optimization)</h3><p>通俗的讲，我把组合优化理解为，在组合优化种可能性里找出最优的方案。假设自变量为n，用强力搜索法（<em>Brute-force Algorithm</em>）来解组合优化的算法复杂度最坏需要<em>n的阶乘</em>！什么概念？这比指数爆炸还要可怕！</p>
-<p>从这个意义上讲，组合优化是整数规划的子集。的确，绝大多数组合优化问题都可以被建模成（混合）整数规划模型来求解。但是似乎学术圈更多地把组合优化与图（<strong>Graph</strong>）优化以及网络流（<strong>Network Flow</strong>）优化联系在一起，并且最终目标不在精确解，而是近似解。</p>
-<p>下面给出一个经典的组合优化例子-最大流问题（<strong>Max Flow Problem</strong>）：<br><img src="/../images/optimization/05.png"><br>给定一张图G（V，E），V是点（<strong>Node</strong>）的集合，E是边（<strong>Edge</strong>)的集合。该问题试图从点0到5导流最大的流量，边上的数字代表该条边的最大流量，因此形成了约束条件–每条边的流量不得超过该条边的限额。自然而然地，该问题可以被建模成一个整数规划问题。</p>
-<p>我们跳过模型和算法，直观的判断该问题的算法复杂度大概为多少。设想从0出发，有俩种可能线路，0到1以及0到2；从1和2出发，有分别有俩种可能的线路。因此，可以初步判断，改问题如果用强力算法（穷举法），算法复杂度将为指数级！</p>
-<p>但是聪明的组合优化学家，把这个看似指数级算法复杂度的问题，用巧妙的算法多项式时间便可求解出最优解。</p>
-<h3 id="4-非凸优化-Non-Convex-Optimization"><a href="#4-非凸优化-Non-Convex-Optimization" class="headerlink" title="4 非凸优化 (Non-Convex Optimization)"></a>4 非凸优化 (Non-Convex Optimization)</h3><p>凸（<strong>Convex</strong>） VS 非凸的概念，数学定义就不写了，介绍个直观判断一个集合是否为Convex的方法，如下图：<br><img src="/../images/optimization/06.png"><br>简单的测试一个集合是不是凸的，只要任意取集合中的俩个点并连线，如果说连线段完全被包含在此集合中，那么这个集合就是凸集，例如左图所示。</p>
-<p>凸优化有个非常重要的定理，即任何局部最优解即为全局最优解。由于这个性质，只要设计一个较为简单的局部算法，例如贪婪算法（<strong>Greedy Algorithm</strong>）或梯度下降法（<strong>Gradient Decent</strong>），收敛求得的局部最优解即为全局最优。因此求解凸优化问题相对来说是比较高效的。这也是为什么机器学习中凸优化的模型非常多，毕竟机器学习处理大数据，需要高效的算法。</p>
-<p>而非凸优化问题被认为是非常难求解的，因为可行域集合可能存在无数个局部最优点，通常求解全局最优的算法复杂度是指数级的（NP难）。如下图：<br><img src="/../images/optimization/07.png"><br>最经典的算法要算蒙特卡罗投点法(<em>Monte Carlo Algorithm</em>)了，大概思想便是随便投个点，然后在附近区域（可以假设convex)用2中方法的进行搜索，得到局部最优值。然后随机再投个点，再找到局部最优点。如此反复，直到满足终止条件。</p>
-<h3 id="5-整数规划与非凸优化的关系"><a href="#5-整数规划与非凸优化的关系" class="headerlink" title="5 整数规划与非凸优化的关系"></a>5 整数规划与非凸优化的关系</h3><p>（混合）整数规划被称为极度非凸问题（<strong>highly nonconvex problem</strong>），如下图：<br><img src="/../images/optimization/08.png"><br>实心黑点组成的集合，是一个离散集，按照4中判断一个集合是否为凸集的技巧，我们很容易验证这个离散集是非凸的，并且相比4中的非凸集更甚。因此整数规划问题也是一个非凸优化问题。</p>
-<h3 id="6-整数规划、非凸优化的重要性"><a href="#6-整数规划、非凸优化的重要性" class="headerlink" title="6 整数规划、非凸优化的重要性"></a>6 整数规划、非凸优化的重要性</h3><p>对现实社会各行各业问题数学建模的时候，整数变量有时是不可避免的。例如：x辆车，y个人。x，y这里便是整数变量，小数是没有意义的。</p>
-<p>决策变量(<strong>Decision Varible</strong>): x&#x3D;{0,1}.  </p>
-<p>0&#x2F;1变量被广泛地应用在商业和决策领域。我们假设变量x&#x3D;{0,1}，当x&#x3D;1的时候，我们便可以建模执行x这个决策；x&#x3D;0，则表示不执行。这样引入决策变量x的建模技巧，在工业界案例中屡见不鲜。</p>
-<p>从这些案例，<strong>社会是由一个个离散变量组成的</strong>。</p>
-<p>说到这里，当然不能否定了凸优化和连续优化的作用，科学的本质便是由简到难，先把简单问题研究透彻，然后把复杂问题简化为求解一个个的简单问题。<em>求解整数规划便是利用分支定界法求解一个个线性规划问题，非凸优化同样如此。</em></p>
-]]></content>
-      <categories>
-        <category>Optimization</category>
-      </categories>
-      <tags>
-        <tag>concept</tag>
         <tag>optimization</tag>
       </tags>
   </entry>
@@ -473,6 +397,82 @@
         <tag>mysql</tag>
         <tag>software setup</tag>
         <tag>Instructions</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Operations Research Concept</title>
+    <url>/2023/05/26/Operations-Research-Concept/</url>
+    <content><![CDATA[<h2 id="1-运筹学分类"><a href="#1-运筹学分类" class="headerlink" title="1 运筹学分类"></a>1 运筹学分类</h2><ul>
+<li><strong>线性规划</strong>（Linear Programming）– 最简单和基础的优化问题，如上图，<em>目标函数</em>（max）和<em>约束条件</em>（s.t.）都是线性的，自变量x是实数变量，P问题（多项式时间可解）；或许有些读者没有学过线性代数，更简单的例子： min x1+x2 s.t. 3x1-4x2&gt; 5, x1,x2&gt;&#x3D;0。</li>
+<li><strong>非线性规划</strong> (Nonlinear Programming)–目标函数或约束条件为非线性，例如2次函数；</li>
+<li><strong>凸优化</strong> (Convex Optimization)–约束条件形成的可行域（feasible region）是凸的；</li>
+<li><strong>（混合）整数规划</strong> (Mixed Integer Programming)–自变量有整数变量，NP难问题（指数级算法复杂度）。</li>
+<li><strong>半正定规划</strong> (Semi-definite Programming)–每一个自变量x代表一个矩阵；</li>
+<li><strong>网络流问题</strong>（Network Flow Problems）–一个特殊的混合整数规划问题，满足一个节点流出流量&#x3D;流入流（或许你听说过最大流最小割定理）；</li>
+<li><strong>动态规划</strong>(Dynamic Programming)、<strong>近似算法</strong>(Approximation Algorithms)<strong>、启发式算法</strong>（Heuristic Algorithms， Meta Heuristics）、<strong>遗传算法</strong> (Genetic Algorithms)–用来解例如整数规划等NP难优化问题的算法，后俩个通常只能得到局部最优解，最经典的当属最大流最小割定理衍生出来的一些最大流算法（全局最优）。被广泛得用在各个学科和领域，如人工智能；</li>
+<li><strong>鲁棒优化</strong>（Robust Optimization）–目标函数或约束条件有扰动（不确定性）的情况下，求解其最坏情况下的最优解；</li>
+<li><strong>多目标优化</strong> (Muti-objective Optimization)–优化的目标函数是一个向量，通常通过引入权重权衡个目标函数，转化成单目标优化，或者寻找<strong>帕累托最优</strong>(Pareto Optimality) ；</li>
+<li><strong>双层优化</strong>（Bilevel Optimization）–和复合函数的概念类似，比如Max-Min Problem,在一个优化问题外嵌套另一个优化问题，通常用迭代法；</li>
+<li><strong>随机优化</strong>（Stochastic Programming）–加入了不确定的因素（通常以概率形式表现，目标函数变成求期望最大化）；</li>
+<li><strong>最优控制</strong>（Optimal Control）：严格说属于控制论的范畴，可以简单地把它理解为，优化问题中的变量由x变为f(x)，并且通常f是时间t的函数（或者状态state的函数），约束条件常有偏微分方程。也就是说，控制论期望通过解一个优化问题，得到一个最优的函数f（t），使得这个函数在全局（空间+时间）上是最优的。而运筹学通过解一个优化问题，得到的是最优解x，使得目标函数在一个确定性（deterministic，通常与t无关，或者可以理解为在t的某一时刻）的环境下是最优的。</li>
+</ul>
+<h2 id="2-基本概念"><a href="#2-基本概念" class="headerlink" title="2 基本概念"></a>2 基本概念</h2><h3 id="2-1-算法复杂度"><a href="#2-1-算法复杂度" class="headerlink" title="2.1 算法复杂度"></a>2.1 算法复杂度</h3><p>如果某个算法的复杂度可以表示为$O(n^k)$，即问题规模n出现在底数的位置，这种复杂度称为多项式时间复杂度；</p>
+<p>如果某个算法的复杂度表示为$O(k^n) or O(n!)$，这种复杂度称为指数型时间复杂度。</p>
+<p>相同问题规模下（同时这个问题规模不是太小），指数型时间复杂度远远大于多项式时间复杂度。</p>
+<p>当我们在解决一个问题时，我们选择的算法通常都需要是多项式时间复杂度的，指数型时间复杂度的算法是计算机所不能承受的（除非问题规模很小）。</p>
+<p>一般情况下，求解整数规划的精确解（全局最优）是NP难的，简单地说，也就是只存在指数级算法复杂度（Exponential Time Solvable）。</p>
+<p>怎么来理解指数级复杂度呢？假设这里的整数变量是{0,1}变量，那么我们可以简单地理解为算法复杂度至少是O(2^n)（需要解2^n个线性规划问题，其中n是整数变量的个数）。其中线性规划被认为是可以较为高效求解的，其复杂度是多项式时间的（O(n^k)，其中k是常数，注意这里n在底数上）。</p>
+<p>也就是说，每增加一个整数变量，求解其精确解的运算速度最坏情况下就要增加一倍！例如求解n&#x3D;100的整数规划问题需要1小时，那么求解n&#x3D;101的规模可能会需要2小时，n&#x3D;102需要4小时，n&#x3D;105需要32小时。。这就是<strong>指数爆炸</strong>！</p>
+<p>因此，整数规划问题被看作数学规划里、乃至世界上最难的问题之一，被很多其他领域（例如机器学习）认为是不可追踪（Intractable）的问题–也就是他们直接放弃治疗了，从不考虑直接求解该问题的精确解，而是退而求其次求解<strong>近似解或局部最优解</strong>。</p>
+<h3 id="2-2-P、NP、NP-Complete、NP-Hard问题"><a href="#2-2-P、NP、NP-Complete、NP-Hard问题" class="headerlink" title="2.2 P、NP、NP-Complete、NP-Hard问题"></a>2.2 P、NP、NP-Complete、NP-Hard问题</h3><ol>
+<li><p><strong>P问题</strong>：有多项式时间算法，算得很快的问题。<br> 存在多项式时间算法的问题。(P：polynominal，多项式)。我们为什么要研究这个P类问题呢？当计算机处理的数据达到100万个的时候，时间复杂度分别为$O(n^2)$和$O(e^n)$的算法，运行时间简直就是天壤之别。所以我们才要研究一个问题是否具有多项式时间的算法。</p>
+</li>
+<li><p><strong>NP问题</strong>：算起来不确定快不快的问题，但是我们可以快速验证这个问题的解。<br> 能在多项式时间内验证得出一个正确解的问题。(NP:Nondeterministic polynominal，非确定性多项式)。</p>
+<p> 这里可以清楚的看出<strong>P类问题是NP类问题的子集</strong>（即存在多项式时间算法的问题，总能在多项式时间内验证它）个人理解NP类问题就是，不知道这个问题存不存在一个多项式时间的算法，所以叫非确定性（non-deterministic）。</p>
+<p> 但是我们可以在多项式时间内验证并得出这个问题的一个正确解。举个例子：著名的NP类问题：旅行家推销问题(TSP)。即有一个推销员，要到n个城市推销商品，他要找出一个包含所有n个城市的环路，这个环路路径小于a。我们知道这个问题如果单纯的用枚举法来列举的话会有(n-1)! 种，已经不是多项式时间的算法了，(注：阶乘算法比多项式的复杂)。那怎么办呢？我们可以用猜的，假设人品爆炸猜几次就猜中了一条小于长度a的路径，TSP问题解决了，皆大欢喜。可是，我不可能每次都猜的那么准，也许我要猜完所有种方案呢？所以我们说，这是一个NP类问题。也就是，我们能在多项式的时间内验证并得出问题的正确解，可是我们却不知道该问题是否存在一个多项式时间的算法，每次都能解决他(注意，这里是不知道，不是不存在)。</p>
+<p> 所以这就引出了这类讨论的一个千年问题：是否 NP类问题&#x3D;P类问题？</p>
+<p> 即，是否所有能在多项式时间内验证得出正确解的问题，都是具有多项式时间算法的问题呢？</p>
+<p> 为了证明这个千古难题，科学家想出了很多办法。其中之一就是问题的约化。所谓问题约化就是，可以用问题B的算法来解决A ，我们就说问题A可以约化成问题B。举个例子：一元一次方程的求解，跟二元一次方程的求解，我们知道，只要能求解二元一次方程，那就可以用二元一次方程的解法来求解一元一次方程，只需要将一元一次方程加上y，并附加一个方程y&#x3D;0就可以将一元一次方程变形为一个二元一次方程，然后用二元一次方程的解法来求解这个方程。注意，这里二元一次方程的解法会比一元一次的复杂。所以我们说，只需要找到解二元一次方程的规则性解法，那就能用这个规则性解法来求解一元一次方程。从这里也可以看出，约化是具有传递性的，如A约化到B，B约化到C，A就可以约化到C，同时不断约化下去，我们会发现一个很惊人的特性，就是他一定会存在一个最大的问题，而我们只需要解决了这个问题，那其下的所有问题也就解决啦！这就是我们所说的NPC问题的概念！！！</p>
+<p> 引到NP问题里就是，对于同一类的所有的NP类问题，若他们都可以在多项式时间内约化成最难的一个NP类问题，（我们直观的认为，被约化成的问题应具有比前一个问题更复杂的时间复杂度）当我们针对这个时间复杂度最高的超级NP问题要是能找到他的多项式时间算法的话，那就等于变向的证明了其下的所有问题都是存在多项式算法的，即NP&#x3D;P！！！！给出NPC问题定义。</p>
+</li>
+<li><p><strong>NP-complete问题</strong>：属于NP问题，且属于NP-hard问题。<br> 存在这样一个NP问题，所有的NP问题都可以约化成它。换句话说，只要解决了这个问题，那么所有的NP问题都解决了。其定义要满足2个条件：</p>
+<p> 首先，它得是一个NP问题；然后，所有的NP问题都可以约化到它。要证明npc问题的思路就是： 先证明它至少是一个NP问题，再证明其中一个已知的NPC问题能约化到它。</p>
+</li>
+<li><p><strong>NP-hard问题</strong>：比NP问题都要难的问题。<br> NP-Hard问题是这样一种问题，它满足NPC问题定义的第二条但不一定要满足第一条（就是说，NP-Hard问题要比 NPC问题的范围广，NP-Hard问题没有限定属于NP），即所有的NP问题都能约化到它，但是它不一定是一个NP问题。<br> <img src="/../images/optimization/09.png"></p>
+</li>
+</ol>
+<h2 id="3-回顾"><a href="#3-回顾" class="headerlink" title="3 回顾"></a>3 回顾</h2><h3 id="1-线性规划-linear-Programming"><a href="#1-线性规划-linear-Programming" class="headerlink" title="1 线性规划 (linear Programming)"></a>1 线性规划 (linear Programming)</h3><p><img src="/../images/optimization/01.png"><br>运筹学、数学规划（<strong>Math Programming</strong>）问题的数学表达式，由自变量（<strong>Variables</strong>）、目标函数（<strong>Objective Function</strong>）和约束条件（<strong>Constraints</strong>)组成，所有优化问题本质上都可以化简为由它们组成的数学表达式，然后求解满足约束条件下使得目标函数最大&#x2F;小的变量的值。</p>
+<p>如上图，当自变量是连续的，目标函数和不等式是线性的时候，该问题被称为线性规划问题。线性规划因其具有的良好性质（例如，最优解必定出现在极点），可以用单纯型法（<strong>Simplex Method</strong>）或内点算法（<strong>Interior Method</strong>）高效地求解，熟悉算法复杂度的童鞋，知道它是多项式时间可解的（<strong>Polynomial Time Solvable–O（n^k）</strong>）。这里n表示自变量个数。</p>
+<p>可行域（<strong>Feasible Set</strong>）：可行解的集合。如下图，阴影区域（多面体、<strong>Polyhedron</strong>）即为三个线性不等式（半平面）组成的可行域。</p>
+<p><img src="/../images/optimization/02.png"></p>
+<h3 id="2-整数规划-Integer-Programming"><a href="#2-整数规划-Integer-Programming" class="headerlink" title="2 整数规划 (Integer Programming)"></a>2 整数规划 (Integer Programming)</h3><p>整数规划，或者离散优化（<strong>Discrete Optimization</strong>），是指数学规划问题中自变量存在整数。与线性规划连续的可行域不同，整数规划的可行域是离散的。<br><img src="/../images/optimization/03.png"><br>如上图，蓝线依旧代表线性不等式，但是这里x,y被约束成整数变量，因此可行域变成了红线区域内的9个离散的点。</p>
+<p><strong>凸包（Convex Hull）</strong>：整数规划所有可行点的凸包围，即图中红线组成的多面体（想象多维的情况）。凸包是未知的，已知的是蓝线的不等式，并且凸包是非常难求解的，或者形成凸包需要指数数量级的线性不等式（图中红线）。如果知道了凸包的所有线性表示，那么整数规划问题就可以等价为求解一个凸包表示的线性规划问题。</p>
+<p>另外，除了整数规划，还有混合整数规划（<strong>Mixed Integer Programming, MIP</strong>），即自变量既包含整数也有连续变量。如下图：<br><img src="/../images/optimization/04.png"><br>x是连续的，y被约束成整数变量，这时候可行域变成了4条离散的橘黄色线段+4处的红色整数点（0,4)。课后作业，求图中的凸包。</p>
+<p>整数规划的精确算法通常需要用到分支定界法（<strong>Branch and Bound Method</strong>）,以及增加分支定界效率的各种技巧，例如割平面方法（<strong>Cutting Planes Method</strong>）。总的来说，求解整数规划的精确解是NP难的，也就是指数级算法复杂度（<strong>Exponential Time Solvable</strong>）。</p>
+<p>怎么来理解指数级复杂度呢？假设这里的整数是0,1变量，那么我们可以简单地理解为算法复杂度是2^n（需要解2^n个线性规划问题）。也就是说，每增加一个0，1变量，求解的速度就有可能要增加一倍！例如求解n&#x3D;100的整数规划问题需要1小时，那么求解n&#x3D;101的规模可能会需要2小时，n&#x3D;102需要4小时，n&#x3D;105需要32小时。。这就是<strong>指数爆炸</strong>！</p>
+<p>因此，整数规划问题被看作数学规划里、甚至是<strong>世界上最难的问题</strong>之一，被很多其他领域（例如机器学习）认为是不可追踪（<strong>Intractable</strong>）的问题，也就是他们直接放弃治疗了。</p>
+<p>作为研究世界上最难问题的学者，想出了解决整数规划问题的各种其他途径，例如近似算法（<strong>Approximation Algorithms</strong>），启发式算法（<strong>Heuristic Algorithms</strong>），遗传算法（<strong>Evolution Algorithms, Meta-Heuristic</strong>）等等。它们虽然不能求得整数规划的最优解，但是却能在短时间（通常多项式时间）内给出一个较好的可行解</p>
+<h3 id="3-组合优化-Combinatorial-Optimization"><a href="#3-组合优化-Combinatorial-Optimization" class="headerlink" title="3 组合优化 (Combinatorial Optimization)"></a>3 组合优化 (Combinatorial Optimization)</h3><p>通俗的讲，我把组合优化理解为，在组合优化种可能性里找出最优的方案。假设自变量为n，用强力搜索法（<em>Brute-force Algorithm</em>）来解组合优化的算法复杂度最坏需要<em>n的阶乘</em>！什么概念？这比指数爆炸还要可怕！</p>
+<p>从这个意义上讲，组合优化是整数规划的子集。的确，绝大多数组合优化问题都可以被建模成（混合）整数规划模型来求解。但是似乎学术圈更多地把组合优化与图（<strong>Graph</strong>）优化以及网络流（<strong>Network Flow</strong>）优化联系在一起，并且最终目标不在精确解，而是近似解。</p>
+<p>下面给出一个经典的组合优化例子-最大流问题（<strong>Max Flow Problem</strong>）：<br><img src="/../images/optimization/05.png"><br>给定一张图G（V，E），V是点（<strong>Node</strong>）的集合，E是边（<strong>Edge</strong>)的集合。该问题试图从点0到5导流最大的流量，边上的数字代表该条边的最大流量，因此形成了约束条件–每条边的流量不得超过该条边的限额。自然而然地，该问题可以被建模成一个整数规划问题。</p>
+<p>我们跳过模型和算法，直观的判断该问题的算法复杂度大概为多少。设想从0出发，有俩种可能线路，0到1以及0到2；从1和2出发，有分别有俩种可能的线路。因此，可以初步判断，改问题如果用强力算法（穷举法），算法复杂度将为指数级！</p>
+<p>但是聪明的组合优化学家，把这个看似指数级算法复杂度的问题，用巧妙的算法多项式时间便可求解出最优解。</p>
+<h3 id="4-非凸优化-Non-Convex-Optimization"><a href="#4-非凸优化-Non-Convex-Optimization" class="headerlink" title="4 非凸优化 (Non-Convex Optimization)"></a>4 非凸优化 (Non-Convex Optimization)</h3><p>凸（<strong>Convex</strong>） VS 非凸的概念，数学定义就不写了，介绍个直观判断一个集合是否为Convex的方法，如下图：<br><img src="/../images/optimization/06.png"><br>简单的测试一个集合是不是凸的，只要任意取集合中的俩个点并连线，如果说连线段完全被包含在此集合中，那么这个集合就是凸集，例如左图所示。</p>
+<p>凸优化有个非常重要的定理，即任何局部最优解即为全局最优解。由于这个性质，只要设计一个较为简单的局部算法，例如贪婪算法（<strong>Greedy Algorithm</strong>）或梯度下降法（<strong>Gradient Decent</strong>），收敛求得的局部最优解即为全局最优。因此求解凸优化问题相对来说是比较高效的。这也是为什么机器学习中凸优化的模型非常多，毕竟机器学习处理大数据，需要高效的算法。</p>
+<p>而非凸优化问题被认为是非常难求解的，因为可行域集合可能存在无数个局部最优点，通常求解全局最优的算法复杂度是指数级的（NP难）。如下图：<br><img src="/../images/optimization/07.png"><br>最经典的算法要算蒙特卡罗投点法(<em>Monte Carlo Algorithm</em>)了，大概思想便是随便投个点，然后在附近区域（可以假设convex)用2中方法的进行搜索，得到局部最优值。然后随机再投个点，再找到局部最优点。如此反复，直到满足终止条件。</p>
+<h3 id="5-整数规划与非凸优化的关系"><a href="#5-整数规划与非凸优化的关系" class="headerlink" title="5 整数规划与非凸优化的关系"></a>5 整数规划与非凸优化的关系</h3><p>（混合）整数规划被称为极度非凸问题（<strong>highly nonconvex problem</strong>），如下图：<br><img src="/../images/optimization/08.png"><br>实心黑点组成的集合，是一个离散集，按照4中判断一个集合是否为凸集的技巧，我们很容易验证这个离散集是非凸的，并且相比4中的非凸集更甚。因此整数规划问题也是一个非凸优化问题。</p>
+<h3 id="6-整数规划、非凸优化的重要性"><a href="#6-整数规划、非凸优化的重要性" class="headerlink" title="6 整数规划、非凸优化的重要性"></a>6 整数规划、非凸优化的重要性</h3><p>对现实社会各行各业问题数学建模的时候，整数变量有时是不可避免的。例如：x辆车，y个人。x，y这里便是整数变量，小数是没有意义的。</p>
+<p>决策变量(<strong>Decision Varible</strong>): x&#x3D;{0,1}.  </p>
+<p>0&#x2F;1变量被广泛地应用在商业和决策领域。我们假设变量x&#x3D;{0,1}，当x&#x3D;1的时候，我们便可以建模执行x这个决策；x&#x3D;0，则表示不执行。这样引入决策变量x的建模技巧，在工业界案例中屡见不鲜。</p>
+<p>从这些案例，<strong>社会是由一个个离散变量组成的</strong>。</p>
+<p>说到这里，当然不能否定了凸优化和连续优化的作用，科学的本质便是由简到难，先把简单问题研究透彻，然后把复杂问题简化为求解一个个的简单问题。<em>求解整数规划便是利用分支定界法求解一个个线性规划问题，非凸优化同样如此。</em></p>
+]]></content>
+      <categories>
+        <category>Optimization</category>
+      </categories>
+      <tags>
+        <tag>optimization</tag>
+        <tag>concept</tag>
       </tags>
   </entry>
 </search>
