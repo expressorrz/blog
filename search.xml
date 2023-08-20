@@ -1,65 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Convolutional Neural Networks (CNN)</title>
-    <url>/2023/05/26/Convolutional-Neural-Networks-CNN/</url>
-    <content><![CDATA[<h1 id="1-CNN"><a href="#1-CNN" class="headerlink" title="1 CNN"></a>1 CNN</h1><h2 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h2><p>卷积神经网络（Convolutional Neural Networks, CNNs）是一种深度学习模型，具有以下优点：</p>
-<ol>
-<li>对于图像和视频等二维数据，CNNs具有很强的特征提取能力，可以从原始数据中自动学习出具有高层次抽象特征的表示。这些特征对于图像分类、物体检测、图像分割等任务非常有用。</li>
-<li>CNNs的卷积操作可以对输入数据进行参数共享，减少了模型参数数量，降低了过拟合的风险。</li>
-<li>CNNs可以通过池化层对特征图进行下采样，减小特征图的尺寸和数量，进一步降低了模型的计算复杂度。</li>
-<li>CNNs可以通过堆叠多个卷积层和池化层来构建深层网络结构，这些网络可以自动学习出更复杂、更高层次的特征表示，从而提高了模型的分类和识别能力。</li>
-<li>对于时序数据，CNNs可以通过卷积操作和池化操作来提取时间序列数据中的重要特征，适用于语音识别、自然语言处理等任务。</li>
-</ol>
-<p>总之，CNNs是一种功能强大的深度学习模型，在计算机视觉、自然语言处理和语音识别等领域都取得了非常出色的表现。</p>
-<h2 id="1-2-计算公式"><a href="#1-2-计算公式" class="headerlink" title="1.2 计算公式"></a>1.2 计算公式</h2><p>卷积神经网络（Convolutional Neural Network, CNN）是一种广泛应用于计算机视觉领域的深度学习模型。它是一种前向传递的神经网络，其中卷积层是其核心组成部分，该层对输入数据进行卷积操作以提取其特征。下面，我们将对卷积层的公式进行推导。</p>
-<p>假设我们有一个输入数据 $x$，它是一个形状为 $(C_{in}, H_{in}, W_{in})$ 的三维张量，其中 $C_{in}$ 表示输入数据的通道数，$H_{in}$ 和 $W_{in}$ 表示输入数据的高度和宽度。我们还有一个大小为 $(C_{out}, C_{in}, K, K)$ 的卷积核 $w$，其中 $C_{out}$ 表示卷积核的通道数，$K$ 表示卷积核的大小。</p>
-<p>在卷积层中，我们将卷积核与输入数据进行卷积操作，得到一个形状为 $(C_{out}, H_{out}, W_{out})$ 的输出数据 $y$，其中 $H_{out}$ 和 $W_{out}$ 表示输出数据的高度和宽度。输出数据的计算公式如下：</p>
-<p>$$y_{c,i,j} &#x3D; \sum_{p&#x3D;0}^{K-1}\sum_{q&#x3D;0}^{K-1}\sum_{k&#x3D;0}^{C_{in}-1}w_{c,k,p,q}x_{k,i+p,j+q}+b_c$$</p>
-<p>其中，$y_{c,i,j}$ 表示输出数据在第 $c$ 个通道、第 $i$ 行、第 $j$ 列的值，$w_{c,k,p,q}$ 表示卷积核在第 $c$ 个通道、第 $k$ 个通道、第 $p$ 行、第 $q$ 列的值，$x_{k,i+p,j+q}$ 表示输入数据在第 $k$ 个通道、第 $i+p$ 行、第 $j+q$ 列的值，$b_c$ 表示偏置项。</p>
-<p>在卷积操作过程中，我们通常会对输入数据进行边界填充（Padding）和步长（Stride）操作。边界填充可以在输入数据的周围添加一圈值为零的像素，以便在进行卷积操作时保留输入数据的边界信息。步长可以控制卷积核在输入数据上的滑动速度，从而控制输出数据的大小。假设我们的边界填充大小为 $P$，步长大小为 $S$，则输出数据的大小可以通过以下公式计算：</p>
-<p>$$H_{out} &#x3D; \lfloor \frac{H_{in} - K + 2P}{S} \rfloor + 1$$</p>
-<h2 id="1-3-BN层的作用"><a href="#1-3-BN层的作用" class="headerlink" title="1.3 BN层的作用"></a>1.3 BN层的作用</h2><p>Batch normalization is a technique used in deep learning models, particularly in convolutional neural networks (CNNs), to normalize the input to each activation layer, typically before the activation function is applied. The batch normalization layer is usually inserted between the convolutional layer and the activation layer. The purpose of batch normalization is to improve the training stability of the neural network by reducing internal covariate shift, which is a phenomenon that occurs when the distribution of the output of one layer changes as the distribution of the input to the layer changes during training.</p>
-<p>The batch normalization layer normalizes the activations of each layer in a mini-batch, which is a small subset of the training data that is processed together in a single forward or backward pass through the network. Specifically, the batch normalization layer computes the mean and variance of the activations over the mini-batch, and then applies a linear transformation and a scaling operation to the normalized activations. The mean and variance are estimated using the mini-batch statistics, which are updated during training.</p>
-<p>By normalizing the activations, batch normalization reduces the dependence of the gradients on the scale of the parameters, which can speed up convergence during training. It also regularizes the network by adding noise to the activations, which can reduce overfitting. Overall, batch normalization has been shown to be an effective technique for improving the performance of deep neural networks, particularly in computer vision tasks.</p>
-<h2 id="1-4-Flatten"><a href="#1-4-Flatten" class="headerlink" title="1.4 Flatten"></a>1.4 Flatten</h2><p>In a Convolutional Neural Network (CNN), the “flatten” operation refers to the process of converting the multi-dimensional feature maps obtained from the convolutional and pooling layers into a one-dimensional vector that can be fed into a fully connected neural network layer.</p>
-<p>In more technical terms, after the convolutional and pooling layers, the feature maps are typically represented as a 3D tensor, with dimensions (height, width, depth). The “flatten” operation then reshapes this 3D tensor into a 1D vector of size (height x width x depth), which can be used as the input to a fully connected layer.</p>
-<p>The purpose of flattening is to transform the spatially organized feature maps into a linear structure that can be processed by a traditional fully connected neural network layer. This allows the network to learn complex relationships between the extracted features and the target outputs, leading to better accuracy in classification or regression tasks.</p>
-<p>Overall, the “flatten” operation is an essential step in the design of CNNs, as it enables the integration of both convolutional and fully connected layers to achieve powerful deep learning models.</p>
-<h1 id="2-MSCNN"><a href="#2-MSCNN" class="headerlink" title="2 MSCNN"></a>2 MSCNN</h1><h2 id="2-1-原理"><a href="#2-1-原理" class="headerlink" title="2.1 原理"></a>2.1 原理</h2><p>MSCNN是一种用于图像分类的深度卷积神经网络，其计算表达式如下：</p>
-<ol>
-<li>输入层：将输入图像转换为一个三维张量，其中第一维表示图像的高度，第二维表示图像的宽度，第三维表示图像的颜色通道数（如RGB图像为3，灰度图像为1）。</li>
-<li>卷积层：使用多个卷积核对输入张量进行卷积操作，生成多个特征图。每个卷积核的大小为k_h x k_w x k_c，其中k_h、k_w分别表示卷积核的高度和宽度，k_c表示卷积核的深度（即与输入张量的颜色通道数相同）。对于每个卷积核，将其与输入张量进行卷积操作，并加上一个偏置项，得到一个特征图。卷积操作采用的步长为s，通常使用0填充保持特征图大小不变。假设有n个卷积核，那么卷积层的输出为一个n x h_out x w_out的三维张量，其中h_out和w_out分别表示特征图的高度和宽度。</li>
-<li>ReLU层：对卷积层的输出进行ReLU激活函数操作，即将所有小于0的值替换为0，保持所有大于等于0的值不变。</li>
-<li>池化层：对ReLU层的输出进行下采样操作，通常使用最大池化或平均池化。最大池化将每个特征图分成若干个不重叠的区域，对每个区域取最大值作为输出；平均池化则取每个区域的平均值作为输出。池化操作的大小为p_h x p_w，其中p_h、p_w分别表示池化区域的高度和宽度。池化操作采用的步长为s，通常不使用填充。假设采用最大池化，那么池化层的输出为一个n x h_pool x w_pool的三维张量，其中h_pool和w_pool分别表示下采样后的特征图的高度和宽度。</li>
-<li>全连接层：将池化层的输出展开为一个一维向量，并与一个权重矩阵相乘，再加上一个偏置项，得到一个向量。将该向量作为全连接层的输入，再进行ReLU激活函数操作，得到输出向量。全连接层通常用于将卷积层提取的特征映射到类别空间。</li>
-<li>Softmax层：对全连接层的输出进行softmax操作，将输出向量映射到类别概率分布上</li>
-</ol>
-<h2 id="2-2-公式"><a href="#2-2-公式" class="headerlink" title="2.2 公式"></a>2.2 公式</h2><p>具体来说，MSCNN的计算表达式可以用以下公式表示：</p>
-<h3 id="2-2-1-输入层"><a href="#2-2-1-输入层" class="headerlink" title="2.2.1 输入层"></a>2.2.1 输入层</h3><p>$$X\in \mathbb{R}^{H\times W\times C}$$</p>
-<p>其中$H$表示输入图像的高度，$W$表示输入图像的宽度，$C$表示输入图像的颜色通道数。</p>
-<h3 id="2-2-2-卷积层"><a href="#2-2-2-卷积层" class="headerlink" title="2.2.2 卷积层"></a>2.2.2 卷积层</h3><p>$$Z_{i,j,k} &#x3D; \sum_{u&#x3D;0}^{k_h-1}\sum_{v&#x3D;0}^{k_w-1}\sum_{c&#x3D;0}^{k_c-1}w_{u,v,c,i,k}X_{s_h\times i+u,s_w\times j+v,c}+b_i$$</p>
-<p>其中$Z_{i,j,k}$表示第$i$个卷积核在位置$(j,k)$的特征图值，$w_{u,v,c,i,k}$表示第$i$个卷积核在位置$(u,v,c)$的权重值，$b_i$表示第$i$个卷积核的偏置项，$s_h$和$s_w$分别表示卷积核的垂直和水平步长。</p>
-<h3 id="2-2-3-ReLU层"><a href="#2-2-3-ReLU层" class="headerlink" title="2.2.3 ReLU层"></a>2.2.3 ReLU层</h3><p>$$Y_{i,j,k} &#x3D; \max(0,Z_{i,j,k})$$</p>
-<p>其中$Y_{i,j,k}$表示ReLU层在位置$(j,k)$的输出值。</p>
-<h3 id="2-2-4-池化层"><a href="#2-2-4-池化层" class="headerlink" title="2.2.4 池化层"></a>2.2.4 池化层</h3><p>$$O_{i,j,k} &#x3D; \frac{1}{p_h\times p_w}\max_{u&#x3D;0}^{p_h-1}\max_{v&#x3D;0}^{p_w-1}Y_{i,s_h\times j+u,s_w\times k+v}$$</p>
-<p>其中$O_{i,j,k}$表示最大池化层在位置$(j,k)$的输出值，$p_h$和$p_w$分别表示池化区域的垂直和水平大小。</p>
-<h3 id="2-2-5-全连接层"><a href="#2-2-5-全连接层" class="headerlink" title="2.2.5 全连接层"></a>2.2.5 全连接层</h3><p>$$U &#x3D; \text{flatten}(O)$$</p>
-<p>$$V &#x3D; \max(0,WU+b)$$</p>
-<p>其中$U$表示池化层的输出向量，$\text{flatten}(\cdot)$表示将张量展开为一维向量，$W$表示全连接层的权重矩阵，$b$表示全连接层的偏置项，$V$表示全连接层的输出向量。</p>
-<h3 id="2-2-6-Softmax层"><a href="#2-2-6-Softmax层" class="headerlink" title="2.2.6 Softmax层"></a>2.2.6 Softmax层</h3><p>$$P_k &#x3D; \frac{\exp(v_k)}{\sum_{j&#x3D;1}^{K}\exp(v_j)}$$</p>
-<p>其中$P_k$表示第$k$个类别的概率值，$v_k$表示全连接层输出向量的第$k$个元素。$K$表示总共的类别数目。</p>
-]]></content>
-      <categories>
-        <category>Deep Learning</category>
-      </categories>
-      <tags>
-        <tag>deep learning</tag>
-        <tag>concept</tag>
-        <tag>cnn</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hexo</title>
     <url>/2023/05/26/Hexo/</url>
     <content><![CDATA[<p>Welcome to <strong>Expressoz</strong>! This is my first post. </p>
@@ -86,82 +27,6 @@
         <tag>git</tag>
         <tag>node</tag>
         <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Comparison</title>
-    <url>/2023/05/26/Comparison/</url>
-    <content><![CDATA[<h2 id="1-Reinforcement-Leanring-and-Branch-and-Bound"><a href="#1-Reinforcement-Leanring-and-Branch-and-Bound" class="headerlink" title="1. Reinforcement Leanring and Branch and Bound"></a>1. Reinforcement Leanring and Branch and Bound</h2><p>Reinforcement Learning (RL) and Branch and Bound (BB) are two distinct optimization techniques used in different domains. RL is a type of machine learning in which an agent learns to take actions in an environment to maximize a cumulative reward signal. On the other hand, BB is an algorithmic approach to solve optimization problems by iteratively partitioning the search space into smaller subproblems.</p>
-<p>One key difference between RL and BB is that RL is a learning-based technique, whereas BB is a deterministic algorithmic approach. RL relies on the concept of trial and error, where the agent tries different actions in the environment and learns from the rewards received to adjust its policy accordingly. In contrast, BB involves partitioning the search space into smaller subproblems and recursively solving them to obtain the optimal solution.</p>
-<p>Another key difference is the type of problems they are best suited for. RL is particularly useful in problems where there is a large state space, and the optimal policy is not known in advance. RL has been successfully applied in various domains, such as game playing, robotics, and autonomous driving. On the other hand, BB is better suited for problems where the search space can be partitioned into smaller subproblems, and the objective function is known. BB has been used in optimization problems such as linear programming, mixed-integer programming, and constraint satisfaction problems.</p>
-<p>In summary, while both RL and BB are optimization techniques, they differ in their approach and problem domain. RL is a learning-based approach that works well in problems with large state spaces, while BB is an algorithmic approach that works well in problems where the search space can be partitioned into smaller subproblems.</p>
-<hr>
-<p>Reinforcement Learning (RL) and Branch and Bound (BB) have their own advantages and disadvantages, which depend on the specific problem being addressed. Here are some of the key advantages and disadvantages of each:</p>
-<p>Advantages of Reinforcement Learning:</p>
-<p>Adaptable: RL can adapt to changing environments and learn optimal policies through experience.</p>
-<p>Generalizable: RL can be applied to a wide range of problem domains, including robotics, game playing, and recommendation systems.</p>
-<p>Scalable: RL can be applied to problems with large state and action spaces.</p>
-<p>Disadvantages of Reinforcement Learning:</p>
-<p>Data-intensive: RL requires large amounts of training data to learn optimal policies, which can be time-consuming and expensive to collect.</p>
-<p>High variance: RL algorithms can have high variance in their performance, meaning that their results may vary significantly with different random seeds or initial conditions.</p>
-<p>Exploration-exploitation tradeoff: RL algorithms need to balance between exploring the environment to learn new things and exploiting what they already know to maximize rewards. Finding the right balance can be challenging.</p>
-<p>Advantages of Branch and Bound:</p>
-<p>Guaranteed optimality: BB can guarantee finding the optimal solution for certain classes of optimization problems.</p>
-<p>Efficient: BB can be highly efficient for problems where the search space can be partitioned into smaller subproblems.</p>
-<p>Robust: BB can handle problems with nonlinear objective functions and nonlinear constraints.</p>
-<p>Disadvantages of Branch and Bound:</p>
-<p>Combinatorial explosion: BB can suffer from combinatorial explosion as the number of subproblems grows exponentially with the problem size.</p>
-<p>Requires problem-specific knowledge: BB requires knowledge of the problem structure to efficiently partition the search space into subproblems.</p>
-<p>Not scalable to large problems: BB may not be scalable to very large optimization problems due to the exponential growth of the search space.</p>
-<p>In summary, RL and BB have their own strengths and weaknesses, and the choice of which technique to use depends on the specific problem being addressed. RL is well-suited to problems with large state and action spaces that require adaptation and generalization, while BB is better suited to optimization problems that can be efficiently partitioned into smaller subproblems and require guaranteed optimality.</p>
-]]></content>
-      <tags>
-        <tag>optimization</tag>
-        <tag>B&amp;B</tag>
-        <tag>RL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Integer Programming</title>
-    <url>/2023/05/26/Integer-Programming/</url>
-    <content><![CDATA[<h2 id="1-分支定界法-Branch-and-Bound-Algorithm-B-amp-B"><a href="#1-分支定界法-Branch-and-Bound-Algorithm-B-amp-B" class="headerlink" title="1 分支定界法 (Branch and Bound Algorithm, B&amp;B)"></a>1 分支定界法 (Branch and Bound Algorithm, B&amp;B)</h2><h3 id="1-1-概念"><a href="#1-1-概念" class="headerlink" title="1.1 概念"></a>1.1 概念</h3><p>整数规划的精确算法框架中最核心的便是B&amp;B，以及增加分支定界效率的各种技巧，例如<em>割平面方法</em>（<em>Cutting Planes Method</em>）等。假设是求解目标函数最小化的问题，它的核心思想便是把这个NP难的问题<em>分解成求解一个个的线性规划（LP）问题</em>（每个LP问题是多项式时间可解），并且在求解的过程中实时追踪原问题的上界（<em>最优可行解</em>）和下界（<em>最优线性松弛解</em>）。我们先看个简单的例子以便理解。<br>$$<br>\begin{aligned}<br>\min &amp; x_1 + 3 x_2 - x_3 + 2 x_4 - x_5 , \<br>s.t. \quad &amp; x_1 + x_2 - x_5 \geq 5 , \<br>&amp; x_1 - x_3 + x_4 \geq 1 , \<br>&amp;x_1 \dots x_4 \quad is \quad {0,1}, \<br>&amp;x_5 \geq 0</p>
-<p>\end{aligned}<br>$$<br><img src="/../images/optimization/10.png"></p>
-<p>这里假设有4个{0,1}变量，x1..x4，以及1个连续变量x5。图中最顶上的点叫<strong>Root Node</strong>，通过把整数变量x1..x4<em>线性松弛(Linear Relaxation)<em>，例如这里松弛成[0,1]区间内的连续变量，然后求解相应的松弛后的线性规划问题</em></em>(Linear Relaxation Problem)。求解该LRP问题所得的解（通常对于原问题来说是不可行的，因为x1..x4可能是小数），这个解便是该问题的<em>第一个下界（Lower Bound</em>）。</p>
-<p>为什么是下界呢？对于一个最小化问题，因为通过把{0,1}变量松弛成[0,1]，等于增加了可行解的个数（可行域的范围），这样该最小化问题就有可能得到比原问题更好（小）的解，因此松弛后的问题求得的解是原问题的下界（Lower Bound）。</p>
-<p>事实上，图中每一个点，都是一个松弛后的线性规划（LRP）问题的解。由于被松弛成了[0,1]间的连续变量，因此原问题中应属于{0,1}的自变量，例如x1，通过求解线性规划，得到的解可能是0.4，显然不满足原问题的条件。这时候，我们就需要做<em>分支（Branch）</em>,例如对Root Node做左右俩个分支，左边的分支可以是x1&#x3D;0，右边的分支是x1&#x3D;1。分支的意思，可以理解为在原本Root Node的LRP基础上，加上一个x&#x3D;0或1的约束条件。这样，通过加上这个约束条件，再解该问题，x1就必定等于0或1，x1也便是可行的。当然剩余的自变量x2..x4，由于没有类似的整数约束，还有可能是小数，因此我们还需要更多的分支。</p>
-<p>上图4个{0,1}变量，最坏的情况需要2^4次分支，也就是求解16个线性规划问题。那么图中红色的部分是什么意思呢？</p>
-<p>在接下来的分支里，如果求解一个Node的LRP的解是大于上界4的，例如4.5。那么这个时候，虽然我们还没找到这个点其下分支可能的可行解，但是如果继续对这个点进行分支，由于分支代表增加更多的约束，减少了可行解的个数，以后求得的解只会比4.5来得更差（大）。因此，从优化的角度，我们不可能从这个点以后的分支中找到比目前上界4更优的解，因此没有必要对4.5这个点继续再做分支，可以直接<em>删（Prune）掉</em>，也就是图中红色的区域。</p>
-<p>这就是分支定界里<em>定界</em>的重要性，它使得你不需要求解所有2^n个LRP问题，因为很多Node及其下面的分支，都被Prune了。</p>
-<p>Prune情况一：下界大于上界</p>
-<p>Prune情况二：该Node的LRP问题无解（Infeasible）。</p>
-<p>参考课件：<br><a href="https://studentnet.cs.manchester.ac.uk/pgt/2014/COMP60342/COMP60342-2015-lec4.BranchandBound.pdf">COMP60342-2015-lec4.BranchandBound.pdf (manchester.ac.uk)</a></p>
-<h3 id="1-2-“收敛性”"><a href="#1-2-“收敛性”" class="headerlink" title="1.2 “收敛性”"></a>1.2 “收敛性”</h3><p>这里的收敛不是分析意义上的收敛，而是算法、计算意义上的。上面我们提到分支定界法存在上界和下界，并且随着一个个Node LRP问题的求解，不断进行着更新。每当求得一个原问题的可行解（混合整数解），如果这个解的目标函数小于当前的最优可行解，那么就对上界进行更新。下界更新方式类似。</p>
-<p>分支定界法是一个**迭代算法(Iteration Algorithm)**，每次迭代都在求解LRP问题，收敛的准则是计算意义上的，例如可以设置当上界和下界非常接近（0.001）时，结束迭代。</p>
-<p>然而比起绝对差值更为流行的，是相对差值，也即分支定界法的Gap。它的计算方法，（上界-下界）&#x2F;上界。</p>
-<p>通常我们设置Gap &lt; 0.1%，就可把当前的最优可行解（上界）理解为该问题的全局最优解了，分支定界法随即<strong>终止（Terminate）</strong>。</p>
-<h3 id="1-3-处理技巧"><a href="#1-3-处理技巧" class="headerlink" title="1.3 处理技巧"></a>1.3 处理技巧</h3><h4 id="1-3-1-割平面方法-Branch-and-Cut-–-UserCut"><a href="#1-3-1-割平面方法-Branch-and-Cut-–-UserCut" class="headerlink" title="1.3.1 割平面方法(Branch-and-Cut) – UserCut"></a>1.3.1 割平面方法(Branch-and-Cut) – UserCut</h4><p>整数规划中的割平面方法，大致分为砍掉实数解的分割（cut，即一个线性不等式）和砍掉整数解的分割。前者对于原问题是一个valid inequality，而后者不是。<br><img src="/../images/optimization/11.png"><br>如上图，有这么一个整数规划问题，黑色线段是线性不等式，蓝色的点是离散的可行域，蓝色线段包围的空间是IP Hull（整数解形成的凸包，NP-hard to find，因为一旦找到，那么求解整数规划只需要求解凸包这个LP问题），在其外面黑色线段的包围是LP Hull（线性松弛解形成的凸包）。</p>
-<p>正是因为IP Hull和LP Hull中间的间隙，使得该LP的最优解是fractional（对于原问题infeasible）的，而这段间隙，对于LP（线性规划）来讲，是多余的搜索空间。如果我们在这个时候可以加上一个或多个线性不等式（cut），把无用空间完全“砍”掉，那么LP Hull &#x3D; IP Hull，这时我们就得到整数解了。</p>
-<p>当然一般情况没有这么好运，可以把无用空间完全砍掉。如上图，加上红色虚线这个cut，我们砍掉了红色阴影区域这部分无用空间。虽然没有把LP Hull直接缩小成IP Hull这么立竿见影，但对于求解原问题，由于减少了搜索空间，也是一种效率上的提升。</p>
-<p>另外值得注意的是，红色虚线的cut，对于原问题（IP Hull）也是满足的（valid），它砍掉的，只是实数部分无用的搜索空间。</p>
-<p>最后我们想象上图是分支定界法求解到其中一个node所解得的线性松弛解，那么如果该步骤在分支定界法所有（或部分）node上不断重复（recall that一个0-1规划每一次branch就等价于求解俩个LP问题，每个LP问题都是一个node），该方法就被称为Branch-and-Cut。</p>
-<p>而以上cut，在Cplex等优化求解器中，被称为UserCut。</p>
-<h4 id="1-3-2-割平面方法–LazyCut"><a href="#1-3-2-割平面方法–LazyCut" class="headerlink" title="1.3.2 割平面方法–LazyCut"></a>1.3.2 割平面方法–LazyCut</h4><p><img src="/../images/optimization/12.png"><br>上一节讲了砍掉实数解的cut，这一节我们讲讲砍掉整数解（feasible solution）的cut–LazyCut。</p>
-<p>如上图，我们有IP hull和LP hull，我们加上一个Lazy Constraints，这时候把顶上三个原问题的可行整数解也砍掉了。</p>
-<p>为什么要把原问题可行的整数解也cut掉呢？适用范围有哪些呢？</p>
-<p>割平面法最经典的应用，莫过于Travelling Salesman Problem（我老板的成名作）了。这个问题是每个学运筹学特别是组合优化必学的经典问题。</p>
-<p>而这个问题求解的关键，便是割平面方法– the subtour elimination constraints.</p>
-<p><img src="/../images/optimization/13.png"><br>如上图，TSP需要找从一点出发，遍历所有城市（1-6点）再回到出发点的cycle（回路）。为了简化问题，在master problem（初始问题）的表达式中，我们忽略subtour（小的cycle，例如上图4-5-6）约束（因为有指数级个数该约束），然后求解该IP问题。</p>
-<p>忽略掉subtour求得的IP问题虽然是整数可行解，但是其中可能存在subtour（如上图俩个subtour），因此其实并不是我们想要的解。这时候，我们设计一个启发式算法，来探测这些subtour，然后加上相应的cut砍掉这些subtour对应的整数解，然后再次求解IP。</p>
-<p>由此循环，直到求得的IP整数解中，不再存在subtour，这时候我们找到了最终问题的全局最优解。</p>
-<h2 id="2-启发式-x2F-近似算法-Heuristic-x2F-Approximation-Algorithms"><a href="#2-启发式-x2F-近似算法-Heuristic-x2F-Approximation-Algorithms" class="headerlink" title="2 启发式&#x2F;近似算法(Heuristic&#x2F;Approximation Algorithms)"></a>2 启发式&#x2F;近似算法(Heuristic&#x2F;Approximation Algorithms)</h2><p>作为研究世界上最难问题的学者，想出了解决整数规划问题的各种其他途径，例如近似算法（Approximation Algorithms），启发式算法（Heuristic Algorithms），遗传算法（Generic Algorithm），Evolutionary Algorithms等等。它们虽然不能求得整数规划的最优解，但是却能在短时间（通常多项式时间）内给出一个较好的可行解。</p>
-<p>启发式算法，通常采用<strong>贪心算法（Greedy Algorithm）</strong>，所得的解通常只是局部最优解，并且完全没有概念这个解到底有多“好”。</p>
-<p>近似算法，与启发式算法不一样，算法往往通过非常巧妙的设计，计算所得的解可以用严格的数学证明是“比较好”的，即所谓的<strong>近似率（Approximation Ratio）,R</strong>。也就是说，近似算法所得的解，可以被证明是全局最优解的R倍之内。这样该算法所得的解被认为是有保证的。</p>
-]]></content>
-      <categories>
-        <category>Optimization</category>
-      </categories>
-      <tags>
-        <tag>optimization</tag>
       </tags>
   </entry>
   <entry>
@@ -209,8 +74,8 @@
         <category>Edge Computing</category>
       </categories>
       <tags>
-        <tag>concept</tag>
         <tag>edge computing</tag>
+        <tag>concept</tag>
       </tags>
   </entry>
   <entry>
@@ -473,6 +338,141 @@
       <tags>
         <tag>concept</tag>
         <tag>optimization</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Integer Programming</title>
+    <url>/2023/05/26/Integer-Programming/</url>
+    <content><![CDATA[<h2 id="1-分支定界法-Branch-and-Bound-Algorithm-B-amp-B"><a href="#1-分支定界法-Branch-and-Bound-Algorithm-B-amp-B" class="headerlink" title="1 分支定界法 (Branch and Bound Algorithm, B&amp;B)"></a>1 分支定界法 (Branch and Bound Algorithm, B&amp;B)</h2><h3 id="1-1-概念"><a href="#1-1-概念" class="headerlink" title="1.1 概念"></a>1.1 概念</h3><p>整数规划的精确算法框架中最核心的便是B&amp;B，以及增加分支定界效率的各种技巧，例如<em>割平面方法</em>（<em>Cutting Planes Method</em>）等。假设是求解目标函数最小化的问题，它的核心思想便是把这个NP难的问题<em>分解成求解一个个的线性规划（LP）问题</em>（每个LP问题是多项式时间可解），并且在求解的过程中实时追踪原问题的上界（<em>最优可行解</em>）和下界（<em>最优线性松弛解</em>）。我们先看个简单的例子以便理解。<br>$$<br>\begin{aligned}<br>\min &amp; x_1 + 3 x_2 - x_3 + 2 x_4 - x_5 , \<br>s.t. \quad &amp; x_1 + x_2 - x_5 \geq 5 , \<br>&amp; x_1 - x_3 + x_4 \geq 1 , \<br>&amp;x_1 \dots x_4 \quad is \quad {0,1}, \<br>&amp;x_5 \geq 0</p>
+<p>\end{aligned}<br>$$<br><img src="/../images/optimization/10.png"></p>
+<p>这里假设有4个{0,1}变量，x1..x4，以及1个连续变量x5。图中最顶上的点叫<strong>Root Node</strong>，通过把整数变量x1..x4<em>线性松弛(Linear Relaxation)<em>，例如这里松弛成[0,1]区间内的连续变量，然后求解相应的松弛后的线性规划问题</em></em>(Linear Relaxation Problem)。求解该LRP问题所得的解（通常对于原问题来说是不可行的，因为x1..x4可能是小数），这个解便是该问题的<em>第一个下界（Lower Bound</em>）。</p>
+<p>为什么是下界呢？对于一个最小化问题，因为通过把{0,1}变量松弛成[0,1]，等于增加了可行解的个数（可行域的范围），这样该最小化问题就有可能得到比原问题更好（小）的解，因此松弛后的问题求得的解是原问题的下界（Lower Bound）。</p>
+<p>事实上，图中每一个点，都是一个松弛后的线性规划（LRP）问题的解。由于被松弛成了[0,1]间的连续变量，因此原问题中应属于{0,1}的自变量，例如x1，通过求解线性规划，得到的解可能是0.4，显然不满足原问题的条件。这时候，我们就需要做<em>分支（Branch）</em>,例如对Root Node做左右俩个分支，左边的分支可以是x1&#x3D;0，右边的分支是x1&#x3D;1。分支的意思，可以理解为在原本Root Node的LRP基础上，加上一个x&#x3D;0或1的约束条件。这样，通过加上这个约束条件，再解该问题，x1就必定等于0或1，x1也便是可行的。当然剩余的自变量x2..x4，由于没有类似的整数约束，还有可能是小数，因此我们还需要更多的分支。</p>
+<p>上图4个{0,1}变量，最坏的情况需要2^4次分支，也就是求解16个线性规划问题。那么图中红色的部分是什么意思呢？</p>
+<p>在接下来的分支里，如果求解一个Node的LRP的解是大于上界4的，例如4.5。那么这个时候，虽然我们还没找到这个点其下分支可能的可行解，但是如果继续对这个点进行分支，由于分支代表增加更多的约束，减少了可行解的个数，以后求得的解只会比4.5来得更差（大）。因此，从优化的角度，我们不可能从这个点以后的分支中找到比目前上界4更优的解，因此没有必要对4.5这个点继续再做分支，可以直接<em>删（Prune）掉</em>，也就是图中红色的区域。</p>
+<p>这就是分支定界里<em>定界</em>的重要性，它使得你不需要求解所有2^n个LRP问题，因为很多Node及其下面的分支，都被Prune了。</p>
+<p>Prune情况一：下界大于上界</p>
+<p>Prune情况二：该Node的LRP问题无解（Infeasible）。</p>
+<p>参考课件：<br><a href="https://studentnet.cs.manchester.ac.uk/pgt/2014/COMP60342/COMP60342-2015-lec4.BranchandBound.pdf">COMP60342-2015-lec4.BranchandBound.pdf (manchester.ac.uk)</a></p>
+<h3 id="1-2-“收敛性”"><a href="#1-2-“收敛性”" class="headerlink" title="1.2 “收敛性”"></a>1.2 “收敛性”</h3><p>这里的收敛不是分析意义上的收敛，而是算法、计算意义上的。上面我们提到分支定界法存在上界和下界，并且随着一个个Node LRP问题的求解，不断进行着更新。每当求得一个原问题的可行解（混合整数解），如果这个解的目标函数小于当前的最优可行解，那么就对上界进行更新。下界更新方式类似。</p>
+<p>分支定界法是一个**迭代算法(Iteration Algorithm)**，每次迭代都在求解LRP问题，收敛的准则是计算意义上的，例如可以设置当上界和下界非常接近（0.001）时，结束迭代。</p>
+<p>然而比起绝对差值更为流行的，是相对差值，也即分支定界法的Gap。它的计算方法，（上界-下界）&#x2F;上界。</p>
+<p>通常我们设置Gap &lt; 0.1%，就可把当前的最优可行解（上界）理解为该问题的全局最优解了，分支定界法随即<strong>终止（Terminate）</strong>。</p>
+<h3 id="1-3-处理技巧"><a href="#1-3-处理技巧" class="headerlink" title="1.3 处理技巧"></a>1.3 处理技巧</h3><h4 id="1-3-1-割平面方法-Branch-and-Cut-–-UserCut"><a href="#1-3-1-割平面方法-Branch-and-Cut-–-UserCut" class="headerlink" title="1.3.1 割平面方法(Branch-and-Cut) – UserCut"></a>1.3.1 割平面方法(Branch-and-Cut) – UserCut</h4><p>整数规划中的割平面方法，大致分为砍掉实数解的分割（cut，即一个线性不等式）和砍掉整数解的分割。前者对于原问题是一个valid inequality，而后者不是。<br><img src="/../images/optimization/11.png"><br>如上图，有这么一个整数规划问题，黑色线段是线性不等式，蓝色的点是离散的可行域，蓝色线段包围的空间是IP Hull（整数解形成的凸包，NP-hard to find，因为一旦找到，那么求解整数规划只需要求解凸包这个LP问题），在其外面黑色线段的包围是LP Hull（线性松弛解形成的凸包）。</p>
+<p>正是因为IP Hull和LP Hull中间的间隙，使得该LP的最优解是fractional（对于原问题infeasible）的，而这段间隙，对于LP（线性规划）来讲，是多余的搜索空间。如果我们在这个时候可以加上一个或多个线性不等式（cut），把无用空间完全“砍”掉，那么LP Hull &#x3D; IP Hull，这时我们就得到整数解了。</p>
+<p>当然一般情况没有这么好运，可以把无用空间完全砍掉。如上图，加上红色虚线这个cut，我们砍掉了红色阴影区域这部分无用空间。虽然没有把LP Hull直接缩小成IP Hull这么立竿见影，但对于求解原问题，由于减少了搜索空间，也是一种效率上的提升。</p>
+<p>另外值得注意的是，红色虚线的cut，对于原问题（IP Hull）也是满足的（valid），它砍掉的，只是实数部分无用的搜索空间。</p>
+<p>最后我们想象上图是分支定界法求解到其中一个node所解得的线性松弛解，那么如果该步骤在分支定界法所有（或部分）node上不断重复（recall that一个0-1规划每一次branch就等价于求解俩个LP问题，每个LP问题都是一个node），该方法就被称为Branch-and-Cut。</p>
+<p>而以上cut，在Cplex等优化求解器中，被称为UserCut。</p>
+<h4 id="1-3-2-割平面方法–LazyCut"><a href="#1-3-2-割平面方法–LazyCut" class="headerlink" title="1.3.2 割平面方法–LazyCut"></a>1.3.2 割平面方法–LazyCut</h4><p><img src="/../images/optimization/12.png"><br>上一节讲了砍掉实数解的cut，这一节我们讲讲砍掉整数解（feasible solution）的cut–LazyCut。</p>
+<p>如上图，我们有IP hull和LP hull，我们加上一个Lazy Constraints，这时候把顶上三个原问题的可行整数解也砍掉了。</p>
+<p>为什么要把原问题可行的整数解也cut掉呢？适用范围有哪些呢？</p>
+<p>割平面法最经典的应用，莫过于Travelling Salesman Problem（我老板的成名作）了。这个问题是每个学运筹学特别是组合优化必学的经典问题。</p>
+<p>而这个问题求解的关键，便是割平面方法– the subtour elimination constraints.</p>
+<p><img src="/../images/optimization/13.png"><br>如上图，TSP需要找从一点出发，遍历所有城市（1-6点）再回到出发点的cycle（回路）。为了简化问题，在master problem（初始问题）的表达式中，我们忽略subtour（小的cycle，例如上图4-5-6）约束（因为有指数级个数该约束），然后求解该IP问题。</p>
+<p>忽略掉subtour求得的IP问题虽然是整数可行解，但是其中可能存在subtour（如上图俩个subtour），因此其实并不是我们想要的解。这时候，我们设计一个启发式算法，来探测这些subtour，然后加上相应的cut砍掉这些subtour对应的整数解，然后再次求解IP。</p>
+<p>由此循环，直到求得的IP整数解中，不再存在subtour，这时候我们找到了最终问题的全局最优解。</p>
+<h2 id="2-启发式-x2F-近似算法-Heuristic-x2F-Approximation-Algorithms"><a href="#2-启发式-x2F-近似算法-Heuristic-x2F-Approximation-Algorithms" class="headerlink" title="2 启发式&#x2F;近似算法(Heuristic&#x2F;Approximation Algorithms)"></a>2 启发式&#x2F;近似算法(Heuristic&#x2F;Approximation Algorithms)</h2><p>作为研究世界上最难问题的学者，想出了解决整数规划问题的各种其他途径，例如近似算法（Approximation Algorithms），启发式算法（Heuristic Algorithms），遗传算法（Generic Algorithm），Evolutionary Algorithms等等。它们虽然不能求得整数规划的最优解，但是却能在短时间（通常多项式时间）内给出一个较好的可行解。</p>
+<p>启发式算法，通常采用<strong>贪心算法（Greedy Algorithm）</strong>，所得的解通常只是局部最优解，并且完全没有概念这个解到底有多“好”。</p>
+<p>近似算法，与启发式算法不一样，算法往往通过非常巧妙的设计，计算所得的解可以用严格的数学证明是“比较好”的，即所谓的<strong>近似率（Approximation Ratio）,R</strong>。也就是说，近似算法所得的解，可以被证明是全局最优解的R倍之内。这样该算法所得的解被认为是有保证的。</p>
+]]></content>
+      <categories>
+        <category>Optimization</category>
+      </categories>
+      <tags>
+        <tag>optimization</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Convolutional Neural Networks (CNN)</title>
+    <url>/2023/05/26/Convolutional-Neural-Networks-CNN/</url>
+    <content><![CDATA[<h1 id="1-CNN"><a href="#1-CNN" class="headerlink" title="1 CNN"></a>1 CNN</h1><h2 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h2><p>卷积神经网络（Convolutional Neural Networks, CNNs）是一种深度学习模型，具有以下优点：</p>
+<ol>
+<li>对于图像和视频等二维数据，CNNs具有很强的特征提取能力，可以从原始数据中自动学习出具有高层次抽象特征的表示。这些特征对于图像分类、物体检测、图像分割等任务非常有用。</li>
+<li>CNNs的卷积操作可以对输入数据进行参数共享，减少了模型参数数量，降低了过拟合的风险。</li>
+<li>CNNs可以通过池化层对特征图进行下采样，减小特征图的尺寸和数量，进一步降低了模型的计算复杂度。</li>
+<li>CNNs可以通过堆叠多个卷积层和池化层来构建深层网络结构，这些网络可以自动学习出更复杂、更高层次的特征表示，从而提高了模型的分类和识别能力。</li>
+<li>对于时序数据，CNNs可以通过卷积操作和池化操作来提取时间序列数据中的重要特征，适用于语音识别、自然语言处理等任务。</li>
+</ol>
+<p>总之，CNNs是一种功能强大的深度学习模型，在计算机视觉、自然语言处理和语音识别等领域都取得了非常出色的表现。</p>
+<h2 id="1-2-计算公式"><a href="#1-2-计算公式" class="headerlink" title="1.2 计算公式"></a>1.2 计算公式</h2><p>卷积神经网络（Convolutional Neural Network, CNN）是一种广泛应用于计算机视觉领域的深度学习模型。它是一种前向传递的神经网络，其中卷积层是其核心组成部分，该层对输入数据进行卷积操作以提取其特征。下面，我们将对卷积层的公式进行推导。</p>
+<p>假设我们有一个输入数据 $x$，它是一个形状为 $(C_{in}, H_{in}, W_{in})$ 的三维张量，其中 $C_{in}$ 表示输入数据的通道数，$H_{in}$ 和 $W_{in}$ 表示输入数据的高度和宽度。我们还有一个大小为 $(C_{out}, C_{in}, K, K)$ 的卷积核 $w$，其中 $C_{out}$ 表示卷积核的通道数，$K$ 表示卷积核的大小。</p>
+<p>在卷积层中，我们将卷积核与输入数据进行卷积操作，得到一个形状为 $(C_{out}, H_{out}, W_{out})$ 的输出数据 $y$，其中 $H_{out}$ 和 $W_{out}$ 表示输出数据的高度和宽度。输出数据的计算公式如下：</p>
+<p>$$y_{c,i,j} &#x3D; \sum_{p&#x3D;0}^{K-1}\sum_{q&#x3D;0}^{K-1}\sum_{k&#x3D;0}^{C_{in}-1}w_{c,k,p,q}x_{k,i+p,j+q}+b_c$$</p>
+<p>其中，$y_{c,i,j}$ 表示输出数据在第 $c$ 个通道、第 $i$ 行、第 $j$ 列的值，$w_{c,k,p,q}$ 表示卷积核在第 $c$ 个通道、第 $k$ 个通道、第 $p$ 行、第 $q$ 列的值，$x_{k,i+p,j+q}$ 表示输入数据在第 $k$ 个通道、第 $i+p$ 行、第 $j+q$ 列的值，$b_c$ 表示偏置项。</p>
+<p>在卷积操作过程中，我们通常会对输入数据进行边界填充（Padding）和步长（Stride）操作。边界填充可以在输入数据的周围添加一圈值为零的像素，以便在进行卷积操作时保留输入数据的边界信息。步长可以控制卷积核在输入数据上的滑动速度，从而控制输出数据的大小。假设我们的边界填充大小为 $P$，步长大小为 $S$，则输出数据的大小可以通过以下公式计算：</p>
+<p>$$H_{out} &#x3D; \lfloor \frac{H_{in} - K + 2P}{S} \rfloor + 1$$</p>
+<h2 id="1-3-BN层的作用"><a href="#1-3-BN层的作用" class="headerlink" title="1.3 BN层的作用"></a>1.3 BN层的作用</h2><p>Batch normalization is a technique used in deep learning models, particularly in convolutional neural networks (CNNs), to normalize the input to each activation layer, typically before the activation function is applied. The batch normalization layer is usually inserted between the convolutional layer and the activation layer. The purpose of batch normalization is to improve the training stability of the neural network by reducing internal covariate shift, which is a phenomenon that occurs when the distribution of the output of one layer changes as the distribution of the input to the layer changes during training.</p>
+<p>The batch normalization layer normalizes the activations of each layer in a mini-batch, which is a small subset of the training data that is processed together in a single forward or backward pass through the network. Specifically, the batch normalization layer computes the mean and variance of the activations over the mini-batch, and then applies a linear transformation and a scaling operation to the normalized activations. The mean and variance are estimated using the mini-batch statistics, which are updated during training.</p>
+<p>By normalizing the activations, batch normalization reduces the dependence of the gradients on the scale of the parameters, which can speed up convergence during training. It also regularizes the network by adding noise to the activations, which can reduce overfitting. Overall, batch normalization has been shown to be an effective technique for improving the performance of deep neural networks, particularly in computer vision tasks.</p>
+<h2 id="1-4-Flatten"><a href="#1-4-Flatten" class="headerlink" title="1.4 Flatten"></a>1.4 Flatten</h2><p>In a Convolutional Neural Network (CNN), the “flatten” operation refers to the process of converting the multi-dimensional feature maps obtained from the convolutional and pooling layers into a one-dimensional vector that can be fed into a fully connected neural network layer.</p>
+<p>In more technical terms, after the convolutional and pooling layers, the feature maps are typically represented as a 3D tensor, with dimensions (height, width, depth). The “flatten” operation then reshapes this 3D tensor into a 1D vector of size (height x width x depth), which can be used as the input to a fully connected layer.</p>
+<p>The purpose of flattening is to transform the spatially organized feature maps into a linear structure that can be processed by a traditional fully connected neural network layer. This allows the network to learn complex relationships between the extracted features and the target outputs, leading to better accuracy in classification or regression tasks.</p>
+<p>Overall, the “flatten” operation is an essential step in the design of CNNs, as it enables the integration of both convolutional and fully connected layers to achieve powerful deep learning models.</p>
+<h1 id="2-MSCNN"><a href="#2-MSCNN" class="headerlink" title="2 MSCNN"></a>2 MSCNN</h1><h2 id="2-1-原理"><a href="#2-1-原理" class="headerlink" title="2.1 原理"></a>2.1 原理</h2><p>MSCNN是一种用于图像分类的深度卷积神经网络，其计算表达式如下：</p>
+<ol>
+<li>输入层：将输入图像转换为一个三维张量，其中第一维表示图像的高度，第二维表示图像的宽度，第三维表示图像的颜色通道数（如RGB图像为3，灰度图像为1）。</li>
+<li>卷积层：使用多个卷积核对输入张量进行卷积操作，生成多个特征图。每个卷积核的大小为k_h x k_w x k_c，其中k_h、k_w分别表示卷积核的高度和宽度，k_c表示卷积核的深度（即与输入张量的颜色通道数相同）。对于每个卷积核，将其与输入张量进行卷积操作，并加上一个偏置项，得到一个特征图。卷积操作采用的步长为s，通常使用0填充保持特征图大小不变。假设有n个卷积核，那么卷积层的输出为一个n x h_out x w_out的三维张量，其中h_out和w_out分别表示特征图的高度和宽度。</li>
+<li>ReLU层：对卷积层的输出进行ReLU激活函数操作，即将所有小于0的值替换为0，保持所有大于等于0的值不变。</li>
+<li>池化层：对ReLU层的输出进行下采样操作，通常使用最大池化或平均池化。最大池化将每个特征图分成若干个不重叠的区域，对每个区域取最大值作为输出；平均池化则取每个区域的平均值作为输出。池化操作的大小为p_h x p_w，其中p_h、p_w分别表示池化区域的高度和宽度。池化操作采用的步长为s，通常不使用填充。假设采用最大池化，那么池化层的输出为一个n x h_pool x w_pool的三维张量，其中h_pool和w_pool分别表示下采样后的特征图的高度和宽度。</li>
+<li>全连接层：将池化层的输出展开为一个一维向量，并与一个权重矩阵相乘，再加上一个偏置项，得到一个向量。将该向量作为全连接层的输入，再进行ReLU激活函数操作，得到输出向量。全连接层通常用于将卷积层提取的特征映射到类别空间。</li>
+<li>Softmax层：对全连接层的输出进行softmax操作，将输出向量映射到类别概率分布上</li>
+</ol>
+<h2 id="2-2-公式"><a href="#2-2-公式" class="headerlink" title="2.2 公式"></a>2.2 公式</h2><p>具体来说，MSCNN的计算表达式可以用以下公式表示：</p>
+<h3 id="2-2-1-输入层"><a href="#2-2-1-输入层" class="headerlink" title="2.2.1 输入层"></a>2.2.1 输入层</h3><p>$$X\in \mathbb{R}^{H\times W\times C}$$</p>
+<p>其中$H$表示输入图像的高度，$W$表示输入图像的宽度，$C$表示输入图像的颜色通道数。</p>
+<h3 id="2-2-2-卷积层"><a href="#2-2-2-卷积层" class="headerlink" title="2.2.2 卷积层"></a>2.2.2 卷积层</h3><p>$$Z_{i,j,k} &#x3D; \sum_{u&#x3D;0}^{k_h-1}\sum_{v&#x3D;0}^{k_w-1}\sum_{c&#x3D;0}^{k_c-1}w_{u,v,c,i,k}X_{s_h\times i+u,s_w\times j+v,c}+b_i$$</p>
+<p>其中$Z_{i,j,k}$表示第$i$个卷积核在位置$(j,k)$的特征图值，$w_{u,v,c,i,k}$表示第$i$个卷积核在位置$(u,v,c)$的权重值，$b_i$表示第$i$个卷积核的偏置项，$s_h$和$s_w$分别表示卷积核的垂直和水平步长。</p>
+<h3 id="2-2-3-ReLU层"><a href="#2-2-3-ReLU层" class="headerlink" title="2.2.3 ReLU层"></a>2.2.3 ReLU层</h3><p>$$Y_{i,j,k} &#x3D; \max(0,Z_{i,j,k})$$</p>
+<p>其中$Y_{i,j,k}$表示ReLU层在位置$(j,k)$的输出值。</p>
+<h3 id="2-2-4-池化层"><a href="#2-2-4-池化层" class="headerlink" title="2.2.4 池化层"></a>2.2.4 池化层</h3><p>$$O_{i,j,k} &#x3D; \frac{1}{p_h\times p_w}\max_{u&#x3D;0}^{p_h-1}\max_{v&#x3D;0}^{p_w-1}Y_{i,s_h\times j+u,s_w\times k+v}$$</p>
+<p>其中$O_{i,j,k}$表示最大池化层在位置$(j,k)$的输出值，$p_h$和$p_w$分别表示池化区域的垂直和水平大小。</p>
+<h3 id="2-2-5-全连接层"><a href="#2-2-5-全连接层" class="headerlink" title="2.2.5 全连接层"></a>2.2.5 全连接层</h3><p>$$U &#x3D; \text{flatten}(O)$$</p>
+<p>$$V &#x3D; \max(0,WU+b)$$</p>
+<p>其中$U$表示池化层的输出向量，$\text{flatten}(\cdot)$表示将张量展开为一维向量，$W$表示全连接层的权重矩阵，$b$表示全连接层的偏置项，$V$表示全连接层的输出向量。</p>
+<h3 id="2-2-6-Softmax层"><a href="#2-2-6-Softmax层" class="headerlink" title="2.2.6 Softmax层"></a>2.2.6 Softmax层</h3><p>$$P_k &#x3D; \frac{\exp(v_k)}{\sum_{j&#x3D;1}^{K}\exp(v_j)}$$</p>
+<p>其中$P_k$表示第$k$个类别的概率值，$v_k$表示全连接层输出向量的第$k$个元素。$K$表示总共的类别数目。</p>
+]]></content>
+      <categories>
+        <category>Deep Learning</category>
+      </categories>
+      <tags>
+        <tag>concept</tag>
+        <tag>deep learning</tag>
+        <tag>cnn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Comparison</title>
+    <url>/2023/05/26/Comparison/</url>
+    <content><![CDATA[<h2 id="1-Reinforcement-Leanring-and-Branch-and-Bound"><a href="#1-Reinforcement-Leanring-and-Branch-and-Bound" class="headerlink" title="1. Reinforcement Leanring and Branch and Bound"></a>1. Reinforcement Leanring and Branch and Bound</h2><p>Reinforcement Learning (RL) and Branch and Bound (BB) are two distinct optimization techniques used in different domains. RL is a type of machine learning in which an agent learns to take actions in an environment to maximize a cumulative reward signal. On the other hand, BB is an algorithmic approach to solve optimization problems by iteratively partitioning the search space into smaller subproblems.</p>
+<p>One key difference between RL and BB is that RL is a learning-based technique, whereas BB is a deterministic algorithmic approach. RL relies on the concept of trial and error, where the agent tries different actions in the environment and learns from the rewards received to adjust its policy accordingly. In contrast, BB involves partitioning the search space into smaller subproblems and recursively solving them to obtain the optimal solution.</p>
+<p>Another key difference is the type of problems they are best suited for. RL is particularly useful in problems where there is a large state space, and the optimal policy is not known in advance. RL has been successfully applied in various domains, such as game playing, robotics, and autonomous driving. On the other hand, BB is better suited for problems where the search space can be partitioned into smaller subproblems, and the objective function is known. BB has been used in optimization problems such as linear programming, mixed-integer programming, and constraint satisfaction problems.</p>
+<p>In summary, while both RL and BB are optimization techniques, they differ in their approach and problem domain. RL is a learning-based approach that works well in problems with large state spaces, while BB is an algorithmic approach that works well in problems where the search space can be partitioned into smaller subproblems.</p>
+<hr>
+<p>Reinforcement Learning (RL) and Branch and Bound (BB) have their own advantages and disadvantages, which depend on the specific problem being addressed. Here are some of the key advantages and disadvantages of each:</p>
+<p>Advantages of Reinforcement Learning:</p>
+<p>Adaptable: RL can adapt to changing environments and learn optimal policies through experience.</p>
+<p>Generalizable: RL can be applied to a wide range of problem domains, including robotics, game playing, and recommendation systems.</p>
+<p>Scalable: RL can be applied to problems with large state and action spaces.</p>
+<p>Disadvantages of Reinforcement Learning:</p>
+<p>Data-intensive: RL requires large amounts of training data to learn optimal policies, which can be time-consuming and expensive to collect.</p>
+<p>High variance: RL algorithms can have high variance in their performance, meaning that their results may vary significantly with different random seeds or initial conditions.</p>
+<p>Exploration-exploitation tradeoff: RL algorithms need to balance between exploring the environment to learn new things and exploiting what they already know to maximize rewards. Finding the right balance can be challenging.</p>
+<p>Advantages of Branch and Bound:</p>
+<p>Guaranteed optimality: BB can guarantee finding the optimal solution for certain classes of optimization problems.</p>
+<p>Efficient: BB can be highly efficient for problems where the search space can be partitioned into smaller subproblems.</p>
+<p>Robust: BB can handle problems with nonlinear objective functions and nonlinear constraints.</p>
+<p>Disadvantages of Branch and Bound:</p>
+<p>Combinatorial explosion: BB can suffer from combinatorial explosion as the number of subproblems grows exponentially with the problem size.</p>
+<p>Requires problem-specific knowledge: BB requires knowledge of the problem structure to efficiently partition the search space into subproblems.</p>
+<p>Not scalable to large problems: BB may not be scalable to very large optimization problems due to the exponential growth of the search space.</p>
+<p>In summary, RL and BB have their own strengths and weaknesses, and the choice of which technique to use depends on the specific problem being addressed. RL is well-suited to problems with large state and action spaces that require adaptation and generalization, while BB is better suited to optimization problems that can be efficiently partitioned into smaller subproblems and require guaranteed optimality.</p>
+]]></content>
+      <tags>
+        <tag>optimization</tag>
+        <tag>B&amp;B</tag>
+        <tag>RL</tag>
       </tags>
   </entry>
 </search>
