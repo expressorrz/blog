@@ -1,39 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Comparison</title>
-    <url>/2023/05/26/Comparison/</url>
-    <content><![CDATA[<h2 id="1-Reinforcement-Leanring-and-Branch-and-Bound"><a href="#1-Reinforcement-Leanring-and-Branch-and-Bound" class="headerlink" title="1. Reinforcement Leanring and Branch and Bound"></a>1. Reinforcement Leanring and Branch and Bound</h2><p>Reinforcement Learning (RL) and Branch and Bound (BB) are two distinct optimization techniques used in different domains. RL is a type of machine learning in which an agent learns to take actions in an environment to maximize a cumulative reward signal. On the other hand, BB is an algorithmic approach to solve optimization problems by iteratively partitioning the search space into smaller subproblems.</p>
-<p>One key difference between RL and BB is that RL is a learning-based technique, whereas BB is a deterministic algorithmic approach. RL relies on the concept of trial and error, where the agent tries different actions in the environment and learns from the rewards received to adjust its policy accordingly. In contrast, BB involves partitioning the search space into smaller subproblems and recursively solving them to obtain the optimal solution.</p>
-<p>Another key difference is the type of problems they are best suited for. RL is particularly useful in problems where there is a large state space, and the optimal policy is not known in advance. RL has been successfully applied in various domains, such as game playing, robotics, and autonomous driving. On the other hand, BB is better suited for problems where the search space can be partitioned into smaller subproblems, and the objective function is known. BB has been used in optimization problems such as linear programming, mixed-integer programming, and constraint satisfaction problems.</p>
-<p>In summary, while both RL and BB are optimization techniques, they differ in their approach and problem domain. RL is a learning-based approach that works well in problems with large state spaces, while BB is an algorithmic approach that works well in problems where the search space can be partitioned into smaller subproblems.</p>
-<hr>
-<p>Reinforcement Learning (RL) and Branch and Bound (BB) have their own advantages and disadvantages, which depend on the specific problem being addressed. Here are some of the key advantages and disadvantages of each:</p>
-<p>Advantages of Reinforcement Learning:</p>
-<p>Adaptable: RL can adapt to changing environments and learn optimal policies through experience.</p>
-<p>Generalizable: RL can be applied to a wide range of problem domains, including robotics, game playing, and recommendation systems.</p>
-<p>Scalable: RL can be applied to problems with large state and action spaces.</p>
-<p>Disadvantages of Reinforcement Learning:</p>
-<p>Data-intensive: RL requires large amounts of training data to learn optimal policies, which can be time-consuming and expensive to collect.</p>
-<p>High variance: RL algorithms can have high variance in their performance, meaning that their results may vary significantly with different random seeds or initial conditions.</p>
-<p>Exploration-exploitation tradeoff: RL algorithms need to balance between exploring the environment to learn new things and exploiting what they already know to maximize rewards. Finding the right balance can be challenging.</p>
-<p>Advantages of Branch and Bound:</p>
-<p>Guaranteed optimality: BB can guarantee finding the optimal solution for certain classes of optimization problems.</p>
-<p>Efficient: BB can be highly efficient for problems where the search space can be partitioned into smaller subproblems.</p>
-<p>Robust: BB can handle problems with nonlinear objective functions and nonlinear constraints.</p>
-<p>Disadvantages of Branch and Bound:</p>
-<p>Combinatorial explosion: BB can suffer from combinatorial explosion as the number of subproblems grows exponentially with the problem size.</p>
-<p>Requires problem-specific knowledge: BB requires knowledge of the problem structure to efficiently partition the search space into subproblems.</p>
-<p>Not scalable to large problems: BB may not be scalable to very large optimization problems due to the exponential growth of the search space.</p>
-<p>In summary, RL and BB have their own strengths and weaknesses, and the choice of which technique to use depends on the specific problem being addressed. RL is well-suited to problems with large state and action spaces that require adaptation and generalization, while BB is better suited to optimization problems that can be efficiently partitioned into smaller subproblems and require guaranteed optimality.</p>
-]]></content>
-      <tags>
-        <tag>optimization</tag>
-        <tag>B&amp;B</tag>
-        <tag>RL</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Convolutional Neural Networks (CNN)</title>
     <url>/2023/05/26/Convolutional-Neural-Networks-CNN/</url>
     <content><![CDATA[<h1 id="1-CNN"><a href="#1-CNN" class="headerlink" title="1 CNN"></a>1 CNN</h1><h2 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h2><p>卷积神经网络（Convolutional Neural Networks, CNNs）是一种深度学习模型，具有以下优点：</p>
@@ -471,8 +438,41 @@
         <category>Optimization</category>
       </categories>
       <tags>
-        <tag>optimization</tag>
         <tag>concept</tag>
+        <tag>optimization</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Comparison</title>
+    <url>/2023/05/26/Comparison/</url>
+    <content><![CDATA[<h2 id="1-Reinforcement-Leanring-and-Branch-and-Bound"><a href="#1-Reinforcement-Leanring-and-Branch-and-Bound" class="headerlink" title="1. Reinforcement Leanring and Branch and Bound"></a>1. Reinforcement Leanring and Branch and Bound</h2><p>Reinforcement Learning (RL) and Branch and Bound (BB) are two distinct optimization techniques used in different domains. RL is a type of machine learning in which an agent learns to take actions in an environment to maximize a cumulative reward signal. On the other hand, BB is an algorithmic approach to solve optimization problems by iteratively partitioning the search space into smaller subproblems.</p>
+<p>One key difference between RL and BB is that RL is a learning-based technique, whereas BB is a deterministic algorithmic approach. RL relies on the concept of trial and error, where the agent tries different actions in the environment and learns from the rewards received to adjust its policy accordingly. In contrast, BB involves partitioning the search space into smaller subproblems and recursively solving them to obtain the optimal solution.</p>
+<p>Another key difference is the type of problems they are best suited for. RL is particularly useful in problems where there is a large state space, and the optimal policy is not known in advance. RL has been successfully applied in various domains, such as game playing, robotics, and autonomous driving. On the other hand, BB is better suited for problems where the search space can be partitioned into smaller subproblems, and the objective function is known. BB has been used in optimization problems such as linear programming, mixed-integer programming, and constraint satisfaction problems.</p>
+<p>In summary, while both RL and BB are optimization techniques, they differ in their approach and problem domain. RL is a learning-based approach that works well in problems with large state spaces, while BB is an algorithmic approach that works well in problems where the search space can be partitioned into smaller subproblems.</p>
+<hr>
+<p>Reinforcement Learning (RL) and Branch and Bound (BB) have their own advantages and disadvantages, which depend on the specific problem being addressed. Here are some of the key advantages and disadvantages of each:</p>
+<p>Advantages of Reinforcement Learning:</p>
+<p>Adaptable: RL can adapt to changing environments and learn optimal policies through experience.</p>
+<p>Generalizable: RL can be applied to a wide range of problem domains, including robotics, game playing, and recommendation systems.</p>
+<p>Scalable: RL can be applied to problems with large state and action spaces.</p>
+<p>Disadvantages of Reinforcement Learning:</p>
+<p>Data-intensive: RL requires large amounts of training data to learn optimal policies, which can be time-consuming and expensive to collect.</p>
+<p>High variance: RL algorithms can have high variance in their performance, meaning that their results may vary significantly with different random seeds or initial conditions.</p>
+<p>Exploration-exploitation tradeoff: RL algorithms need to balance between exploring the environment to learn new things and exploiting what they already know to maximize rewards. Finding the right balance can be challenging.</p>
+<p>Advantages of Branch and Bound:</p>
+<p>Guaranteed optimality: BB can guarantee finding the optimal solution for certain classes of optimization problems.</p>
+<p>Efficient: BB can be highly efficient for problems where the search space can be partitioned into smaller subproblems.</p>
+<p>Robust: BB can handle problems with nonlinear objective functions and nonlinear constraints.</p>
+<p>Disadvantages of Branch and Bound:</p>
+<p>Combinatorial explosion: BB can suffer from combinatorial explosion as the number of subproblems grows exponentially with the problem size.</p>
+<p>Requires problem-specific knowledge: BB requires knowledge of the problem structure to efficiently partition the search space into subproblems.</p>
+<p>Not scalable to large problems: BB may not be scalable to very large optimization problems due to the exponential growth of the search space.</p>
+<p>In summary, RL and BB have their own strengths and weaknesses, and the choice of which technique to use depends on the specific problem being addressed. RL is well-suited to problems with large state and action spaces that require adaptation and generalization, while BB is better suited to optimization problems that can be efficiently partitioned into smaller subproblems and require guaranteed optimality.</p>
+]]></content>
+      <tags>
+        <tag>optimization</tag>
+        <tag>B&amp;B</tag>
+        <tag>RL</tag>
       </tags>
   </entry>
 </search>
